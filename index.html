@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep by Soni — Aura Candles | Light with a Soul</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="candle-wrap">
+    <div class="glow"></div>
+    <div class="candle">
+      <div class="wick"></div>
+      <div class="flame"></div>
+    </div>
+  </div>
+  <div class="loader-brand">
+    <h1>Deep <span style="color:#d4a95c">by Soni</span></h1>
+    <p>Aura Candles</p>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" style="text-decoration:none"><div class="logo">Deep <span>by Soni</span></div></a>
+  <ul class="nav-links">
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#categories">Collections</a></li>
+    <li><a href="#story">Story</a></li>
+    <li><a href="#offers">Offers</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="menu-btn" onclick="alert('Mobile menu coming soon')">☰</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <p class="hero-tag hero-el">Handcrafted in India · Shipped Worldwide</p>
+  <h1 class="hero-el">Light with<br><em>a Soul.</em></h1>
+  <p class="hero-sub hero-el">
+    Artistic, scented, memory-making candles — crafted with devotion, designed with elegance,
+    and created to elevate every moment of your life.
+  </p>
+  <div class="hero-cta hero-el">
+    <a href="#shop" class="btn btn-solid">Explore Collection</a>
+    <a href="#story" class="btn">Our Story</a>
+  </div>
+  <div class="scroll-hint hero-el">Scroll</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Luxury Scented</span><span>Hand-Poured</span><span>Soot-Free Burn</span>
+    <span>Artistic Designs</span><span>Long Burn Hours</span><span>Eco-Friendly Wax</span>
+    <span>Luxury Scented</span><span>Hand-Poured</span><span>Soot-Free Burn</span>
+    <span>Artistic Designs</span><span>Long Burn Hours</span><span>Eco-Friendly Wax</span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section id="categories">
+  <div class="section-head">
+    <p class="kicker reveal">Our Collections</p>
+    <h2 class="reveal">Curated for <em>Every Moment</em></h2>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card reveal"><span class="cat-num">01</span>
+      <h3>Sculptural</h3><p>Artistic showpieces — 3D flower towers, princess dresses, rose bouquets.</p></div>
+    <div class="cat-card reveal"><span class="cat-num">02</span>
+      <h3>Jar &amp; Gel</h3><p>Elegant gel-wax jars with embedded florals, foils &amp; evil-eye charms.</p></div>
+    <div class="cat-card reveal"><span class="cat-num">03</span>
+      <h3>Gourmet</h3><p>Realistic chai, coffee, samosa, rasmalai &amp; dessert-inspired candles.</p></div>
+    <div class="cat-card reveal"><span class="cat-num">04</span>
+      <h3>Festive</h3><p>Lohri bonfire, Christmas tree pillars, snowflakes &amp; celebration glasses.</p></div>
+    <div class="cat-card reveal"><span class="cat-num">05</span>
+      <h3>Gifting</h3><p>Heart blooms, secret-message candles &amp; curated sets for every occasion.</p></div>
+    <div class="cat-card reveal"><span class="cat-num">06</span>
+      <h3>Baby &amp; Aura</h3><p>Gender-reveal footprints, baby shower minis &amp; healing aura candles.</p></div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="shop" style="background: linear-gradient(180deg, transparent, rgba(212,169,92,.02), transparent);">
+  <div class="section-head">
+    <p class="kicker reveal">The Shop</p>
+    <h2 class="reveal">Signature <em>Creations</em></h2>
+  </div>
+  <div class="tabs reveal">
+    <button class="tab active" data-cat="all">All</button>
+    <button class="tab" data-cat="sculptural">Sculptural</button>
+    <button class="tab" data-cat="jar">Jar &amp; Gel</button>
+    <button class="tab" data-cat="gourmet">Gourmet</button>
+    <button class="tab" data-cat="festive">Festive</button>
+    <button class="tab" data-cat="gifting">Gifting</button>
+    <button class="tab" data-cat="baby">Baby &amp; Aura</button>
+  </div>
+  <div class="prod-grid" id="prodGrid"></div>
+</section>
+
+<!-- OFFERS -->
+<section id="offers" class="offers">
+  <div class="offer-wrap reveal">
+    <h3>Festival <em>Dhamaka</em></h3>
+    <p>Celebrate with premium luxury — limited-time offers on bulk &amp; festive orders.</p>
+    <div class="offer-boxes">
+      <div class="offer-box">
+        <div class="off-num">15%</div>
+        <div class="off-label">Flat off above ₹5,000</div>
+      </div>
+      <div class="offer-box">
+        <div class="off-num">10%</div>
+        <div class="off-label">Extra off above ₹3,000</div>
+      </div>
+      <div class="offer-box">
+        <div class="off-num">✈</div>
+        <div class="off-label">Worldwide Shipping</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story">
+  <div class="story-wrap">
+    <div class="story-visual reveal">
+      <div class="letter">D</div>
+    </div>
+    <div class="story-text reveal">
+      <p class="kicker">Our Story</p>
+      <h2>From a Diwali market spark to a <em>burning dream.</em></h2>
+      <p>
+        I'm <strong style="color:var(--gold); font-weight:500;">Deepanshi Verma</strong> — after 9 years in corporate,
+        I asked myself one quiet question: <em>"If I can build someone else's dream, why not my own?"</em>
+      </p>
+      <p>
+        A simple Diwali shopping day planted the first seed. And on <strong style="color:var(--gold); font-weight:500;">
+        7th November 2025</strong>, I poured my first candle — the Golden Bloom. One week later, on
+        <strong style="color:var(--gold); font-weight:500;">14th November 2025</strong>,
+        <em>Deep by Soni Aura Candles</em> was born.
+      </p>
+      <p>
+        Every candle you hold carries dreams, craftsmanship, and the soul of an artist.
+        This brand is not just about candles — it is about emotions, moments, and memories.
+      </p>
+      <div class="story-sign">
+        Deepanshi Verma
+        <small>Founder &amp; Candle Artist</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <div class="logo">Deep <span style="color:var(--gold)">by Soni</span></div>
+      <p>Handcrafted luxury candles, made in India with love — shipped worldwide. Every candle crafted with intention, emotion, and detail.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#shop">Shop All</a></li>
+        <li><a href="#categories">Collections</a></li>
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#offers">Offers</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="tel:+918750577905">+91 87505 77905</a></li>
+        <li><a href="mailto:deepbysoniauracandles@gmail.com">deepbysoniauracandles@gmail.com</a></li>
+        <li><a href="https://instagram.com/deepbysoniauracandle" target="_blank">@deepbysoniauracandle</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <div>© 2025 Deep by Soni Aura Candles. All rights reserved.</div>
+    <div>Crafted with care · Light with a Soul</div>
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a class="wa-float" href="https://wa.me/918750577905?text=Hi%20Deep%20by%20Soni%2C%20I%27d%20like%20to%20order%20a%20candle." target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script src="script.js"></script>
+</body>
+</html>
