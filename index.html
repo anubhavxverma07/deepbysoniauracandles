@@ -3,1254 +3,404 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deep By Soni Aura Candles | Light with a Soul</title>
+<title>Deep By Soni Aura Candles | Handcrafted Luxury Candles</title>
 <meta name="description" content="Handcrafted luxury scented candles by Deepanshi Verma. Made in India, shipped worldwide.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
-:root {
-  --bg: #faf6f0;
-  --bg-alt: #f5ede0;
-  --ink: #2a2118;
-  --ink-soft: #5c5142;
-  --gold: #a67c00;
-  --gold-light: #c9a227;
-  --gold-bright: #e8c675;
-  --gold-soft: #b89968;
-  --line: rgba(166,124,0,.18);
-  --dark: #1a0f08;
-  --dark2: #0a0503;
+:root{
+  --bg:#faf6f0;--bg-alt:#f5ede0;--ink:#2a2118;--ink-soft:#5c5142;
+  --gold:#a67c00;--gold-light:#c9a227;--gold-bright:#e8c675;
+  --gold-soft:#b89968;--line:rgba(166,124,0,.18);
 }
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-body.loading { overflow: hidden; }
-a { color: inherit; }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body.loading{overflow:hidden}
+a{color:inherit}
+img{max-width:100%;display:block}
 
-/* ═══════════════════════════════════════════
-   CINEMATIC LOADER — "The First Light"
-   ═══════════════════════════════════════════ */
-#loader {
-  position: fixed; inset: 0; z-index: 99999;
-  background: radial-gradient(ellipse at 50% 60%, #2a1608 0%, #1a0f08 40%, #060302 100%);
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column;
-  overflow: hidden;
-  transition: opacity 1.4s cubic-bezier(.7,0,.3,1);
-}
+/* ══════════ LOADER ══════════ */
+#loader{position:fixed;inset:0;z-index:99999;background:radial-gradient(ellipse at 50% 60%,#2a1608 0%,#1a0f08 40%,#060302 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;overflow:hidden;transition:opacity 1.4s cubic-bezier(.7,0,.3,1)}
+#loader::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 55%,transparent 30%,rgba(0,0,0,.6) 80%,rgba(0,0,0,.9) 100%);z-index:3}
+.dust{position:absolute;inset:0;pointer-events:none;z-index:1}
+.dust span{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--gold-bright);box-shadow:0 0 6px var(--gold-bright),0 0 12px rgba(232,198,117,.6);opacity:0}
+.embers{position:absolute;left:50%;top:42%;width:200px;height:400px;transform:translateX(-50%);pointer-events:none;z-index:5}
+.embers span{position:absolute;width:3px;height:3px;border-radius:50%;background:#ff9a1a;box-shadow:0 0 8px #ff9a1a,0 0 16px rgba(255,154,26,.5);opacity:0}
+.loader-scene{position:relative;width:260px;height:380px;display:flex;align-items:flex-end;justify-content:center;z-index:6}
+.rays{position:absolute;top:5%;left:50%;transform:translateX(-50%);width:800px;height:800px;pointer-events:none;z-index:2;opacity:0}
+.rays::before{content:'';position:absolute;inset:0;background:conic-gradient(from 0deg,transparent 0deg,rgba(255,200,110,.06) 15deg,transparent 30deg,transparent 60deg,rgba(255,200,110,.05) 75deg,transparent 90deg,transparent 120deg,rgba(255,200,110,.06) 135deg,transparent 150deg,transparent 180deg,rgba(255,200,110,.05) 195deg,transparent 210deg,transparent 240deg,rgba(255,200,110,.06) 255deg,transparent 270deg,transparent 300deg,rgba(255,200,110,.05) 315deg,transparent 330deg,transparent 360deg);border-radius:50%}
+.glow{position:absolute;top:30%;left:50%;transform:translate(-50%,-50%) scale(0.1);width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(255,210,120,.45) 0%,rgba(255,170,60,.22) 18%,rgba(255,120,30,.08) 38%,transparent 68%);opacity:0;pointer-events:none;filter:blur(30px);z-index:1}
+.jar{position:relative;width:150px;height:220px;opacity:0;transform:translateY(60px);z-index:8;filter:drop-shadow(0 30px 60px rgba(0,0,0,.8))}
+.jar-glass{position:absolute;inset:0;border-radius:14px 14px 10px 10px;background:linear-gradient(90deg,rgba(255,240,210,.10) 0%,rgba(255,250,235,.03) 15%,rgba(255,250,235,.08) 50%,rgba(255,250,235,.03) 85%,rgba(255,240,210,.10) 100%),linear-gradient(180deg,rgba(255,250,235,.14) 0%,rgba(255,245,225,.06) 40%,rgba(240,220,180,.10) 100%);border:1px solid rgba(255,240,210,.28);box-shadow:inset 0 0 40px rgba(255,220,160,.12),inset -12px 0 30px rgba(0,0,0,.35),inset 12px 0 25px rgba(255,240,220,.10),0 20px 60px rgba(0,0,0,.7);overflow:hidden}
+.jar-glass::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;height:14px;background:linear-gradient(180deg,#c9a227 0%,#e8c675 30%,#a67c00 70%,#6b5000 100%);border-radius:14px 14px 2px 2px;box-shadow:inset 0 -3px 6px rgba(0,0,0,.3),0 0 10px rgba(232,198,117,.4)}
+.wax{position:absolute;bottom:6px;left:8px;right:8px;height:175px;border-radius:6px;background:linear-gradient(180deg,#fdf6e3 0%,#f4e6c8 20%,#e8d3a8 55%,#d4bb8a 85%,#c2a56b 100%);box-shadow:inset -8px 0 20px rgba(160,120,60,.25),inset 8px 0 15px rgba(255,255,255,.4),inset 0 -20px 30px rgba(140,100,50,.15);opacity:0}
+.wax::before{content:'';position:absolute;top:-5px;left:0;right:0;height:14px;background:radial-gradient(ellipse at 50% 50%,#fdf6e3 0%,#f4e6c8 55%,#e8d3a8 80%,transparent 100%);border-radius:50%}
+.jar-shine{position:absolute;top:20px;left:15px;width:20px;height:130px;background:linear-gradient(180deg,rgba(255,255,255,.35) 0%,rgba(255,255,255,.15) 30%,transparent 70%);border-radius:12px;filter:blur(2px);z-index:9;opacity:0;pointer-events:none}
+.wick{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:2px;height:0;background:linear-gradient(180deg,#2a1a0a 0%,#1a0f08 100%);border-radius:1px;z-index:10}
+.flame{position:absolute;top:-80px;left:50%;transform:translateX(-50%) scale(0);width:32px;height:78px;transform-origin:bottom center;z-index:11}
+.flame-outer{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 78%,rgba(255,220,140,.9) 0%,rgba(255,180,60,.95) 22%,rgba(255,130,20,.85) 48%,rgba(255,80,0,.55) 72%,rgba(200,40,0,.2) 88%,transparent 100%);border-radius:50% 50% 45% 45% / 72% 72% 28% 28%;filter:blur(3px)}
+.flame-mid{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:20px;height:52px;background:radial-gradient(ellipse at 50% 80%,rgba(255,255,220,.95) 0%,rgba(255,230,140,.9) 40%,rgba(255,180,60,.6) 75%,transparent 100%);border-radius:50% 50% 45% 45% / 70% 70% 30% 30%;filter:blur(1.5px)}
+.flame-inner{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:10px;height:28px;background:radial-gradient(ellipse at 50% 75%,#ffffff 0%,#fff8d0 45%,#ffe090 75%,transparent 100%);border-radius:50% 50% 40% 40% / 60% 60% 40% 40%;filter:blur(1px)}
+.flame-base{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:14px;height:12px;background:radial-gradient(ellipse at 50% 30%,rgba(140,200,255,.8) 0%,rgba(80,150,255,.5) 50%,transparent 100%);border-radius:50%;filter:blur(2px)}
+.flash{position:absolute;top:30%;left:50%;transform:translate(-50%,-50%) scale(0);width:300px;height:300px;background:radial-gradient(circle,rgba(255,255,255,.9) 0%,rgba(255,220,140,.4) 30%,transparent 70%);border-radius:50%;opacity:0;pointer-events:none;z-index:20;filter:blur(10px)}
+.smoke{position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:30px;height:60px;opacity:0;z-index:12;pointer-events:none}
+.smoke::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:4px;height:40px;background:linear-gradient(180deg,transparent,rgba(200,200,200,.35),transparent);border-radius:50%;filter:blur(4px)}
+.loader-brand{position:relative;z-index:15;text-align:center;margin-top:40px}
+.loader-brand h1{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,5vw,42px);font-weight:400;letter-spacing:10px;text-transform:uppercase;white-space:nowrap;display:inline-block}
+.loader-brand h1 .l{display:inline-block;opacity:0;transform:translateY(30px) rotateX(-60deg);background:linear-gradient(180deg,#fff3d0 0%,#e8c675 40%,#a67c00 70%,#e8c675 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 25px rgba(232,198,117,.4)}
+.loader-brand h1 .l.sp{width:12px}
+.loader-brand h1 .l.by{color:var(--gold-bright);-webkit-text-fill-color:var(--gold-bright);font-style:italic;font-size:.7em;letter-spacing:6px}
+.loader-brand-sub{font-size:10px;letter-spacing:12px;color:rgba(232,198,117,.75);margin-top:18px;text-transform:uppercase;font-weight:400;opacity:0}
+.loader-line{width:0;height:1px;margin:26px auto 0;background:linear-gradient(90deg,transparent,#e8c675,transparent);position:relative}
+.light-bloom{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%) scale(0);width:100px;height:100px;background:radial-gradient(circle,#fff8e0 0%,#ffdd77 20%,#ff9a1a 40%,transparent 70%);border-radius:50%;opacity:0;pointer-events:none;z-index:50;filter:blur(20px)}
 
-/* Vignette overlay */
-#loader::before {
-  content:''; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(circle at 50% 55%, transparent 30%, rgba(0,0,0,.6) 80%, rgba(0,0,0,.9) 100%);
-  z-index: 3;
-}
-
-/* Film grain */
-#loader::after {
-  content:''; position: absolute; inset: 0; pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
-  opacity: .35; z-index: 4;
-}
-
-/* Ambient dust particles container */
-.dust { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
-.dust span {
-  position: absolute; width: 2px; height: 2px; border-radius: 50%;
-  background: var(--gold-bright);
-  box-shadow: 0 0 6px var(--gold-bright), 0 0 12px rgba(232,198,117,.6);
-  opacity: 0;
-}
-
-/* Embers rising from flame */
-.embers { position: absolute; left: 50%; top: 42%; width: 200px; height: 400px;
-  transform: translateX(-50%); pointer-events: none; z-index: 5; }
-.embers span {
-  position: absolute; width: 3px; height: 3px; border-radius: 50%;
-  background: #ff9a1a;
-  box-shadow: 0 0 8px #ff9a1a, 0 0 16px rgba(255,154,26,.5);
-  opacity: 0;
-}
-
-/* Candle scene */
-.loader-scene {
-  position: relative;
-  width: 260px; height: 380px;
-  display: flex; align-items: flex-end; justify-content: center;
-  z-index: 6;
-}
-
-/* Light rays rotating from flame */
-.rays {
-  position: absolute;
-  top: 5%; left: 50%;
-  transform: translateX(-50%);
-  width: 800px; height: 800px;
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0;
-}
-.rays::before, .rays::after {
-  content: ''; position: absolute; inset: 0;
-  background: conic-gradient(from 0deg,
-    transparent 0deg,
-    rgba(255,200,110,.06) 15deg,
-    transparent 30deg,
-    transparent 60deg,
-    rgba(255,200,110,.05) 75deg,
-    transparent 90deg,
-    transparent 120deg,
-    rgba(255,200,110,.06) 135deg,
-    transparent 150deg,
-    transparent 180deg,
-    rgba(255,200,110,.05) 195deg,
-    transparent 210deg,
-    transparent 240deg,
-    rgba(255,200,110,.06) 255deg,
-    transparent 270deg,
-    transparent 300deg,
-    rgba(255,200,110,.05) 315deg,
-    transparent 330deg,
-    transparent 360deg);
-  border-radius: 50%;
-}
-.rays::after { transform: rotate(45deg); opacity: .6; }
-
-/* Big glow bloom */
-.glow {
-  position: absolute;
-  top: 30%; left: 50%;
-  transform: translate(-50%, -50%) scale(0.1);
-  width: 900px; height: 900px; border-radius: 50%;
-  background: radial-gradient(circle,
-    rgba(255,210,120,.45) 0%,
-    rgba(255,170,60,.22) 18%,
-    rgba(255,120,30,.08) 38%,
-    transparent 68%);
-  opacity: 0; pointer-events: none;
-  filter: blur(30px);
-  z-index: 1;
-}
-
-/* The candle jar */
-.jar {
-  position: relative; width: 150px; height: 220px;
-  opacity: 0; transform: translateY(60px);
-  z-index: 8;
-  filter: drop-shadow(0 30px 60px rgba(0,0,0,.8));
-}
-
-/* Glass jar body */
-.jar-glass {
-  position: absolute; inset: 0;
-  border-radius: 14px 14px 10px 10px;
-  background:
-    linear-gradient(90deg,
-      rgba(255,240,210,.10) 0%,
-      rgba(255,250,235,.03) 15%,
-      rgba(255,250,235,.08) 50%,
-      rgba(255,250,235,.03) 85%,
-      rgba(255,240,210,.10) 100%),
-    linear-gradient(180deg,
-      rgba(255,250,235,.14) 0%,
-      rgba(255,245,225,.06) 40%,
-      rgba(240,220,180,.10) 100%);
-  border: 1px solid rgba(255,240,210,.28);
-  box-shadow:
-    inset 0 0 40px rgba(255,220,160,.12),
-    inset -12px 0 30px rgba(0,0,0,.35),
-    inset 12px 0 25px rgba(255,240,220,.10),
-    0 20px 60px rgba(0,0,0,.7);
-  overflow: hidden;
-}
-
-/* Gold rim at top */
-.jar-glass::before {
-  content: ''; position: absolute; top: -2px; left: -2px; right: -2px; height: 14px;
-  background: linear-gradient(180deg,
-    #c9a227 0%,
-    #e8c675 30%,
-    #a67c00 70%,
-    #6b5000 100%);
-  border-radius: 14px 14px 2px 2px;
-  box-shadow: inset 0 -3px 6px rgba(0,0,0,.3), 0 0 10px rgba(232,198,117,.4);
-}
-
-/* Wax */
-.wax {
-  position: absolute;
-  bottom: 6px; left: 8px; right: 8px;
-  height: 175px;
-  border-radius: 6px;
-  background: linear-gradient(180deg,
-    #fdf6e3 0%,
-    #f4e6c8 20%,
-    #e8d3a8 55%,
-    #d4bb8a 85%,
-    #c2a56b 100%);
-  box-shadow:
-    inset -8px 0 20px rgba(160,120,60,.25),
-    inset 8px 0 15px rgba(255,255,255,.4),
-    inset 0 -20px 30px rgba(140,100,50,.15);
-  opacity: 0;
-}
-.wax::before {
-  content:''; position:absolute; top: -5px; left: 0; right: 0; height: 14px;
-  background: radial-gradient(ellipse at 50% 50%,
-    #fdf6e3 0%, #f4e6c8 55%, #e8d3a8 80%, transparent 100%);
-  border-radius: 50%;
-  box-shadow: inset 0 -3px 6px rgba(160,120,60,.2);
-}
-/* Wax top dip (melt pool) */
-.wax::after {
-  content:''; position:absolute; top: 2px; left: 50%;
-  transform: translateX(-50%);
-  width: 60px; height: 10px;
-  background: radial-gradient(ellipse at center,
-    rgba(200,160,90,.4) 0%, transparent 70%);
-  border-radius: 50%;
-  opacity: 0;
-}
-
-/* Jar glass shine overlay */
-.jar-shine {
-  position: absolute; top: 20px; left: 15px; width: 20px; height: 130px;
-  background: linear-gradient(180deg,
-    rgba(255,255,255,.35) 0%,
-    rgba(255,255,255,.15) 30%,
-    transparent 70%);
-  border-radius: 12px;
-  filter: blur(2px);
-  z-index: 9;
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Wick */
-.wick {
-  position: absolute;
-  top: -6px; left: 50%;
-  transform: translateX(-50%);
-  width: 2px; height: 0;
-  background: linear-gradient(180deg, #2a1a0a 0%, #1a0f08 100%);
-  border-radius: 1px;
-  z-index: 10;
-}
-
-/* Flame wrapper */
-.flame {
-  position: absolute;
-  top: -80px; left: 50%;
-  transform: translateX(-50%) scale(0);
-  width: 32px; height: 78px;
-  transform-origin: bottom center;
-  z-index: 11;
-}
-
-/* Outer flame (orange) */
-.flame-outer {
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 78%,
-    rgba(255,220,140,.9) 0%,
-    rgba(255,180,60,.95) 22%,
-    rgba(255,130,20,.85) 48%,
-    rgba(255,80,0,.55) 72%,
-    rgba(200,40,0,.2) 88%,
-    transparent 100%);
-  border-radius: 50% 50% 45% 45% / 72% 72% 28% 28%;
-  filter: blur(3px);
-}
-
-/* Mid flame (yellow) */
-.flame-mid {
-  position: absolute;
-  bottom: 6px; left: 50%;
-  transform: translateX(-50%);
-  width: 20px; height: 52px;
-  background: radial-gradient(ellipse at 50% 80%,
-    rgba(255,255,220,.95) 0%,
-    rgba(255,230,140,.9) 40%,
-    rgba(255,180,60,.6) 75%,
-    transparent 100%);
-  border-radius: 50% 50% 45% 45% / 70% 70% 30% 30%;
-  filter: blur(1.5px);
-}
-
-/* Inner flame (white core) */
-.flame-inner {
-  position: absolute;
-  bottom: 10px; left: 50%;
-  transform: translateX(-50%);
-  width: 10px; height: 28px;
-  background: radial-gradient(ellipse at 50% 75%,
-    #ffffff 0%,
-    #fff8d0 45%,
-    #ffe090 75%,
-    transparent 100%);
-  border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
-  filter: blur(1px);
-}
-
-/* Blue base (realistic flame bottom) */
-.flame-base {
-  position: absolute;
-  bottom: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 14px; height: 12px;
-  background: radial-gradient(ellipse at 50% 30%,
-    rgba(140,200,255,.8) 0%,
-    rgba(80,150,255,.5) 50%,
-    transparent 100%);
-  border-radius: 50%;
-  filter: blur(2px);
-}
-
-/* Match strike flash */
-.flash {
-  position: absolute;
-  top: 30%; left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(255,255,255,.9) 0%, rgba(255,220,140,.4) 30%, transparent 70%);
-  border-radius: 50%;
-  opacity: 0; pointer-events: none;
-  z-index: 20;
-  filter: blur(10px);
-}
-
-/* Smoke wisp */
-.smoke {
-  position: absolute;
-  top: -100px; left: 50%;
-  transform: translateX(-50%);
-  width: 30px; height: 60px;
-  opacity: 0;
-  z-index: 12;
-  pointer-events: none;
-}
-.smoke::before, .smoke::after {
-  content: ''; position: absolute;
-  bottom: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 4px; height: 40px;
-  background: linear-gradient(180deg, transparent, rgba(200,200,200,.35), transparent);
-  border-radius: 50%; filter: blur(4px);
-}
-.smoke::after {
-  left: 40%; height: 50px;
-  background: linear-gradient(180deg, transparent, rgba(180,180,180,.2), transparent);
-}
-
-/* Brand reveal */
-.loader-brand {
-  position: relative;
-  z-index: 15;
-  text-align: center;
-  margin-top: 40px;
-  perspective: 800px;
-}
-.loader-brand h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(24px, 5vw, 42px);
-  font-weight: 400;
-  letter-spacing: 10px;
-  color: transparent;
-  text-transform: uppercase;
-  white-space: nowrap;
-  display: inline-block;
-}
-.loader-brand h1 .l {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(30px) rotateX(-60deg);
-  background: linear-gradient(180deg,
-    #fff3d0 0%,
-    #e8c675 40%,
-    #a67c00 70%,
-    #e8c675 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 25px rgba(232,198,117,.4);
-}
-.loader-brand h1 .l.sp { width: 12px; }
-.loader-brand h1 .l.by { color: var(--gold-bright); -webkit-text-fill-color: var(--gold-bright); font-style: italic; font-size: .7em; letter-spacing: 6px; }
-.loader-brand-sub {
-  font-size: 10px; letter-spacing: 12px;
-  color: rgba(232,198,117,.75);
-  margin-top: 18px; text-transform: uppercase;
-  font-weight: 400;
-  opacity: 0;
-}
-.loader-line {
-  width: 0; height: 1px;
-  margin: 26px auto 0;
-  background: linear-gradient(90deg, transparent, #e8c675, transparent);
-  position: relative;
-}
-.loader-line::after {
-  content: ''; position: absolute;
-  top: -3px; left: 50%;
-  transform: translateX(-50%);
-  width: 7px; height: 7px;
-  background: #e8c675;
-  border-radius: 50%;
-  box-shadow: 0 0 15px #e8c675, 0 0 30px rgba(232,198,117,.7);
-  opacity: 0;
-}
-
-/* Final light bloom (transition) */
-.light-bloom {
-  position: absolute;
-  top: 40%; left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  width: 100px; height: 100px;
-  background: radial-gradient(circle, #fff8e0 0%, #ffdd77 20%, #ff9a1a 40%, transparent 70%);
-  border-radius: 50%;
-  opacity: 0; pointer-events: none;
-  z-index: 50;
-  filter: blur(20px);
-}
-
-/* ═══════════════════════════════════════════
-   HEADER
-   ═══════════════════════════════════════════ */
-header {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  padding: 22px 5vw;
-  display: flex; align-items: center; gap: 24px;
-  transition: all .5s cubic-bezier(.2,.7,.2,1);
-  opacity: 0;
-}
-header.scrolled {
-  background: rgba(250,246,240,.94);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  padding: 14px 5vw;
-  border-bottom: 1px solid var(--line);
-  box-shadow: 0 4px 30px rgba(42,33,24,.05);
-}
-.header-left { flex-shrink: 0; }
-.logo-link { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-.logo-img {
-  height: 46px; width: auto; object-fit: contain;
-  transition: all .4s ease;
-}
-header.scrolled .logo-img { height: 38px; }
-.logo-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px; letter-spacing: 5px;
-  text-transform: uppercase; color: var(--ink);
-  font-weight: 600; line-height: 1; white-space: nowrap;
-}
-.logo-text span { color: var(--gold); }
-.logo-text small {
-  display: block; font-size: 8px; letter-spacing: 4px;
-  color: var(--gold-soft); font-weight: 400;
-  margin-top: 3px; font-family: 'Inter', sans-serif;
-}
-
-.header-nav { flex: 1; display: flex; justify-content: center; }
-.nav-links { display: flex; gap: 34px; list-style: none; }
-.nav-links a {
-  color: var(--ink); text-decoration: none;
-  font-size: 11px; letter-spacing: 3px;
-  text-transform: uppercase; font-weight: 500;
-  position: relative; padding: 6px 0;
-  transition: color .3s;
-}
-.nav-links a::after {
-  content: ''; position: absolute;
-  bottom: 0; left: 0; width: 0; height: 1px;
-  background: var(--gold);
-  transition: width .4s cubic-bezier(.2,.7,.2,1);
-}
-.nav-links a:hover { color: var(--gold); }
-.nav-links a:hover::after { width: 100%; }
-
-.header-right { display: flex; align-items: center; gap: 18px; flex-shrink: 0; }
-.icon-btn {
-  background: none; border: none; cursor: pointer;
-  color: var(--ink); padding: 8px;
-  position: relative;
-  transition: color .3s, transform .3s;
-  display: flex; align-items: center; justify-content: center;
-}
-.icon-btn:hover { color: var(--gold); transform: scale(1.1); }
-.icon-btn svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 1.6; }
-.cart-count {
-  position: absolute; top: 2px; right: 2px;
-  background: var(--gold); color: white;
-  font-size: 9px; font-weight: 600;
-  min-width: 16px; height: 16px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Inter', sans-serif;
-}
-.hamburger {
-  display: none;
-  background: none; border: none; cursor: pointer;
-  padding: 8px; color: var(--ink);
-}
-.hamburger svg { width: 24px; height: 24px; stroke: currentColor; stroke-width: 1.5; }
+/* ══════════ HEADER ══════════ */
+header{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 5vw;display:flex;align-items:center;gap:24px;transition:all .5s cubic-bezier(.2,.7,.2,1);background:rgba(250,246,240,.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid transparent}
+header.scrolled{background:rgba(250,246,240,.97);padding:10px 5vw;border-bottom:1px solid var(--line);box-shadow:0 4px 30px rgba(42,33,24,.05)}
+.header-left{flex-shrink:0}
+.logo-link{display:flex;align-items:center;gap:14px;text-decoration:none}
+.logo-img{height:52px;width:auto;object-fit:contain;transition:all .4s ease}
+header.scrolled .logo-img{height:44px}
+.logo-text{font-family:'Cormorant Garamond',serif;font-size:20px;letter-spacing:5px;text-transform:uppercase;color:var(--ink);font-weight:700;line-height:1;white-space:nowrap}
+.logo-text span{color:var(--gold)}
+.logo-text small{display:block;font-size:8px;letter-spacing:4px;color:var(--gold-soft);font-weight:500;margin-top:4px;font-family:'Inter',sans-serif}
+.header-nav{flex:1;display:flex;justify-content:center}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--ink);text-decoration:none;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:600;position:relative;padding:6px 0;transition:color .3s;cursor:pointer}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .4s cubic-bezier(.2,.7,.2,1)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.header-right{display:flex;align-items:center;gap:16px;flex-shrink:0}
+.icon-btn{background:none;border:none;cursor:pointer;color:var(--ink);padding:8px;position:relative;transition:color .3s,transform .3s;display:flex;align-items:center;justify-content:center}
+.icon-btn:hover{color:var(--gold);transform:scale(1.1)}
+.icon-btn svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.6}
+.cart-count{position:absolute;top:2px;right:2px;background:var(--gold);color:white;font-size:9px;font-weight:700;min-width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;color:var(--ink)}
+.hamburger svg{width:24px;height:24px;stroke:currentColor;stroke-width:1.5}
 
 /* Search overlay */
-.search-overlay {
-  position: fixed; inset: 0; z-index: 2000;
-  background: rgba(20,12,6,.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  display: flex; align-items: flex-start; justify-content: center;
-  padding-top: 20vh;
-  opacity: 0; visibility: hidden;
-  transition: opacity .4s ease, visibility .4s ease;
-}
-.search-overlay.open { opacity: 1; visibility: visible; }
-.search-box {
-  width: 90%; max-width: 640px;
-  transform: translateY(-20px);
-  transition: transform .5s cubic-bezier(.2,.7,.2,1);
-}
-.search-overlay.open .search-box { transform: translateY(0); }
-.search-box input {
-  width: 100%;
-  background: transparent; border: none;
-  border-bottom: 2px solid var(--gold);
-  color: #f5e6c8;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 34px; font-weight: 300;
-  padding: 16px 0;
-  outline: none; letter-spacing: 1px;
-}
-.search-box input::placeholder { color: rgba(245,230,200,.4); font-style: italic; }
-.search-hint {
-  color: rgba(245,230,200,.5); font-size: 11px;
-  letter-spacing: 3px; text-transform: uppercase;
-  margin-top: 20px;
-}
-.search-close {
-  position: absolute; top: 30px; right: 5vw;
-  background: none; border: none; cursor: pointer;
-  color: rgba(245,230,200,.7); font-size: 30px;
-  padding: 10px; line-height: 1;
-}
+.search-overlay{position:fixed;inset:0;z-index:2000;background:rgba(20,12,6,.8);backdrop-filter:blur(20px);display:flex;align-items:flex-start;justify-content:center;padding-top:20vh;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility .4s ease}
+.search-overlay.open{opacity:1;visibility:visible}
+.search-box{width:90%;max-width:640px}
+.search-box input{width:100%;background:transparent;border:none;border-bottom:2px solid var(--gold);color:#f5e6c8;font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;padding:16px 0;outline:none;letter-spacing:1px}
+.search-box input::placeholder{color:rgba(245,230,200,.4);font-style:italic}
+.search-hint{color:rgba(245,230,200,.5);font-size:11px;letter-spacing:3px;text-transform:uppercase;margin-top:20px}
+.search-close{position:absolute;top:30px;right:5vw;background:none;border:none;cursor:pointer;color:rgba(245,230,200,.7);font-size:30px;padding:10px;line-height:1}
 
 /* Mobile menu */
-.mobile-menu {
-  position: fixed; top: 0; right: 0; bottom: 0;
-  width: 84%; max-width: 380px;
-  background: var(--bg);
-  z-index: 1500;
-  transform: translateX(100%);
-  transition: transform .5s cubic-bezier(.2,.7,.2,1);
-  padding: 90px 40px 40px;
-  display: flex; flex-direction: column;
-  box-shadow: -20px 0 60px rgba(0,0,0,.15);
-  overflow-y: auto;
-}
-.mobile-menu.open { transform: translateX(0); }
-.mobile-menu-close {
-  position: absolute; top: 24px; right: 24px;
-  background: none; border: none; cursor: pointer;
-  color: var(--ink); font-size: 28px; line-height: 1;
-}
-.mobile-menu ul { list-style: none; }
-.mobile-menu ul li { padding: 22px 0; border-bottom: 1px solid var(--line); }
-.mobile-menu ul a {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 26px; color: var(--ink);
-  text-decoration: none; letter-spacing: 2px;
-  display: flex; justify-content: space-between; align-items: center;
-  transition: color .3s, padding-left .3s;
-}
-.mobile-menu ul a:hover { color: var(--gold); padding-left: 10px; }
-.mobile-menu ul a::after { content: '→'; color: var(--gold); font-size: 18px; }
-.mobile-menu-footer {
-  margin-top: auto; padding-top: 30px;
-  border-top: 1px solid var(--line);
-}
-.mobile-menu-footer p {
-  font-size: 11px; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--gold-soft);
-  margin-bottom: 12px;
-}
-.mobile-menu-footer a {
-  display: block; color: var(--ink-soft);
-  text-decoration: none; font-size: 14px;
-  padding: 6px 0; transition: color .3s;
-}
-.mobile-menu-footer a:hover { color: var(--gold); }
-.overlay-backdrop {
-  position: fixed; inset: 0; background: rgba(20,12,6,.5);
-  z-index: 1400; opacity: 0; visibility: hidden;
-  transition: all .4s ease;
-}
-.overlay-backdrop.open { opacity: 1; visibility: visible; }
+.mobile-menu{position:fixed;top:0;right:0;bottom:0;width:84%;max-width:380px;background:var(--bg);z-index:1500;transform:translateX(100%);transition:transform .5s cubic-bezier(.2,.7,.2,1);padding:90px 40px 40px;display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.15);overflow-y:auto}
+.mobile-menu.open{transform:translateX(0)}
+.mobile-menu-close{position:absolute;top:24px;right:24px;background:none;border:none;cursor:pointer;color:var(--ink);font-size:28px;line-height:1}
+.mobile-menu ul{list-style:none}
+.mobile-menu ul li{padding:18px 0;border-bottom:1px solid var(--line)}
+.mobile-menu ul a{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--ink);text-decoration:none;letter-spacing:2px;display:flex;justify-content:space-between;align-items:center;transition:color .3s,padding-left .3s;cursor:pointer}
+.mobile-menu ul a:hover{color:var(--gold);padding-left:10px}
+.mobile-menu ul a::after{content:'→';color:var(--gold);font-size:18px}
+.mobile-menu-footer{margin-top:auto;padding-top:30px;border-top:1px solid var(--line)}
+.mobile-menu-footer p{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-soft);margin-bottom:12px}
+.mobile-menu-footer a{display:block;color:var(--ink-soft);text-decoration:none;font-size:14px;padding:6px 0;transition:color .3s}
+.mobile-menu-footer a:hover{color:var(--gold)}
+.overlay-backdrop{position:fixed;inset:0;background:rgba(20,12,6,.5);z-index:1400;opacity:0;visibility:hidden;transition:all .4s ease}
+.overlay-backdrop.open{opacity:1;visibility:visible}
 
-/* ═══════════════════════════════════════════
-   HERO
-   ═══════════════════════════════════════════ */
-.hero {
-  min-height: 100vh;
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; text-align: center;
-  padding: 160px 6vw 100px;
-  position: relative; overflow: hidden;
-  background: var(--bg);
-}
-.hero-bg {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(circle at 50% 35%, rgba(255,200,120,.20) 0%, transparent 42%),
-    radial-gradient(circle at 12% 88%, rgba(201,162,39,.10) 0%, transparent 38%),
-    radial-gradient(circle at 88% 12%, rgba(166,124,0,.08) 0%, transparent 38%);
-  z-index: 0;
-}
-.hero-tag {
-  font-size: 11px; letter-spacing: 9px; color: var(--gold);
-  text-transform: uppercase; margin-bottom: 38px;
-  font-weight: 600; position: relative;
-  display: inline-flex; align-items: center; gap: 16px;
-}
-.hero-tag::before, .hero-tag::after {
-  content: ''; width: 40px; height: 1px; background: var(--gold);
-}
-.hero h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(56px, 11vw, 160px);
-  font-weight: 300; line-height: .92;
-  letter-spacing: -1px;
-  color: var(--ink); position: relative;
-  max-width: 1200px;
-}
-.hero h1 em {
-  font-style: italic;
-  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-light) 100%);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 400;
-}
-.hero-sub {
-  max-width: 620px; margin: 44px auto 0;
-  font-size: 15.5px; line-height: 1.9;
-  color: var(--ink-soft); font-weight: 300;
-  position: relative;
-}
-.hero-cta {
-  margin-top: 58px; display: flex; gap: 22px;
-  justify-content: center; flex-wrap: wrap;
-  position: relative;
-}
-.btn {
-  padding: 17px 44px;
-  border: 1px solid var(--gold);
-  background: transparent; color: var(--gold);
-  font-size: 11px; letter-spacing: 3.5px;
-  text-transform: uppercase; font-weight: 600;
-  text-decoration: none; cursor: pointer;
-  transition: all .4s ease;
-  position: relative; overflow: hidden;
-  display: inline-flex; align-items: center; gap: 10px;
-  font-family: 'Inter', sans-serif;
-}
-.btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; transition: transform .4s; }
-.btn:hover svg { transform: translateX(4px); }
-.btn::before {
-  content: ''; position: absolute; inset: 0;
-  background: var(--gold); transform: translateY(101%);
-  transition: transform .4s cubic-bezier(.2,.7,.2,1);
-  z-index: -1;
-}
-.btn:hover { color: var(--bg); }
-.btn:hover::before { transform: translateY(0); }
-.btn-solid { background: var(--gold); color: var(--bg); }
-.btn-solid::before { display: none; }
-.btn-solid:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+/* ══════════ PAGE ROUTING ══════════ */
+.page{display:none}
+.page.is-active{display:block;animation:pageIn .6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes pageIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
-.scroll-hint {
-  position: absolute; bottom: 44px; left: 50%;
-  transform: translateX(-50%);
-  font-size: 10px; letter-spacing: 5px;
-  color: var(--gold); text-transform: uppercase;
-  font-weight: 600;
-}
-.scroll-hint::after {
-  content: ''; display: block; width: 1px; height: 46px;
-  margin: 14px auto 0;
-  background: linear-gradient(180deg, var(--gold), transparent);
-  animation: scrollLine 2.2s ease-in-out infinite;
-}
-@keyframes scrollLine {
-  0%,100% { transform: scaleY(1); opacity: 1; }
-  50% { transform: scaleY(.3); opacity: .3; }
-}
+/* ══════════ HERO ══════════ */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:160px 6vw 100px;position:relative;overflow:hidden;background:var(--bg)}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(255,200,120,.20) 0%,transparent 42%),radial-gradient(circle at 12% 88%,rgba(201,162,39,.10) 0%,transparent 38%),radial-gradient(circle at 88% 12%,rgba(166,124,0,.08) 0%,transparent 38%);z-index:0}
+.hero-tag{font-size:11px;letter-spacing:9px;color:var(--gold);text-transform:uppercase;margin-bottom:38px;font-weight:600;position:relative;display:inline-flex;align-items:center;gap:16px}
+.hero-tag::before,.hero-tag::after{content:'';width:40px;height:1px;background:var(--gold)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(56px,11vw,160px);font-weight:300;line-height:.92;letter-spacing:-1px;color:var(--ink);position:relative;max-width:1200px}
+.hero h1 em{font-style:italic;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-light) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:400}
+.hero-sub{max-width:620px;margin:44px auto 0;font-size:15.5px;line-height:1.9;color:var(--ink-soft);font-weight:300;position:relative}
+.hero-cta{margin-top:58px;display:flex;gap:22px;justify-content:center;flex-wrap:wrap;position:relative}
+.btn{padding:17px 44px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-size:11px;letter-spacing:3.5px;text-transform:uppercase;font-weight:700;text-decoration:none;cursor:pointer;transition:all .4s ease;position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;font-family:'Inter',sans-serif}
+.btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;transition:transform .4s}
+.btn:hover svg{transform:translateX(4px)}
+.btn::before{content:'';position:absolute;inset:0;background:var(--gold);transform:translateY(101%);transition:transform .4s cubic-bezier(.2,.7,.2,1);z-index:-1}
+.btn:hover{color:var(--bg)}
+.btn:hover::before{transform:translateY(0)}
+.btn-solid{background:var(--gold);color:var(--bg)}
+.btn-solid::before{display:none}
+.btn-solid:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.scroll-hint{position:absolute;bottom:44px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;font-weight:600}
+.scroll-hint::after{content:'';display:block;width:1px;height:46px;margin:14px auto 0;background:linear-gradient(180deg,var(--gold),transparent);animation:scrollLine 2.2s ease-in-out infinite}
+@keyframes scrollLine{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.3);opacity:.3}}
 
-/* ═══════════════════════════════════════════
-   TRUST BAR
-   ═══════════════════════════════════════════ */
-.trust-bar {
-  background: var(--ink);
-  color: var(--bg);
-  padding: 44px 6vw;
-  border-top: 1px solid rgba(232,198,117,.2);
-  border-bottom: 1px solid rgba(232,198,117,.2);
-}
-.trust-grid {
-  max-width: 1300px; margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 30px;
-}
-.trust-item {
-  text-align: center; padding: 12px;
-  display: flex; flex-direction: column; align-items: center; gap: 12px;
-}
-.trust-item svg { width: 26px; height: 26px; stroke: var(--gold-bright); fill: none; stroke-width: 1.4; }
-.trust-item p {
-  font-size: 11px; letter-spacing: 3px;
-  text-transform: uppercase;
-  color: rgba(245,230,200,.9);
-  font-weight: 500;
-}
+/* ══════════ PAGE HERO (inner pages) ══════════ */
+.page-hero{padding:180px 6vw 70px;text-align:center;background:var(--bg);position:relative;border-bottom:1px solid var(--line)}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(255,200,120,.14) 0%,transparent 50%);pointer-events:none}
+.page-hero .kicker{font-size:11px;letter-spacing:9px;color:var(--gold);text-transform:uppercase;margin-bottom:22px;font-weight:600;display:inline-flex;align-items:center;gap:16px;position:relative}
+.page-hero .kicker::before,.page-hero .kicker::after{content:'';width:30px;height:1px;background:var(--gold)}
+.page-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,7vw,96px);font-weight:300;line-height:1.05;letter-spacing:1px;color:var(--ink);position:relative}
+.page-hero h1 em{font-style:italic;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:400}
+.page-hero p{font-size:14.5px;color:var(--ink-soft);margin-top:20px;font-weight:300;max-width:560px;margin-left:auto;margin-right:auto;position:relative;line-height:1.8}
 
-/* ═══════════════════════════════════════════
-   SECTION HEAD
-   ═══════════════════════════════════════════ */
-section { padding: 130px 6vw; position: relative; }
-.section-head { text-align: center; margin-bottom: 90px; }
-.section-head .kicker {
-  font-size: 11px; letter-spacing: 9px; color: var(--gold);
-  text-transform: uppercase; margin-bottom: 22px; font-weight: 600;
-  display: inline-flex; align-items: center; gap: 16px;
-}
-.section-head .kicker::before, .section-head .kicker::after {
-  content: ''; width: 30px; height: 1px; background: var(--gold);
-}
-.section-head h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(38px, 5.5vw, 72px);
-  font-weight: 300; color: var(--ink);
-  letter-spacing: 1px; line-height: 1.08;
-}
-.section-head h2 em {
-  font-style: italic;
-  background: linear-gradient(135deg, var(--gold-light), var(--gold));
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 400;
-}
+/* ══════════ TRUST BAR ══════════ */
+.trust-bar{background:var(--ink);color:var(--bg);padding:40px 6vw;border-top:1px solid rgba(232,198,117,.2);border-bottom:1px solid rgba(232,198,117,.2)}
+.trust-grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:30px}
+.trust-item{text-align:center;padding:12px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.trust-item svg{width:26px;height:26px;stroke:var(--gold-bright);fill:none;stroke-width:1.4}
+.trust-item p{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(245,230,200,.9);font-weight:500}
 
-/* ═══════════════════════════════════════════
-   CATEGORIES
-   ═══════════════════════════════════════════ */
-.cat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 22px; max-width: 1300px; margin: 0 auto;
-}
-.cat-card {
-  position: relative; padding: 52px 32px 44px;
-  min-height: 300px;
-  border: 1px solid var(--line);
-  background: var(--bg-alt);
-  display: flex; flex-direction: column; justify-content: flex-end;
-  transition: all .5s cubic-bezier(.2,.7,.2,1);
-  overflow: hidden; cursor: pointer;
-  text-decoration: none; color: inherit;
-}
-.cat-card::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(circle at 50% 0%, rgba(201,162,39,.18), transparent 60%);
-  opacity: 0; transition: opacity .5s ease;
-}
-.cat-card:hover {
-  border-color: var(--gold);
-  transform: translateY(-8px);
-  box-shadow: 0 30px 60px rgba(166,124,0,.15);
-}
-.cat-card:hover::before { opacity: 1; }
-.cat-num {
-  position: absolute; top: 32px; right: 32px;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 16px; color: var(--gold);
-  letter-spacing: 2px; font-style: italic;
-}
-.cat-card h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 30px; font-weight: 500;
-  color: var(--ink); margin-bottom: 12px;
-  position: relative;
-}
-.cat-card p {
-  font-size: 13px; color: var(--ink-soft);
-  line-height: 1.7; font-weight: 300;
-  position: relative; margin-bottom: 18px;
-}
-.cat-arrow {
-  position: relative;
-  font-size: 11px; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--gold);
-  font-weight: 600;
-  display: inline-flex; align-items: center; gap: 8px;
-  transition: gap .3s;
-}
-.cat-card:hover .cat-arrow { gap: 14px; }
+/* ══════════ SECTIONS ══════════ */
+section{padding:110px 6vw;position:relative}
+.section-head{text-align:center;margin-bottom:70px}
+.section-head .kicker{font-size:11px;letter-spacing:9px;color:var(--gold);text-transform:uppercase;margin-bottom:22px;font-weight:600;display:inline-flex;align-items:center;gap:16px}
+.section-head .kicker::before,.section-head .kicker::after{content:'';width:30px;height:1px;background:var(--gold)}
+.section-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,64px);font-weight:300;color:var(--ink);letter-spacing:1px;line-height:1.08}
+.section-head h2 em{font-style:italic;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:400}
+.section-more{text-align:center;margin-top:60px}
 
-/* ═══════════════════════════════════════════
-   PRODUCTS
-   ═══════════════════════════════════════════ */
-.shop-section {
-  background: linear-gradient(180deg, var(--bg), var(--bg-alt), var(--bg));
-}
-.tabs {
-  display: flex; justify-content: center;
-  gap: 10px; flex-wrap: wrap; margin-bottom: 70px;
-}
-.tab {
-  padding: 13px 26px;
-  border: 1px solid var(--line);
-  background: transparent;
-  color: var(--ink-soft);
-  font-size: 10px; letter-spacing: 2.5px;
-  text-transform: uppercase; cursor: pointer;
-  transition: all .3s ease;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-}
-.tab:hover { border-color: var(--gold); color: var(--gold); }
-.tab.active { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+/* ══════════ CATEGORIES ══════════ */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;max-width:1300px;margin:0 auto}
+.cat-card{position:relative;padding:52px 32px 44px;min-height:280px;border:1px solid var(--line);background:var(--bg-alt);display:flex;flex-direction:column;justify-content:flex-end;transition:all .5s cubic-bezier(.2,.7,.2,1);overflow:hidden;cursor:pointer;text-decoration:none;color:inherit}
+.cat-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(201,162,39,.18),transparent 60%);opacity:0;transition:opacity .5s ease}
+.cat-card:hover{border-color:var(--gold);transform:translateY(-8px);box-shadow:0 30px 60px rgba(166,124,0,.15)}
+.cat-card:hover::before{opacity:1}
+.cat-num{position:absolute;top:32px;right:32px;font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--gold);letter-spacing:2px;font-style:italic}
+.cat-card h3{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--ink);margin-bottom:12px;position:relative}
+.cat-card p{font-size:13px;color:var(--ink-soft);line-height:1.7;font-weight:300;position:relative;margin-bottom:18px}
+.cat-arrow{position:relative;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:gap .3s}
+.cat-card:hover .cat-arrow{gap:14px}
 
-.prod-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 26px; max-width: 1300px; margin: 0 auto;
-}
-.prod-card {
-  border: 1px solid var(--line);
-  background: #fff;
-  position: relative; overflow: hidden;
-  transition: all .5s cubic-bezier(.2,.7,.2,1);
-  display: flex; flex-direction: column;
-  box-shadow: 0 2px 12px rgba(42,33,24,.04);
-}
-.prod-card:hover {
-  border-color: var(--gold);
-  transform: translateY(-8px);
-  box-shadow: 0 30px 60px rgba(166,124,0,.18);
-}
-.prod-image {
-  width: 100%; aspect-ratio: 1;
-  background:
-    radial-gradient(circle at 50% 40%, rgba(255,220,160,.35) 0%, transparent 60%),
-    linear-gradient(160deg, #f5ede0, #ede0c8);
-  display: flex; align-items: center; justify-content: center;
-  position: relative; overflow: hidden;
-  border-bottom: 1px solid var(--line);
-}
-.prod-image img {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform 1.2s cubic-bezier(.2,.7,.2,1);
-}
-.prod-card:hover .prod-image img { transform: scale(1.08); }
-.prod-image-placeholder {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 90px;
-  background: linear-gradient(135deg, rgba(201,162,39,.6), rgba(166,124,0,.35));
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-style: italic;
-  font-weight: 400;
-  text-shadow: 0 4px 20px rgba(166,124,0,.15);
-}
-.prod-image-placeholder small {
-  display: block; font-size: 22px;
-  -webkit-text-fill-color: rgba(166,124,0,.5);
-  letter-spacing: 4px; margin-top: -6px;
-}
-.prod-body {
-  padding: 28px 26px 24px;
-  display: flex; flex-direction: column; flex-grow: 1;
-}
-.prod-badge {
-  position: absolute; top: 16px; right: 16px;
-  font-size: 9px; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--bg);
-  background: var(--gold); padding: 6px 12px;
-  z-index: 2; font-weight: 700;
-  font-family: 'Inter', sans-serif;
-}
-.prod-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px; font-weight: 600;
-  color: var(--ink); margin-bottom: 8px;
-  line-height: 1.25;
-}
-.prod-scent {
-  font-size: 10px; letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold); margin-bottom: 18px;
-  font-weight: 600;
-}
-.prod-desc {
-  font-size: 12.5px; color: var(--ink-soft);
-  line-height: 1.7; font-weight: 300;
-  margin-bottom: 24px; flex-grow: 1;
-}
-.prod-foot {
-  display: flex; justify-content: space-between;
-  align-items: flex-end;
-  padding-top: 20px;
-  border-top: 1px solid var(--line);
-}
-.prod-price {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 26px; color: var(--gold);
-  font-weight: 700;
-}
-.prod-combo {
-  font-size: 10px; color: var(--ink-soft);
-  margin-top: 4px; letter-spacing: 1px;
-}
-.prod-cta {
-  font-size: 10px; letter-spacing: 2.5px;
-  text-transform: uppercase; color: var(--gold);
-  border-bottom: 1px solid var(--gold);
-  padding-bottom: 3px;
-  transition: all .3s; text-decoration: none;
-  font-weight: 700;
-}
-.prod-card:hover .prod-cta { color: var(--ink); border-color: var(--ink); }
+/* ══════════ PRODUCTS ══════════ */
+.shop-section{background:linear-gradient(180deg,var(--bg),var(--bg-alt),var(--bg))}
+.tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:60px}
+.tab{padding:13px 26px;border:1px solid var(--line);background:transparent;color:var(--ink-soft);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;transition:all .3s ease;font-family:'Inter',sans-serif;font-weight:600}
+.tab:hover{border-color:var(--gold);color:var(--gold)}
+.tab.active{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:26px;max-width:1300px;margin:0 auto}
+.prod-card{border:1px solid var(--line);background:#fff;position:relative;overflow:hidden;transition:all .5s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column;box-shadow:0 2px 12px rgba(42,33,24,.04)}
+.prod-card:hover{border-color:var(--gold);transform:translateY(-8px);box-shadow:0 30px 60px rgba(166,124,0,.18)}
+.prod-image{width:100%;aspect-ratio:1;background:radial-gradient(circle at 50% 40%,rgba(255,220,160,.35) 0%,transparent 60%),linear-gradient(160deg,#f5ede0,#ede0c8);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.prod-image img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.prod-card:hover .prod-image img{transform:scale(1.08)}
+.prod-image-placeholder{font-family:'Cormorant Garamond',serif;font-size:90px;background:linear-gradient(135deg,rgba(201,162,39,.6),rgba(166,124,0,.35));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;font-weight:400}
+.prod-image-placeholder small{display:block;font-size:18px;-webkit-text-fill-color:rgba(166,124,0,.5);letter-spacing:4px;margin-top:-6px}
+.prod-body{padding:28px 26px 24px;display:flex;flex-direction:column;flex-grow:1}
+.prod-badge{position:absolute;top:16px;right:16px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:6px 12px;z-index:2;font-weight:700}
+.prod-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:8px;line-height:1.25}
+.prod-scent{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;font-weight:600}
+.prod-desc{font-size:12.5px;color:var(--ink-soft);line-height:1.7;font-weight:300;margin-bottom:24px;flex-grow:1}
+.prod-foot{display:flex;justify-content:space-between;align-items:flex-end;padding-top:20px;border-top:1px solid var(--line)}
+.prod-price{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);font-weight:700}
+.prod-combo{font-size:10px;color:var(--ink-soft);margin-top:4px;letter-spacing:1px}
+.prod-cta{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:3px;transition:all .3s;text-decoration:none;font-weight:700}
+.prod-card:hover .prod-cta{color:var(--ink);border-color:var(--ink)}
 
-/* ═══════════════════════════════════════════
-   FOUNDER SPOTLIGHT
-   ═══════════════════════════════════════════ */
-.founder-spot {
-  background: var(--ink); color: var(--bg);
-  padding: 130px 6vw;
-  position: relative; overflow: hidden;
-}
-.founder-spot::before {
-  content: ''; position: absolute;
-  top: -200px; left: 50%;
-  transform: translateX(-50%);
-  width: 800px; height: 800px;
-  background: radial-gradient(circle, rgba(201,162,39,.15) 0%, transparent 60%);
-  pointer-events: none;
-}
-.founder-wrap {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1.3fr;
-  gap: 80px; align-items: center;
-  position: relative;
-}
-.founder-visual {
-  aspect-ratio: 4/5;
-  background: linear-gradient(160deg, #2a1a08, #1a0f08);
-  border: 1px solid rgba(232,198,117,.3);
-  display: flex; align-items: center; justify-content: center;
-  position: relative; overflow: hidden;
-}
-.founder-visual::after {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(circle at 50% 55%, rgba(232,198,117,.25), transparent 60%);
-}
-.founder-visual .letter {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 240px; font-style: italic;
-  background: linear-gradient(180deg, #e8c675, #a67c00);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-  opacity: .55;
-  position: relative; z-index: 1;
-}
-.founder-text .kicker {
-  font-size: 11px; letter-spacing: 9px;
-  color: var(--gold-bright); text-transform: uppercase;
-  margin-bottom: 26px; font-weight: 600;
-  display: inline-flex; align-items: center; gap: 14px;
-}
-.founder-text .kicker::before {
-  content: ''; width: 30px; height: 1px; background: var(--gold-bright);
-}
-.founder-text h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(32px, 4.2vw, 56px);
-  font-weight: 300; line-height: 1.15;
-  margin-bottom: 32px; color: #f5e6c8;
-}
-.founder-text h2 em {
-  color: var(--gold-bright);
-  font-style: italic; font-weight: 400;
-}
-.founder-text p {
-  font-size: 15px; line-height: 1.9;
-  color: rgba(245,230,200,.72);
-  font-weight: 300; margin-bottom: 22px;
-}
-.founder-text strong { color: var(--gold-bright); font-weight: 600; }
-.founder-sign {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic; font-size: 26px;
-  color: var(--gold-bright); margin-top: 36px;
-}
-.founder-sign small {
-  display: block; font-size: 10px;
-  letter-spacing: 5px; text-transform: uppercase;
-  color: rgba(232,198,117,.6);
-  font-style: normal; margin-top: 10px;
-  font-family: 'Inter', sans-serif;
-}
-.founder-cta { margin-top: 40px; }
+/* ══════════ FOUNDER SPOT ══════════ */
+.founder-spot{background:var(--ink);color:var(--bg);padding:110px 6vw;position:relative;overflow:hidden}
+.founder-spot::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(201,162,39,.15) 0%,transparent 60%);pointer-events:none}
+.founder-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:center;position:relative}
+.founder-visual{aspect-ratio:4/5;background:linear-gradient(160deg,#2a1a08,#1a0f08);border:1px solid rgba(232,198,117,.3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.founder-visual::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,rgba(232,198,117,.25),transparent 60%)}
+.founder-visual .letter{font-family:'Cormorant Garamond',serif;font-size:240px;font-style:italic;background:linear-gradient(180deg,#e8c675,#a67c00);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;opacity:.55;position:relative;z-index:1}
+.founder-text .kicker{font-size:11px;letter-spacing:9px;color:var(--gold-bright);text-transform:uppercase;margin-bottom:26px;font-weight:600;display:inline-flex;align-items:center;gap:14px}
+.founder-text .kicker::before{content:'';width:30px;height:1px;background:var(--gold-bright)}
+.founder-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,50px);font-weight:300;line-height:1.15;margin-bottom:28px;color:#f5e6c8}
+.founder-text h2 em{color:var(--gold-bright);font-style:italic;font-weight:400}
+.founder-text p{font-size:14.5px;line-height:1.9;color:rgba(245,230,200,.72);font-weight:300;margin-bottom:20px}
+.founder-text strong{color:var(--gold-bright);font-weight:600}
+.founder-sign{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--gold-bright);margin-top:32px}
+.founder-sign small{display:block;font-size:10px;letter-spacing:5px;text-transform:uppercase;color:rgba(232,198,117,.6);font-style:normal;margin-top:10px;font-family:'Inter',sans-serif}
+.founder-cta{margin-top:36px}
 
-/* ═══════════════════════════════════════════
-   TESTIMONIALS
-   ═══════════════════════════════════════════ */
-.testi-grid {
-  max-width: 1300px; margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-}
-.testi-card {
-  background: #fff;
-  border: 1px solid var(--line);
-  padding: 40px 34px 34px;
-  position: relative;
-  transition: all .5s ease;
-}
-.testi-card:hover {
-  border-color: var(--gold);
-  transform: translateY(-6px);
-  box-shadow: 0 25px 50px rgba(166,124,0,.12);
-}
-.testi-quote {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 70px; line-height: .5;
-  color: var(--gold-light);
-  opacity: .3;
-  position: absolute; top: 24px; right: 30px;
-}
-.testi-stars {
-  color: var(--gold); font-size: 14px;
-  letter-spacing: 3px; margin-bottom: 20px;
-}
-.testi-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 17px; line-height: 1.65;
-  color: var(--ink); font-weight: 400;
-  margin-bottom: 26px; font-style: italic;
-}
-.testi-author {
-  display: flex; align-items: center; gap: 14px;
-  padding-top: 20px;
-  border-top: 1px solid var(--line);
-}
-.testi-avatar {
-  width: 42px; height: 42px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold-light), var(--gold));
-  display: flex; align-items: center; justify-content: center;
-  color: var(--bg); font-family: 'Cormorant Garamond', serif;
-  font-size: 20px; font-weight: 600;
-}
-.testi-name { font-weight: 600; font-size: 14px; color: var(--ink); }
-.testi-city { font-size: 11px; color: var(--ink-soft); letter-spacing: 1px; margin-top: 2px; }
+/* ══════════ TESTIMONIALS ══════════ */
+.testi-grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.testi-card{background:#fff;border:1px solid var(--line);padding:40px 34px 34px;position:relative;transition:all .5s ease}
+.testi-card:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 25px 50px rgba(166,124,0,.12)}
+.testi-quote{font-family:'Cormorant Garamond',serif;font-size:70px;line-height:.5;color:var(--gold-light);opacity:.3;position:absolute;top:24px;right:30px}
+.testi-stars{color:var(--gold);font-size:14px;letter-spacing:3px;margin-bottom:20px}
+.testi-text{font-family:'Cormorant Garamond',serif;font-size:17px;line-height:1.65;color:var(--ink);font-weight:400;margin-bottom:26px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:14px;padding-top:20px;border-top:1px solid var(--line)}
+.testi-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold-light),var(--gold));display:flex;align-items:center;justify-content:center;color:var(--bg);font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600}
+.testi-name{font-weight:600;font-size:14px;color:var(--ink)}
+.testi-city{font-size:11px;color:var(--ink-soft);letter-spacing:1px;margin-top:2px}
 
-/* ═══════════════════════════════════════════
-   NEWSLETTER
-   ═══════════════════════════════════════════ */
-.newsletter {
-  background: var(--bg-alt);
-  padding: 100px 6vw;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-.newsletter-wrap {
-  max-width: 800px; margin: 0 auto;
-  text-align: center;
-}
-.newsletter h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(30px, 4vw, 48px);
-  font-weight: 300; margin-bottom: 18px;
-  color: var(--ink); line-height: 1.15;
-}
-.newsletter h3 em {
-  font-style: italic;
-  background: linear-gradient(135deg, var(--gold-light), var(--gold));
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 400;
-}
-.newsletter p {
-  font-size: 14px; color: var(--ink-soft);
-  margin-bottom: 40px; font-weight: 300;
-}
-.newsletter-form {
-  display: flex; gap: 0; max-width: 520px; margin: 0 auto;
-  border: 1px solid var(--line);
-  background: #fff;
-}
-.newsletter-form input {
-  flex: 1; padding: 18px 24px;
-  background: transparent; border: none;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px; color: var(--ink);
-  outline: none;
-}
-.newsletter-form button {
-  padding: 18px 32px;
-  background: var(--gold); color: var(--bg);
-  border: none; cursor: pointer;
-  font-size: 10px; letter-spacing: 3px;
-  text-transform: uppercase; font-weight: 700;
-  font-family: 'Inter', sans-serif;
-  transition: background .3s;
-}
-.newsletter-form button:hover { background: var(--ink); }
+/* ══════════ CELEBRATION ══════════ */
+.celeb-hero{background:var(--ink);color:var(--bg);border-bottom-color:rgba(232,198,117,.2)}
+.celeb-hero::before{background:radial-gradient(circle at 50% 40%,rgba(232,198,117,.2) 0%,transparent 55%)}
+.celeb-hero .kicker{color:var(--gold-bright)}
+.celeb-hero .kicker::before,.celeb-hero .kicker::after{background:var(--gold-bright)}
+.celeb-hero h1{color:#f5e6c8}
+.celeb-hero h1 em{background:linear-gradient(135deg,var(--gold-bright),var(--gold-light));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.celeb-hero p{color:rgba(245,230,200,.7)}
+.countdown{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:40px;position:relative}
+.count-box{min-width:90px;padding:20px 14px;border:1px solid rgba(232,198,117,.3);background:rgba(0,0,0,.2);text-align:center}
+.count-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:500;color:var(--gold-bright);line-height:1}
+.count-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(232,198,117,.7);margin-top:10px}
+.offer-hero-grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+.offer-big{padding:50px 36px;text-align:center;border:1px solid var(--line);background:#fff;transition:all .5s ease;position:relative;overflow:hidden}
+.offer-big:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 30px 60px rgba(166,124,0,.15)}
+.offer-big::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:80px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.offer-big .off-pct{font-family:'Cormorant Garamond',serif;font-size:76px;font-weight:500;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.offer-big h4{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin:16px 0 12px}
+.offer-big p{font-size:13px;color:var(--ink-soft);font-weight:300;line-height:1.7}
+.combo-grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.combo-card{border:1px solid var(--line);background:linear-gradient(160deg,var(--bg-alt),#fff);padding:40px 32px;text-align:center;transition:all .5s ease}
+.combo-card:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 25px 50px rgba(166,124,0,.12)}
+.combo-card h4{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;margin-bottom:12px}
+.combo-card p{font-size:13px;color:var(--ink-soft);margin-bottom:22px;font-weight:300}
+.combo-price{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:var(--gold)}
+.combo-old{font-size:16px;color:var(--ink-soft);text-decoration:line-through;margin-left:10px;font-weight:300}
+.gift-card{text-align:center;padding:90px 6vw;background:var(--ink);color:var(--bg);position:relative;overflow:hidden}
+.gift-card::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(232,198,117,.15),transparent 60%);pointer-events:none}
+.gift-card h2{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4.5vw,56px);font-weight:300;margin-bottom:24px;color:#f5e6c8;position:relative}
+.gift-card h2 em{color:var(--gold-bright);font-style:italic;font-weight:400}
+.gift-card p{font-size:15px;color:rgba(245,230,200,.7);margin-bottom:40px;font-weight:300;max-width:560px;margin-left:auto;margin-right:auto;position:relative}
+.gift-card .btn{background:var(--gold-bright);border-color:var(--gold-bright);color:var(--ink)}
+.gift-card .btn::before{display:none}
+.gift-card .btn:hover{background:var(--bg);border-color:var(--bg);color:var(--ink)}
 
-/* ═══════════════════════════════════════════
-   FOOTER
-   ═══════════════════════════════════════════ */
-footer {
-  padding: 100px 6vw 40px;
-  background: var(--ink); color: rgba(245,230,200,.75);
-}
-.foot-grid {
-  max-width: 1300px; margin: 0 auto 70px;
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 60px;
-}
-.foot-brand-logo { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
-.foot-brand-logo img { height: 50px; width: auto; }
-.foot-brand-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px; letter-spacing: 4px;
-  color: #f5e6c8; text-transform: uppercase;
-  font-weight: 600; line-height: 1;
-}
-.foot-brand-name span { color: var(--gold-bright); }
-.foot-brand-name small {
-  display: block; font-size: 8px; letter-spacing: 3px;
-  color: rgba(232,198,117,.7); font-weight: 400;
-  margin-top: 4px; font-family: 'Inter', sans-serif;
-}
-.foot-brand p {
-  font-size: 13px; line-height: 1.85;
-  font-weight: 300; max-width: 340px;
-  color: rgba(245,230,200,.6);
-}
-.foot-col h4 {
-  font-size: 11px; letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--gold-bright); margin-bottom: 26px;
-  font-weight: 700;
-}
-.foot-col ul { list-style: none; }
-.foot-col ul li { margin-bottom: 14px; }
-.foot-col a {
-  color: rgba(245,230,200,.65); text-decoration: none;
-  font-size: 13px; font-weight: 300;
-  transition: color .3s;
-}
-.foot-col a:hover { color: var(--gold-bright); }
-.foot-bottom {
-  max-width: 1300px; margin: 0 auto;
-  padding-top: 40px;
-  border-top: 1px solid rgba(232,198,117,.15);
-  display: flex; justify-content: space-between;
-  align-items: center; flex-wrap: wrap;
-  gap: 20px; font-size: 11px;
-  color: rgba(245,230,200,.45);
-  letter-spacing: 1px;
-}
-.foot-social { display: flex; gap: 16px; }
-.foot-social a {
-  width: 36px; height: 36px; border-radius: 50%;
-  border: 1px solid rgba(232,198,117,.3);
-  display: flex; align-items: center; justify-content: center;
-  transition: all .3s;
-}
-.foot-social a:hover { background: var(--gold); border-color: var(--gold); }
-.foot-social svg { width: 16px; height: 16px; stroke: var(--gold-bright); fill: none; stroke-width: 1.5; }
-.foot-social a:hover svg { stroke: var(--bg); }
+/* ══════════ FAQ ══════════ */
+.faq-wrap{max-width:900px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--line);padding:0}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:28px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--ink);transition:color .3s}
+.faq-q:hover{color:var(--gold)}
+.faq-q .plus{width:22px;height:22px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold);font-size:16px;line-height:1;transition:transform .4s ease;font-family:'Inter',sans-serif}
+.faq-item.open .plus{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .5s ease,padding .3s ease}
+.faq-item.open .faq-a{max-height:400px;padding-bottom:28px}
+.faq-a p{font-size:14.5px;color:var(--ink-soft);line-height:1.85;font-weight:300}
 
-/* ═══════════════════════════════════════════
-   WHATSAPP
-   ═══════════════════════════════════════════ */
-.wa-float {
-  position: fixed; bottom: 28px; right: 28px; z-index: 900;
-  width: 58px; height: 58px; border-radius: 50%;
-  background: #25D366;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 8px 30px rgba(37,211,102,.35);
-  text-decoration: none;
-  transition: transform .3s ease;
-  animation: waPulse 2.4s ease-in-out infinite;
-  opacity: 0;
-}
-.wa-float.show { opacity: 1; }
-.wa-float:hover { transform: scale(1.08); }
-.wa-float svg { width: 28px; height: 28px; fill: #fff; }
-@keyframes waPulse {
-  0%,100% { box-shadow: 0 8px 30px rgba(37,211,102,.35); }
-  50% { box-shadow: 0 8px 50px rgba(37,211,102,.65); }
-}
+/* ══════════ CONTACT ══════════ */
+.contact-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:70px}
+.contact-info h3{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:500;margin-bottom:20px}
+.contact-info p{font-size:14px;color:var(--ink-soft);line-height:1.8;margin-bottom:36px;font-weight:300}
+.contact-block{margin-bottom:28px}
+.contact-block h5{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px;font-family:'Inter',sans-serif}
+.contact-block a,.contact-block p{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--ink);text-decoration:none;font-weight:500;transition:color .3s;line-height:1.4;display:block}
+.contact-block a:hover{color:var(--gold)}
+.contact-form{background:#fff;border:1px solid var(--line);padding:44px 40px}
+.form-row{margin-bottom:22px}
+.form-row label{display:block;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px;font-family:'Inter',sans-serif}
+.form-row input,.form-row textarea{width:100%;padding:14px 16px;border:1px solid var(--line);background:var(--bg);font-family:'Inter',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:border .3s;resize:vertical}
+.form-row input:focus,.form-row textarea:focus{border-color:var(--gold)}
+.form-row textarea{min-height:130px}
+.form-submit{width:100%;padding:16px;background:var(--gold);color:var(--bg);border:none;cursor:pointer;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:700;font-family:'Inter',sans-serif;transition:background .3s}
+.form-submit:hover{background:var(--ink);color:var(--bg)}
 
-/* ═══════════════════════════════════════════
-   RESPONSIVE
-   ═══════════════════════════════════════════ */
-@media (max-width: 960px) {
-  .header-nav { display: none; }
-  .hamburger { display: block; }
-  .header-right .icon-btn.search-btn { display: none; }
-  .header-right .icon-btn.cart-btn { display: none; }
-  .logo-img { height: 40px; }
-  header.scrolled .logo-img { height: 34px; }
-  .logo-text { font-size: 18px; letter-spacing: 4px; }
-  section { padding: 90px 5vw; }
-  .hero { padding: 140px 5vw 100px; }
-  .hero h1 { letter-spacing: -1px; }
-  .founder-wrap { grid-template-columns: 1fr; gap: 44px; }
-  .founder-visual { max-width: 340px; margin: 0 auto; aspect-ratio: 1; }
-  .founder-visual .letter { font-size: 160px; }
-  .foot-grid { grid-template-columns: 1fr; gap: 44px; }
-  .newsletter-form { flex-direction: column; }
-  .newsletter-form button { padding: 18px; }
-  .loader-brand h1 { letter-spacing: 6px; }
-  .loader-brand h1 .l.sp { width: 8px; }
-  .search-box input { font-size: 24px; }
-  .trust-grid { grid-template-columns: repeat(2, 1fr); }
-}
+/* ══════════ ABOUT / FOUNDER PAGES ══════════ */
+.about-section{padding:110px 6vw}
+.about-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:70px;align-items:center}
+.about-visual{aspect-ratio:4/5;background:linear-gradient(160deg,var(--bg-alt),#ead9b8);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.about-visual::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,rgba(201,162,39,.22),transparent 60%)}
+.about-visual .letter{font-family:'Cormorant Garamond',serif;font-size:220px;background:linear-gradient(180deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;opacity:.45;font-style:italic;position:relative;z-index:1}
+.about-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.2vw,56px);font-weight:300;line-height:1.15;margin-bottom:30px;color:var(--ink)}
+.about-text h2 em{font-style:italic;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:400}
+.about-text p{font-size:15px;line-height:1.9;color:var(--ink-soft);font-weight:300;margin-bottom:20px}
+.about-text strong{color:var(--ink);font-weight:600}
+.values-grid{max-width:1300px;margin:80px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.value-card{padding:36px 30px;border:1px solid var(--line);background:var(--bg-alt);text-align:center;transition:all .4s ease}
+.value-card:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 20px 45px rgba(166,124,0,.1)}
+.value-card .v-icon{font-size:32px;margin-bottom:16px}
+.value-card h4{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:10px}
+.value-card p{font-size:13px;color:var(--ink-soft);line-height:1.7;font-weight:300}
 
-@media (max-width: 500px) {
-  .hero-tag::before, .hero-tag::after { width: 20px; }
-  .hero-tag { font-size: 9px; letter-spacing: 5px; }
-  .prod-grid { grid-template-columns: 1fr; }
-  .cat-grid { grid-template-columns: 1fr; }
-  .testi-grid { grid-template-columns: 1fr; }
-  .hero-cta { flex-direction: column; width: 100%; }
-  .hero-cta .btn { width: 100%; justify-content: center; }
+/* ══════════ SHIPPING/PRIVACY/TERMS ══════════ */
+.doc-page{max-width:820px;margin:0 auto;padding:0 6vw}
+.doc-page h2{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:500;margin:50px 0 18px;color:var(--ink)}
+.doc-page h2:first-child{margin-top:0}
+.doc-page p,.doc-page li{font-size:14.5px;line-height:1.9;color:var(--ink-soft);font-weight:300;margin-bottom:14px}
+.doc-page ul{margin-left:24px;margin-bottom:14px}
+.doc-page strong{color:var(--ink);font-weight:600}
+
+/* ══════════ NEWSLETTER ══════════ */
+.newsletter{background:var(--bg-alt);padding:90px 6vw;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.newsletter-wrap{max-width:800px;margin:0 auto;text-align:center}
+.newsletter h3{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,44px);font-weight:300;margin-bottom:16px;color:var(--ink);line-height:1.15}
+.newsletter h3 em{font-style:italic;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:400}
+.newsletter p{font-size:14px;color:var(--ink-soft);margin-bottom:36px;font-weight:300}
+.newsletter-form{display:flex;gap:0;max-width:520px;margin:0 auto;border:1px solid var(--line);background:#fff}
+.newsletter-form input{flex:1;padding:18px 24px;background:transparent;border:none;font-family:'Inter',sans-serif;font-size:13px;color:var(--ink);outline:none}
+.newsletter-form button{padding:18px 32px;background:var(--gold);color:var(--bg);border:none;cursor:pointer;font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;font-family:'Inter',sans-serif;transition:background .3s}
+.newsletter-form button:hover{background:var(--ink)}
+
+/* ══════════ FOOTER ══════════ */
+footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
+.foot-grid{max-width:1300px;margin:0 auto 60px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:60px}
+.foot-brand-logo{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.foot-brand-logo img{height:54px;width:auto}
+.foot-brand-name{font-family:'Cormorant Garamond',serif;font-size:18px;letter-spacing:4px;color:#f5e6c8;text-transform:uppercase;font-weight:700;line-height:1}
+.foot-brand-name span{color:var(--gold-bright)}
+.foot-brand-name small{display:block;font-size:8px;letter-spacing:3px;color:rgba(232,198,117,.7);font-weight:500;margin-top:4px;font-family:'Inter',sans-serif}
+.foot-brand p{font-size:13px;line-height:1.85;font-weight:300;max-width:340px;color:rgba(245,230,200,.6)}
+.foot-col h4{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-bright);margin-bottom:24px;font-weight:700}
+.foot-col ul{list-style:none}
+.foot-col ul li{margin-bottom:12px}
+.foot-col a{color:rgba(245,230,200,.65);text-decoration:none;font-size:13px;font-weight:300;transition:color .3s;cursor:pointer}
+.foot-col a:hover{color:var(--gold-bright)}
+.foot-bottom{max-width:1300px;margin:0 auto;padding-top:36px;border-top:1px solid rgba(232,198,117,.15);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;font-size:11px;color:rgba(245,230,200,.45);letter-spacing:1px}
+.foot-crafted{font-size:12px;letter-spacing:1.5px;color:rgba(245,230,200,.7);font-family:'Cormorant Garamond',serif;font-style:italic}
+.foot-crafted strong{color:var(--gold-bright);font-style:normal;font-weight:600}
+.foot-social{display:flex;gap:14px}
+.foot-social a{width:36px;height:36px;border-radius:50%;border:1px solid rgba(232,198,117,.3);display:flex;align-items:center;justify-content:center;transition:all .3s}
+.foot-social a:hover{background:var(--gold);border-color:var(--gold)}
+.foot-social svg{width:16px;height:16px;stroke:var(--gold-bright);fill:none;stroke-width:1.5}
+.foot-social a:hover svg{stroke:var(--bg)}
+
+/* ══════════ WHATSAPP FLOAT ══════════ */
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:900;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(37,211,102,.35);text-decoration:none;transition:transform .3s ease;animation:waPulse 2.4s ease-in-out infinite;opacity:0}
+.wa-float.show{opacity:1}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:28px;height:28px;fill:#fff}
+@keyframes waPulse{0%,100%{box-shadow:0 8px 30px rgba(37,211,102,.35)}50%{box-shadow:0 8px 50px rgba(37,211,102,.65)}}
+
+/* ══════════ REVEAL ══════════ */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ══════════ RESPONSIVE ══════════ */
+@media (max-width:960px){
+  .header-nav{display:none}
+  .hamburger{display:block}
+  .header-right .icon-btn.search-btn,.header-right .icon-btn.cart-btn{display:none}
+  .logo-img{height:42px}
+  header.scrolled .logo-img{height:36px}
+  .logo-text{font-size:15px;letter-spacing:3px}
+  .logo-text small{font-size:7px;letter-spacing:3px}
+  section{padding:80px 5vw}
+  .hero{padding:130px 5vw 90px}
+  .page-hero{padding:140px 5vw 60px}
+  .founder-wrap,.about-grid,.contact-wrap{grid-template-columns:1fr;gap:44px}
+  .founder-visual,.about-visual{max-width:340px;margin:0 auto;aspect-ratio:1}
+  .founder-visual .letter,.about-visual .letter{font-size:150px}
+  .foot-grid{grid-template-columns:1fr;gap:40px}
+  .newsletter-form{flex-direction:column}
+  .newsletter-form button{padding:18px}
+  .loader-brand h1{letter-spacing:6px}
+  .loader-brand h1 .l.sp{width:8px}
+  .search-box input{font-size:24px}
+  .trust-grid{grid-template-columns:repeat(2,1fr)}
+  .contact-form{padding:32px 24px}
+}
+@media (max-width:500px){
+  .hero-tag{font-size:9px;letter-spacing:5px}
+  .hero-tag::before,.hero-tag::after{width:20px}
+  .prod-grid{grid-template-columns:1fr}
+  .cat-grid{grid-template-columns:1fr}
+  .testi-grid{grid-template-columns:1fr}
+  .hero-cta{flex-direction:column;width:100%}
+  .hero-cta .btn{width:100%;justify-content:center}
+  .values-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body class="loading">
 
-<!-- ═══════ CINEMATIC LOADER ═══════ -->
+<!-- ═══════════ LOADER (Home only) ═══════════ -->
 <div id="loader">
   <div class="dust" id="dust"></div>
   <div class="rays" id="rays"></div>
   <div class="glow" id="glow"></div>
   <div class="embers" id="embers"></div>
-
   <div class="loader-scene">
     <div class="flash" id="flash"></div>
     <div class="jar" id="jar">
@@ -1259,242 +409,449 @@ footer {
       <div class="jar-shine" id="shine"></div>
       <div class="wick" id="wick"></div>
       <div class="flame" id="flame">
-        <div class="flame-outer"></div>
-        <div class="flame-mid"></div>
-        <div class="flame-inner"></div>
-        <div class="flame-base"></div>
+        <div class="flame-outer"></div><div class="flame-mid"></div>
+        <div class="flame-inner"></div><div class="flame-base"></div>
       </div>
       <div class="smoke" id="smoke"></div>
     </div>
   </div>
-
-  <div class="loader-brand" id="brand">
+  <div class="loader-brand">
     <h1 id="brandName"></h1>
     <div class="loader-brand-sub" id="brandSub">AURA CANDLES</div>
     <div class="loader-line" id="brandLine"></div>
   </div>
-
   <div class="light-bloom" id="bloom"></div>
 </div>
 
-<!-- ═══════ SEARCH OVERLAY ═══════ -->
+<!-- ═══════════ SEARCH ═══════════ -->
 <div class="search-overlay" id="searchOverlay">
   <button class="search-close" id="searchClose">×</button>
   <div class="search-box">
-    <input type="text" placeholder="Search candles, scents, occasions..." id="searchInput">
+    <input type="text" placeholder="Search candles, scents..." id="searchInput">
     <p class="search-hint">Try: "chai", "rose", "gift", "diwali"</p>
   </div>
 </div>
 
-<!-- ═══════ MOBILE MENU ═══════ -->
+<!-- ═══════════ MOBILE MENU ═══════════ -->
 <div class="overlay-backdrop" id="backdrop"></div>
 <aside class="mobile-menu" id="mobileMenu">
   <button class="mobile-menu-close" id="menuClose">×</button>
   <ul>
-    <li><a href="#shop">Shop All</a></li>
-    <li><a href="#categories">Collections</a></li>
-    <li><a href="#celebration">Celebration</a></li>
-    <li><a href="#reviews">Reviews</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#founder">Our Story</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a data-nav href="#/">Home</a></li>
+    <li><a data-nav href="#/shop">Shop</a></li>
+    <li><a data-nav href="#/celebration">Celebration</a></li>
+    <li><a data-nav href="#/reviews">Reviews</a></li>
+    <li><a data-nav href="#/about">About</a></li>
+    <li><a data-nav href="#/founder">Our Story</a></li>
+    <li><a data-nav href="#/custom-orders">Custom Orders</a></li>
+    <li><a data-nav href="#/contact">Contact</a></li>
+    <li><a data-nav href="#/faq">FAQ</a></li>
   </ul>
   <div class="mobile-menu-footer">
     <p>Get in touch</p>
     <a href="tel:+918750577905">+91 87505 77905</a>
     <a href="mailto:deepbysoniauracandles@gmail.com">deepbysoniauracandles@gmail.com</a>
-    <a href="https://instagram.com/deepbysoniauracandle" target="_blank">@deepbysoniauracandle</a>
   </div>
 </aside>
 
-<!-- ═══════ HEADER ═══════ -->
+<!-- ═══════════ HEADER ═══════════ -->
 <header id="header">
   <div class="header-left">
-    <a href="#" class="logo-link">
-      <img src="logo.png" alt="Deep By Soni Aura Candles" class="logo-img"
-           onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-      <div class="logo-text" style="display:none;">
-        Deep <span>By Soni</span>
-        <small>Aura Candles</small>
-      </div>
+    <a href="#/" class="logo-link" data-nav>
+      <img src="logo.png" alt="Deep By Soni" class="logo-img" onerror="this.style.display='none';">
+      <div class="logo-text">Deep <span>By Soni</span><small>Aura Candles</small></div>
     </a>
   </div>
-
   <nav class="header-nav">
     <ul class="nav-links">
-      <li><a href="#shop">Shop</a></li>
-      <li><a href="#categories">Collections</a></li>
-      <li><a href="#celebration">Celebration</a></li>
-      <li><a href="#reviews">Reviews</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a data-nav href="#/">Home</a></li>
+      <li><a data-nav href="#/shop">Shop</a></li>
+      <li><a data-nav href="#/celebration">Celebration</a></li>
+      <li><a data-nav href="#/reviews">Reviews</a></li>
+      <li><a data-nav href="#/about">About</a></li>
+      <li><a data-nav href="#/contact">Contact</a></li>
     </ul>
   </nav>
-
   <div class="header-right">
-    <button class="icon-btn search-btn" id="searchBtn" aria-label="Search">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    </button>
-    <button class="icon-btn cart-btn" aria-label="Cart">
-      <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-      <span class="cart-count">0</span>
-    </button>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <svg viewBox="0 0 24 24"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
-    </button>
+    <button class="icon-btn search-btn" id="searchBtn" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+    <button class="icon-btn cart-btn" aria-label="Cart"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-count">0</span></button>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><svg viewBox="0 0 24 24"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
   </div>
 </header>
 
-<!-- ═══════ HERO ═══════ -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <p class="hero-tag hero-el">Handcrafted in India · Shipped Worldwide</p>
-  <h1 class="hero-el">Light with<br><em>a Soul.</em></h1>
-  <p class="hero-sub hero-el">
-    Artistic, scented, memory-making candles by Deepanshi Verma — crafted with devotion,
-    designed with elegance, and created to elevate every moment of your life.
-  </p>
-  <div class="hero-cta hero-el">
-    <a href="#shop" class="btn btn-solid">
-      Explore Collection
-      <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
-    <a href="#founder" class="btn">Our Story</a>
-  </div>
-  <div class="scroll-hint hero-el">Scroll</div>
-</section>
+<main id="app">
 
-<!-- ═══════ TRUST BAR ═══════ -->
-<div class="trust-bar">
-  <div class="trust-grid">
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24"><path d="M12 2 15 8.5 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 9 8.5z"/></svg>
-      <p>Handcrafted</p>
+<!-- ═══════════ HOME PAGE ═══════════ -->
+<div class="page" id="page-home">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <p class="hero-tag hero-el">Handcrafted in India · Shipped Worldwide</p>
+    <h1 class="hero-el">Light with<br><em>a Soul.</em></h1>
+    <p class="hero-sub hero-el">Artistic, scented, memory-making candles by Deepanshi Verma — crafted with devotion, designed with elegance, and created to elevate every moment.</p>
+    <div class="hero-cta hero-el">
+      <a href="#/shop" data-nav class="btn btn-solid">Explore Collection <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="#/founder" data-nav class="btn">Our Story</a>
     </div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24"><path d="M20 7 9 18l-5-5"/></svg>
-      <p>100% Natural Wax</p>
-    </div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24"><rect x="1" y="6" width="15" height="12" rx="2"/><path d="M16 10h4l3 3v5h-7z"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
-      <p>Pan-India Shipping</p>
-    </div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg>
-      <p>Worldwide Delivery</p>
-    </div>
-  </div>
-</div>
+    <div class="scroll-hint hero-el">Scroll</div>
+  </section>
 
-<!-- ═══════ CATEGORIES ═══════ -->
-<section id="categories">
-  <div class="section-head">
-    <p class="kicker reveal">Our Collections</p>
-    <h2 class="reveal">Curated for <em>Every Moment</em></h2>
-  </div>
-  <div class="cat-grid">
-    <a href="#shop" class="cat-card reveal" onclick="filterTo('sculptural')">
-      <span class="cat-num">01</span>
-      <h3>Sculptural</h3>
-      <p>Artistic showpieces — 3D flower towers, princess dresses, rose bouquets.</p>
-      <span class="cat-arrow">Explore <span>→</span></span>
-    </a>
-    <a href="#shop" class="cat-card reveal" onclick="filterTo('jar')">
-      <span class="cat-num">02</span>
-      <h3>Jar &amp; Gel</h3>
-      <p>Elegant gel-wax jars with embedded florals, foils &amp; evil-eye charms.</p>
-      <span class="cat-arrow">Explore <span>→</span></span>
-    </a>
-    <a href="#shop" class="cat-card reveal" onclick="filterTo('gourmet')">
-      <span class="cat-num">03</span>
-      <h3>Gourmet</h3>
-      <p>Realistic chai, coffee, samosa, rasmalai &amp; dessert-inspired candles.</p>
-      <span class="cat-arrow">Explore <span>→</span></span>
-    </a>
-    <a href="#shop" class="cat-card reveal" onclick="filterTo('festive')">
-      <span class="cat-num">04</span>
-      <h3>Festive</h3>
-      <p>Lohri bonfire, Christmas tree pillars, snowflakes &amp; celebration glasses.</p>
-      <span class="cat-arrow">Explore <span>→</span></span>
-    </a>
-    <a href="#shop" class="cat-card reveal" onclick="filterTo('gifting')">
-      <span class="cat-num">05</span>
-      <h3>Gifting</h3>
-      <p>Heart blooms, secret-message candles &amp; curated sets for every occasion.</p>
-      <span class="cat-arrow">Explore <span>→</span></span>
-    </a>
-    <a href="#shop" class="cat-card reveal" onclick="filterTo('baby')">
-      <span class="cat-num">06</span>
-      <h3>Baby &amp; Aura</h3>
-      <p>Gender-reveal footprints, baby shower minis &amp; healing aura candles.</p>
-      <span class="cat-arrow">Explore <span>→</span></span>
-    </a>
-  </div>
-</section>
-
-<!-- ═══════ SHOP ═══════ -->
-<section id="shop" class="shop-section">
-  <div class="section-head">
-    <p class="kicker reveal">The Shop</p>
-    <h2 class="reveal">Signature <em>Creations</em></h2>
-  </div>
-  <div class="tabs reveal">
-    <button class="tab active" data-cat="all">All</button>
-    <button class="tab" data-cat="sculptural">Sculptural</button>
-    <button class="tab" data-cat="jar">Jar &amp; Gel</button>
-    <button class="tab" data-cat="gourmet">Gourmet</button>
-    <button class="tab" data-cat="festive">Festive</button>
-    <button class="tab" data-cat="gifting">Gifting</button>
-    <button class="tab" data-cat="baby">Baby &amp; Aura</button>
-  </div>
-  <div class="prod-grid" id="prodGrid"></div>
-</section>
-
-<!-- ═══════ FOUNDER SPOTLIGHT ═══════ -->
-<section id="founder" class="founder-spot">
-  <div class="founder-wrap">
-    <div class="founder-visual reveal">
-      <div class="letter">D</div>
+  <div class="trust-bar">
+    <div class="trust-grid">
+      <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2 15 8.5 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 9 8.5z"/></svg><p>Handcrafted</p></div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M20 7 9 18l-5-5"/></svg><p>100% Natural Wax</p></div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><rect x="1" y="6" width="15" height="12" rx="2"/><path d="M16 10h4l3 3v5h-7z"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg><p>Pan-India Shipping</p></div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg><p>Worldwide Delivery</p></div>
     </div>
-    <div class="founder-text reveal">
-      <p class="kicker">Our Story</p>
-      <h2>From a Diwali market spark to a <em>burning dream.</em></h2>
-      <p>I'm <strong>Deepanshi Verma</strong> — after 9 years in corporate, I asked myself one quiet question: <em>"If I can build someone else's dream, why not my own?"</em></p>
-      <p>A simple Diwali shopping day planted the first seed. And on <strong>7th November 2025</strong>, I poured my first candle — the Golden Bloom. One week later, on <strong>14th November 2025</strong>, <em>Deep By Soni Aura Candles</em> was born.</p>
-      <p>Every candle you hold carries dreams, craftsmanship, and the soul of an artist. This brand is not just about candles — it is about emotions, moments, and memories.</p>
-      <div class="founder-sign">Deepanshi Verma<small>Founder &amp; Candle Artist</small></div>
-      <div class="founder-cta">
-        <a href="#" class="btn">Read Full Story
-          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+  </div>
+
+  <section>
+    <div class="section-head"><p class="kicker">Our Collections</p><h2>Curated for <em>Every Moment</em></h2></div>
+    <div class="cat-grid" id="homeCatGrid"></div>
+  </section>
+
+  <section class="shop-section" style="padding-top:40px">
+    <div class="section-head"><p class="kicker">Loved by Many</p><h2>Signature <em>Creations</em></h2></div>
+    <div class="prod-grid" id="featuredGrid"></div>
+    <div class="section-more"><a href="#/shop" data-nav class="btn btn-solid">View All Products <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
+  </section>
+
+  <section class="founder-spot">
+    <div class="founder-wrap">
+      <div class="founder-visual reveal"><div class="letter">D</div></div>
+      <div class="founder-text reveal">
+        <p class="kicker">Our Story</p>
+        <h2>From a Diwali market spark to a <em>burning dream.</em></h2>
+        <p>I'm <strong>Deepanshi Verma</strong> — after 9 years in corporate, I asked myself one quiet question: <em>"If I can build someone else's dream, why not my own?"</em></p>
+        <p>A simple Diwali shopping day planted the first seed. On <strong>7th November 2025</strong>, I poured my first candle — the Golden Bloom. One week later, <em>Deep By Soni Aura Candles</em> was born.</p>
+        <div class="founder-sign">Deepanshi Verma<small>Founder &amp; Candle Artist</small></div>
+        <div class="founder-cta"><a href="#/founder" data-nav class="btn">Read Full Story <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ═══════ REVIEWS ═══════ -->
-<section id="reviews">
-  <div class="section-head">
-    <p class="kicker reveal">Loved by Many</p>
-    <h2 class="reveal">Words From <em>Happy Hearts</em></h2>
-  </div>
-  <div class="testi-grid" id="testiGrid"></div>
-</section>
+  <section>
+    <div class="section-head"><p class="kicker">Loved by Many</p><h2>Words From <em>Happy Hearts</em></h2></div>
+    <div class="testi-grid" id="homeTestiGrid"></div>
+    <div class="section-more"><a href="#/reviews" data-nav class="btn">Read More Reviews <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
+  </section>
 
-<!-- ═══════ NEWSLETTER ═══════ -->
-<section class="newsletter">
-  <div class="newsletter-wrap">
-    <h3>Be First to <em>Glow.</em></h3>
-    <p>New collections, festive offers &amp; candle-care rituals — delivered to your inbox.</p>
-    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you! You\\'re on the list.');">
-      <input type="email" placeholder="Your email address" required>
-      <button type="submit">Subscribe</button>
-    </form>
-  </div>
-</section>
+  <section class="newsletter">
+    <div class="newsletter-wrap">
+      <h3>Be First to <em>Glow.</em></h3>
+      <p>New collections, festive offers &amp; candle-care rituals — delivered to your inbox.</p>
+      <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you! You are on the list.');">
+        <input type="email" placeholder="Your email address" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+</div>
 
-<!-- ═══════ FOOTER ═══════ -->
-<footer id="contact">
+<!-- ═══════════ SHOP PAGE ═══════════ -->
+<div class="page" id="page-shop">
+  <section class="page-hero">
+    <p class="kicker">The Shop</p>
+    <h1>All <em>Creations</em></h1>
+    <p>40+ handcrafted candles — every scent, every mood, every moment covered.</p>
+  </section>
+  <section class="shop-section" style="padding-top:60px">
+    <div class="tabs" id="shopTabs">
+      <button class="tab active" data-cat="all">All</button>
+      <button class="tab" data-cat="sculptural">Sculptural</button>
+      <button class="tab" data-cat="jar">Jar &amp; Gel</button>
+      <button class="tab" data-cat="gourmet">Gourmet</button>
+      <button class="tab" data-cat="festive">Festive</button>
+      <button class="tab" data-cat="gifting">Gifting</button>
+      <button class="tab" data-cat="baby">Baby &amp; Aura</button>
+    </div>
+    <div class="prod-grid" id="shopGrid"></div>
+  </section>
+</div>
+
+<!-- ═══════════ CELEBRATION PAGE ═══════════ -->
+<div class="page" id="page-celebration">
+  <section class="page-hero celeb-hero">
+    <p class="kicker">Festival Dhamaka</p>
+    <h1>Celebrate with <em>Light.</em></h1>
+    <p>Limited-time offers on handcrafted luxury candles — for every festival, every celebration, every moment worth remembering.</p>
+    <div class="countdown">
+      <div class="count-box"><div class="count-num" id="cd-days">02</div><div class="count-label">Days</div></div>
+      <div class="count-box"><div class="count-num" id="cd-hours">14</div><div class="count-label">Hours</div></div>
+      <div class="count-box"><div class="count-num" id="cd-mins">33</div><div class="count-label">Minutes</div></div>
+      <div class="count-box"><div class="count-num" id="cd-secs">12</div><div class="count-label">Seconds</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><p class="kicker">Festive Offers</p><h2>Deals Made for <em>Celebration</em></h2></div>
+    <div class="offer-hero-grid">
+      <div class="offer-big reveal"><div class="off-pct">15%</div><h4>Flat Discount</h4><p>On all purchases above ₹5,000. Applicable on the entire collection.</p></div>
+      <div class="offer-big reveal"><div class="off-pct">10%</div><h4>Extra Savings</h4><p>Additional discount on orders above ₹3,000. Stacks with other offers.</p></div>
+      <div class="offer-big reveal"><div class="off-pct">✈</div><h4>Worldwide Shipping</h4><p>Safe, tracked delivery to any corner of the world. Export-safe packaging.</p></div>
+    </div>
+  </section>
+
+  <section class="shop-section">
+    <div class="section-head"><p class="kicker">Combo Magic</p><h2>Buy Together, <em>Save More</em></h2></div>
+    <div class="combo-grid">
+      <div class="combo-card reveal"><h4>Golden + Silver Combo</h4><p>Both signature bloom candles together — shimmering luxury.</p><div class="combo-price">₹1,199 <span class="combo-old">₹1,398</span></div></div>
+      <div class="combo-card reveal"><h4>Chai + Coffee Combo</h4><p>Two iconic gourmet candles — one for chai lovers, one for coffee.</p><div class="combo-price">₹549 <span class="combo-old">₹698</span></div></div>
+      <div class="combo-card reveal"><h4>Laddu Festive Pack</h4><p>Set of 4 classic laddu candles with silver warq. Perfect gifting.</p><div class="combo-price">₹199 <span class="combo-old">₹236</span></div></div>
+      <div class="combo-card reveal"><h4>Champagne Set of 2</h4><p>Celebration champagne candles — for anniversaries &amp; special moments.</p><div class="combo-price">₹899 <span class="combo-old">₹998</span></div></div>
+      <div class="combo-card reveal"><h4>Gourmet Duo</h4><p>Coffee Ice Shot + Strawberry Cheesecake — dessert lovers' dream.</p><div class="combo-price">₹599 <span class="combo-old">₹698</span></div></div>
+      <div class="combo-card reveal"><h4>Rose Bear + Heart Bloom</h4><p>Romantic pairing for anniversaries &amp; proposals.</p><div class="combo-price">₹449 <span class="combo-old">₹498</span></div></div>
+    </div>
+  </section>
+
+  <section class="gift-card">
+    <h2>Give the Gift of <em>Light.</em></h2>
+    <p>Not sure what to pick? Give a Deep By Soni gift card — let them choose their own candle story.</p>
+    <a href="https://wa.me/918750577905?text=Hi%2C%20I%27d%20like%20a%20Deep%20By%20Soni%20gift%20card" target="_blank" class="btn">Order Gift Card <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </section>
+
+  <section>
+    <div class="section-head"><p class="kicker">Festive Picks</p><h2>Candles for the <em>Season</em></h2></div>
+    <div class="prod-grid" id="festiveGrid"></div>
+  </section>
+</div>
+
+<!-- ═══════════ REVIEWS PAGE ═══════════ -->
+<div class="page" id="page-reviews">
+  <section class="page-hero">
+    <p class="kicker">Loved by Many</p>
+    <h1>Words From <em>Happy Hearts</em></h1>
+    <p>Real experiences from customers across India — and the world.</p>
+  </section>
+  <section>
+    <div class="testi-grid" id="allTestiGrid"></div>
+  </section>
+</div>
+
+<!-- ═══════════ ABOUT PAGE ═══════════ -->
+<div class="page" id="page-about">
+  <section class="page-hero">
+    <p class="kicker">About Us</p>
+    <h1>The Soul Behind <em>the Glow</em></h1>
+    <p>Deep By Soni Aura Candles — born from courage, creativity, and the desire to turn passion into purpose.</p>
+  </section>
+
+  <section class="about-section">
+    <div class="about-grid">
+      <div class="about-visual reveal"><div class="letter">D</div></div>
+      <div class="about-text reveal">
+        <h2>We craft <em>moments</em>, not just candles.</h2>
+        <p>Every candle you hold carries dreams, craftsmanship, and the soul of an artist. We focus on unique sculptural designs, high detailing, strong fragrance throw, and safe, clean, long burn hours.</p>
+        <p>Crafted with devotion, designed with elegance, and created to elevate every moment of your life — <strong>Deep By Soni Aura Candles</strong> brings creativity into everyday living.</p>
+      </div>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card reveal"><div class="v-icon">🕯️</div><h4>Handcrafted</h4><p>Every candle hand-poured with intention, emotion &amp; detail.</p></div>
+      <div class="value-card reveal"><div class="v-icon">🌿</div><h4>Natural Wax</h4><p>Premium soy blends for a clean, soot-free, long burn.</p></div>
+      <div class="value-card reveal"><div class="v-icon">✨</div><h4>Artistic Design</h4><p>Sculptural, unique pieces not found in mass markets.</p></div>
+      <div class="value-card reveal"><div class="v-icon">💝</div><h4>Made for Gifting</h4><p>Perfect for festivals, weddings, corporate &amp; personal moments.</p></div>
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <div class="newsletter-wrap">
+      <h3>Our <em>Promise</em></h3>
+      <p>Unique sculptural designs. High detailing &amp; smooth finishing. Strong fragrance throw. Safe, clean, long burn hours.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════ FOUNDER PAGE ═══════════ -->
+<div class="page" id="page-founder">
+  <section class="page-hero">
+    <p class="kicker">Our Story</p>
+    <h1>The Journey of <em>Deepanshi</em></h1>
+    <p>From 9 years in corporate to becoming a candle artist — this is a story of courage, family, and following your heart.</p>
+  </section>
+
+  <section class="about-section">
+    <div class="about-grid">
+      <div class="about-visual reveal"><div class="letter">D</div></div>
+      <div class="about-text reveal">
+        <h2>"If I can build someone else's dream, <em>why not my own?</em>"</h2>
+        <p>I spent 9 years in the corporate world — worked hard, delivered my best, and helped build other people's dreams. Until one day, I quietly asked myself that question.</p>
+        <p>I have always loved drawing, painting, cooking, and creating things with my own hands. Creativity felt like home. But I never imagined that this love would one day lead me to candle-making.</p>
+        <p>The real turning point came on a simple <strong>Diwali shopping day</strong>. I saw people happily picking up plain white candles — such small candles, yet so much joy. That's when the thought struck: <em>If people love these simple candles so much, why not create something more beautiful, more unique?</em></p>
+        <p>On <strong>7th November 2025</strong>, I poured my very first candle — the <em>Golden Bloom</em>. Exactly one week later, on <strong>14th November 2025</strong>, <em>Deep By Soni Aura Candles</em> was officially launched.</p>
+        <p>Today, this brand is not just my work — it is my journey of courage, creativity, devotion, and turning light into art.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:var(--gold);margin-top:30px">"Dreams don't need to be perfect — they just need a brave beginning."</p>
+        <div class="founder-sign" style="color:var(--gold)">Deepanshi Verma<small style="color:var(--ink-soft)">Founder &amp; Candle Artist</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="shop-section">
+    <div class="section-head"><p class="kicker">The Craft</p><h2>From Her <em>Hands to Your Home</em></h2></div>
+    <div class="values-grid">
+      <div class="value-card reveal"><div class="v-icon">🌸</div><h4>Golden Bloom</h4><p>Her first signature creation — crafted with melted golden foil &amp; finished with a soft soy-wax bloom.</p></div>
+      <div class="value-card reveal"><div class="v-icon">☕</div><h4>Chai Candle</h4><p>Inspired by a perfectly brewed cup of chai — with real cardamom, black pepper, clove &amp; cinnamon.</p></div>
+      <div class="value-card reveal"><div class="v-icon">🎨</div><h4>Artistic Joy</h4><p>From gourmet candles like samosa &amp; rasmalai, to sculptural roses &amp; princess dresses.</p></div>
+      <div class="value-card reveal"><div class="v-icon">💫</div><h4>Emotional Gifting</h4><p>Secret message candles that reveal hidden words as they melt — unforgettable moments.</p></div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════ CUSTOM ORDERS PAGE ═══════════ -->
+<div class="page" id="page-custom-orders">
+  <section class="page-hero">
+    <p class="kicker">Custom Orders</p>
+    <h1>Bespoke Candles, <em>Your Way</em></h1>
+    <p>Bulk orders, wedding favors, corporate gifting, and fully personalized designs.</p>
+  </section>
+  <section>
+    <div class="values-grid">
+      <div class="value-card reveal"><div class="v-icon">💍</div><h4>Wedding Favors</h4><p>Customized sets with your names, dates, or colors — elegant return gifts for guests.</p></div>
+      <div class="value-card reveal"><div class="v-icon">🏢</div><h4>Corporate Gifting</h4><p>Logo-embossed candles for employee gifting, client appreciation &amp; events.</p></div>
+      <div class="value-card reveal"><div class="v-icon">📦</div><h4>Bulk Orders</h4><p>Discounts on 50+ pieces — perfect for events, reselling &amp; festive gifting.</p></div>
+      <div class="value-card reveal"><div class="v-icon">🏷️</div><h4>White Labeling</h4><p>Your brand name &amp; packaging — we craft, you own the identity.</p></div>
+      <div class="value-card reveal"><div class="v-icon">🎨</div><h4>Custom Fragrance</h4><p>Choose from 16+ available fragrances, or request a specific blend.</p></div>
+      <div class="value-card reveal"><div class="v-icon">💌</div><h4>Personal Message</h4><p>Handwritten cards, custom packaging &amp; personalized touches.</p></div>
+    </div>
+    <div style="text-align:center;margin-top:60px">
+      <a href="https://wa.me/918750577905?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20custom%20orders" target="_blank" class="btn btn-solid">Enquire on WhatsApp <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════ CONTACT PAGE ═══════════ -->
+<div class="page" id="page-contact">
+  <section class="page-hero">
+    <p class="kicker">Get in Touch</p>
+    <h1>We'd Love to <em>Hear From You</em></h1>
+    <p>Questions, orders, or a custom request — reach out anytime.</p>
+  </section>
+  <section>
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <h3>Deepanshi Verma</h3>
+        <p>Founder &amp; Candle Artist — Deep By Soni Aura Candles</p>
+        <div class="contact-block">
+          <h5>Phone / WhatsApp</h5>
+          <a href="tel:+918750577905">+91 87505 77905</a>
+        </div>
+        <div class="contact-block">
+          <h5>Email</h5>
+          <a href="mailto:deepbysoniauracandles@gmail.com">deepbysoniauracandles@gmail.com</a>
+        </div>
+        <div class="contact-block">
+          <h5>Instagram</h5>
+          <a href="https://instagram.com/deepbysoniauracandle" target="_blank">@deepbysoniauracandle</a>
+        </div>
+        <div class="contact-block">
+          <h5>Shipping</h5>
+          <p>Pan-India · Worldwide</p>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you, Deepanshi will reach out soon!');">
+        <div class="form-row"><label>Your Name</label><input type="text" required></div>
+        <div class="form-row"><label>Email</label><input type="email" required></div>
+        <div class="form-row"><label>Phone</label><input type="tel"></div>
+        <div class="form-row"><label>Message</label><textarea placeholder="Tell us what you're looking for..." required></textarea></div>
+        <button type="submit" class="form-submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════ FAQ PAGE ═══════════ -->
+<div class="page" id="page-faq">
+  <section class="page-hero">
+    <p class="kicker">Questions?</p>
+    <h1>Frequently <em>Asked</em></h1>
+    <p>Everything you need to know about our candles, shipping, and custom orders.</p>
+  </section>
+  <section>
+    <div class="faq-wrap" id="faqWrap"></div>
+  </section>
+</div>
+
+<!-- ═══════════ SHIPPING PAGE ═══════════ -->
+<div class="page" id="page-shipping">
+  <section class="page-hero">
+    <p class="kicker">Shipping</p>
+    <h1>Safe Delivery, <em>Always</em></h1>
+  </section>
+  <section><div class="doc-page">
+    <h2>Safe Packaging Guarantee</h2>
+    <p>All candles are packed in multi-layer bubble wrap with a shockproof hard box. Sculptural &amp; luxury jars are shipped with double-protection packaging.</p>
+    <h2>Shipping Charges</h2>
+    <p>Calculated based on order weight and delivery location. Exact charges are shared after order confirmation. We always choose the most affordable and safest courier option.</p>
+    <h2>Delivery Time</h2>
+    <ul>
+      <li><strong>India:</strong> 3-7 business days depending on location</li>
+      <li><strong>International:</strong> 10-18 business days, depending on country</li>
+    </ul>
+    <h2>International Shipping</h2>
+    <p>International orders are welcome. Charges depend on country, weight, and customs policies. We select trusted courier partners to offer fair and competitive rates.</p>
+    <h2>Customs &amp; Duties</h2>
+    <p>Any customs duties or taxes levied by the destination country are the responsibility of the buyer.</p>
+  </div></section>
+</div>
+
+<!-- ═══════════ PRIVACY PAGE ═══════════ -->
+<div class="page" id="page-privacy">
+  <section class="page-hero"><p class="kicker">Legal</p><h1>Privacy <em>Policy</em></h1></section>
+  <section><div class="doc-page">
+    <h2>Information We Collect</h2>
+    <p>We collect your name, phone number, email address, and shipping address when you place an order or contact us. This information is used only to fulfill your order and improve our service.</p>
+    <h2>How We Use Your Information</h2>
+    <ul>
+      <li>To process &amp; deliver your orders</li>
+      <li>To communicate about order status &amp; offers</li>
+      <li>To improve our products &amp; services</li>
+    </ul>
+    <h2>Data Protection</h2>
+    <p>Your data is never sold or shared with third parties except shipping partners essential for delivery. All information is stored securely.</p>
+    <h2>Cookies</h2>
+    <p>Our website uses minimal cookies for basic functionality. We do not track you across other websites.</p>
+    <h2>Contact</h2>
+    <p>For any privacy-related questions: <strong>deepbysoniauracandles@gmail.com</strong></p>
+  </div></section>
+</div>
+
+<!-- ═══════════ TERMS PAGE ═══════════ -->
+<div class="page" id="page-terms">
+  <section class="page-hero"><p class="kicker">Legal</p><h1>Terms &amp; <em>Conditions</em></h1></section>
+  <section><div class="doc-page">
+    <h2>Product Disclaimer</h2>
+    <p>All our candles are handcrafted. Slight variations in color, size, and finish are natural and part of the charm — not a defect.</p>
+    <h2>Fragile Product Notice</h2>
+    <p>Candles are fragile products. We take utmost care in packaging, but we are not responsible for damage caused by mishandling or rough transportation. Any issue must be reported within 48 hours of delivery with photos.</p>
+    <h2>Order Confirmation</h2>
+    <p>Orders are confirmed via WhatsApp or email. Payment must be completed before dispatch.</p>
+    <h2>Use &amp; Safety</h2>
+    <ul>
+      <li>Trim the wick to ¼ inch before each use</li>
+      <li>Do not burn for more than 2-4 hours at a time</li>
+      <li>Keep away from children, pets, and flammable items</li>
+      <li>Always burn on a heat-resistant surface</li>
+    </ul>
+    <h2>Pricing</h2>
+    <p>All prices are in INR and subject to change. Offers apply as per terms mentioned on the offer page.</p>
+    <h2>Contact</h2>
+    <p>For any queries: <strong>deepbysoniauracandles@gmail.com</strong></p>
+  </div></section>
+</div>
+
+<!-- ═══════════ 404 PAGE ═══════════ -->
+<div class="page" id="page-404">
+  <section class="page-hero">
+    <p class="kicker">Lost in the Glow</p>
+    <h1>Page Not <em>Found</em></h1>
+    <p>The page you're looking for has melted away. Let's light your way back home.</p>
+    <div style="margin-top:40px"><a href="#/" data-nav class="btn btn-solid">Back to Home <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
+  </section>
+</div>
+
+</main>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
   <div class="foot-grid">
     <div class="foot-brand">
       <div class="foot-brand-logo">
@@ -1506,19 +863,21 @@ footer {
     <div class="foot-col">
       <h4>Explore</h4>
       <ul>
-        <li><a href="#shop">Shop All</a></li>
-        <li><a href="#categories">Collections</a></li>
-        <li><a href="#celebration">Celebration</a></li>
-        <li><a href="#reviews">Reviews</a></li>
+        <li><a data-nav href="#/shop">Shop All</a></li>
+        <li><a data-nav href="#/celebration">Celebration</a></li>
+        <li><a data-nav href="#/reviews">Reviews</a></li>
+        <li><a data-nav href="#/custom-orders">Custom Orders</a></li>
       </ul>
     </div>
     <div class="foot-col">
       <h4>Company</h4>
       <ul>
-        <li><a href="#founder">Our Story</a></li>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#">Custom Orders</a></li>
-        <li><a href="#">FAQ</a></li>
+        <li><a data-nav href="#/about">About Us</a></li>
+        <li><a data-nav href="#/founder">Our Story</a></li>
+        <li><a data-nav href="#/faq">FAQ</a></li>
+        <li><a data-nav href="#/shipping">Shipping</a></li>
+        <li><a data-nav href="#/privacy">Privacy</a></li>
+        <li><a data-nav href="#/terms">Terms</a></li>
       </ul>
     </div>
     <div class="foot-col">
@@ -1533,13 +892,10 @@ footer {
   </div>
   <div class="foot-bottom">
     <div>© 2025 Deep By Soni Aura Candles. All rights reserved.</div>
+    <div class="foot-crafted">Made with <span style="color:#e8c675">🤍</span> in <strong>Bharat</strong> · Website crafted by <strong>Anubhav Verma</strong></div>
     <div class="foot-social">
-      <a href="https://instagram.com/deepbysoniauracandle" target="_blank" aria-label="Instagram">
-        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-      </a>
-      <a href="https://wa.me/918750577905" target="_blank" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-      </a>
+      <a href="https://instagram.com/deepbysoniauracandle" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      <a href="https://wa.me/918750577905" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
     </div>
   </div>
 </footer>
@@ -1549,20 +905,17 @@ footer {
 </a>
 
 <script>
-/* ═══════════════════════════════════════════
-   PRODUCTS DATA
-   ═══════════════════════════════════════════ */
+/* ═══════════ PRODUCTS DATA ═══════════ */
 const products = [
   { name:"Golden & Silver Bloom Candle", cat:"jar", price:349, combo:"Combo ₹599", scent:"Rose · Queen of Flowers", desc:"Dual-layer metallic gel wax with shimmering gold & silver flakes.", badge:"Bestseller", img:"golden-silver-bloom.jpg" },
   { name:"Luxury Dual Layer Jar Candle", cat:"jar", price:599, combo:"Golden + Silver ₹1199", scent:"Lemongrass · Rose · Vanilla", desc:"Soy wax top, gel wax bottom with golden & silver foil flakes.", badge:"Premium", img:"luxury-dual-layer.jpg" },
   { name:"Aura Protector Evil Eye Jar", cat:"jar", price:299, combo:"", scent:"Rose · Lavender · Jasmine", desc:"Crystal-clear gel wax with dried florals & evil-eye charm.", img:"aura-protector.jpg" },
-  { name:"Aqua Aura Floral Jar Candle", cat:"jar", price:179, combo:"Set of 2 ₹299", scent:"Aqua Breeze", desc:"Dual-layered gel wax with dried rose petals, topped with soy wax.", img:"aqua-aura-floral.jpg" },
+  { name:"Aqua Aura Floral Jar Candle", cat:"jar", price:179, combo:"Set of 2 ₹299", scent:"Aqua Breeze", desc:"Dual-layered gel wax with dried rose petals.", img:"aqua-aura-floral.jpg" },
   { name:"He or She Rose Aura (Tiny)", cat:"jar", price:179, combo:"Set of 2 ₹299", scent:"Rose", desc:"Soy heart shapes under gel wax, topped with a 3D daisy flower.", img:"he-she-rose-aura.jpg" },
   { name:"Royal Pomegranate Luxe", cat:"jar", price:499, combo:"Set of 2 ₹899", scent:"Sweet Fruit Blend", desc:"Layered candle with realistic pomegranate seeds on top.", badge:"New", img:"royal-pomegranate.jpg" },
   { name:"Tiny-Tiny Cute Jar Candle", cat:"jar", price:199, combo:"", scent:"Strawberry · Vanilla", desc:"Minimalist single-layer soy wax, topped with dried flowers.", img:"tiny-tiny-jar.jpg" },
   { name:"Indian Sweet Laddu Delight Jar", cat:"jar", price:149, combo:"Set of 2 ₹249", scent:"Vanilla · Marigold", desc:"Laddu candle floating in elegant soy wax.", img:"laddu-delight-jar.jpg" },
-
-  { name:"Coffee Ice Shot Candle", cat:"gourmet", price:349, combo:"Set ₹499", scent:"Vanilla · Sandalwood", desc:"Realistic gel wax ice cubes with layered wax — for coffee lovers.", badge:"Loved", img:"coffee-ice-shot.jpg" },
+  { name:"Coffee Ice Shot Candle", cat:"gourmet", price:349, combo:"Set ₹499", scent:"Vanilla · Sandalwood", desc:"Realistic gel wax ice cubes with layered wax.", badge:"Loved", img:"coffee-ice-shot.jpg" },
   { name:"Strawberry Cheesecake", cat:"gourmet", price:349, combo:"Gourmet Duo ₹599", scent:"Strawberry · Vanilla", desc:"Three realistic layers with handcrafted strawberry topper.", img:"strawberry-cheesecake.jpg" },
   { name:"Samosa Delight Candle", cat:"gourmet", price:349, combo:"", scent:"Cardamom & Ginger", desc:"Ultimate realistic samosa — unique Indian foodie gifting.", img:"samosa-delight.jpg" },
   { name:"Chai Wala Sukoon", cat:"gourmet", price:349, combo:"Chai + Coffee ₹549", scent:"Cardamom & Ginger", desc:"Topped with real cardamom, cinnamon & black pepper.", badge:"Signature", img:"chai-wala-sukoon.jpg" },
@@ -1570,15 +923,13 @@ const products = [
   { name:"Pick Your Favourite Scoop", cat:"gourmet", price:499, combo:"Set of 2 ₹899", scent:"Rose · Vanilla", desc:"Molded wax scoops with authentic textures & toppings.", img:"favourite-scoop.jpg" },
   { name:"2-in-1 Forever Berry Bowl", cat:"gourmet", price:699, combo:"", scent:"Fruit Basket · Strawberry", desc:"Wax berries in a reusable wooden bowl.", badge:"Eco", img:"forever-berry-bowl.jpg" },
   { name:"Indian Sweet Classic Laddu", cat:"gourmet", price:59, combo:"Set of 4 ₹199", scent:"Vanilla · Marigold", desc:"Realistic laddu with silver warq.", img:"classic-laddu.jpg" },
-
   { name:"Lohri Bonfire Candle", cat:"festive", price:499, combo:"Festive Pack ₹849", scent:"Soothing Sandalwood", desc:"Miniature bonfire with real peanut, popcorn & sticks.", badge:"Festive", img:"lohri-bonfire.jpg" },
   { name:"Christmas Tree Pillar", cat:"festive", price:299, combo:"Festive Pack ₹500", scent:"Vanilla", desc:"Detailed hand-poured Christmas tree.", img:"christmas-tree-pillar.jpg" },
-  { name:"Snowflake Votive", cat:"festive", price:125, combo:"Set of 4 ₹449", scent:"Aqua Breeze", desc:"Delicate snowflake shape. Use individually or float in water.", img:"snowflake-votive.jpg" },
+  { name:"Snowflake Votive", cat:"festive", price:125, combo:"Set of 4 ₹449", scent:"Aqua Breeze", desc:"Delicate snowflake shape. Float in water or use individually.", img:"snowflake-votive.jpg" },
   { name:"Festive Bubble Duo", cat:"festive", price:169, combo:"Set of 2 ₹199", scent:"Sandalwood · Fruit Basket", desc:"Dual-coloured bubble shapes — Christmas themed.", img:"festive-bubble-duo.jpg" },
   { name:"Celebration Red Wine", cat:"festive", price:499, combo:"", scent:"Green Apple · Fruit Basket", desc:"Premium long-stemmed glass with gold glitter wax.", img:"celebration-red-wine.jpg" },
-  { name:"Celebration Champagne", cat:"festive", price:499, combo:"Set of 2 ₹899", scent:"Aqua Breeze · Fresh Lime", desc:"Champagne glass with realistic foam top & gold glitter.", badge:"Gifting", img:"celebration-champagne.jpg" },
+  { name:"Celebration Champagne", cat:"festive", price:499, combo:"Set of 2 ₹899", scent:"Aqua Breeze · Fresh Lime", desc:"Champagne glass with realistic foam top.", badge:"Gifting", img:"celebration-champagne.jpg" },
   { name:"Whiskey on the Rock", cat:"festive", price:499, combo:"", scent:"Soothing Sandalwood", desc:"Realistic whiskey glass candle.", img:"whiskey-rock.jpg" },
-
   { name:"Royal Rose Bouquet Candle", cat:"sculptural", price:549, combo:"Set of 2 ₹899", scent:"French Rose", desc:"Floral masterpiece in customized colours.", badge:"Signature", img:"royal-rose-bouquet.jpg" },
   { name:"3D Flower Tower Pillar", cat:"sculptural", price:499, combo:"", scent:"First Spring", desc:"Stacked 3D floral design.", img:"flower-tower-pillar.jpg" },
   { name:"Princess Dress Sculptural", cat:"sculptural", price:249, combo:"Set of 4 ₹899", scent:"Queen of Flowers", desc:"Princess gown shaped candles in soft pastels.", img:"princess-dress.jpg" },
@@ -1587,20 +938,15 @@ const products = [
   { name:"Modern Round Spiral Spire", cat:"sculptural", price:129, combo:"", scent:"Soothing Sandalwood", desc:"Sculptural twist design.", img:"round-spiral-spire.jpg" },
   { name:"Modern Spiral Cone Shape", cat:"sculptural", price:149, combo:"", scent:"Soothing Sandalwood", desc:"Upward-flowing spiral.", img:"spiral-cone.jpg" },
   { name:"Daisy Flower Floating", cat:"sculptural", price:59, combo:"Set of 4 ₹200", scent:"Aqua Breeze", desc:"Floats gracefully on water.", img:"daisy-floating.jpg" },
-
   { name:"Secret Message Candle", cat:"gifting", price:249, combo:"Set of 2 ₹449", scent:"Lavender · Vanilla", desc:"As wax melts, hidden message reveals.", badge:"Viral", img:"secret-message.jpg" },
   { name:"Mystery Message Heart", cat:"gifting", price:549, combo:"", scent:"French Rose", desc:"Reusable wooden heart with hidden personalized message.", img:"mystery-message-heart.jpg" },
   { name:"Flat Heart Bloom", cat:"gifting", price:99, combo:"Set of 4 ₹349", scent:"Rose", desc:"Flat design with rose texture.", img:"flat-heart-bloom.jpg" },
-
   { name:"Baby Themed Mini Candles", cat:"baby", price:149, combo:"Set of 6 ₹599", scent:"Vanilla", desc:"6 shapes — teddy, bottle, pacifier, stroller & footprints.", img:"baby-themed-mini.jpg" },
   { name:"Tiny Steps Footprint Votive", cat:"baby", price:299, combo:"Set of 2 ₹449", scent:"French Lavender", desc:"Blue & pink footprints — symbolic gender-reveal memory.", img:"tiny-steps-footprint.jpg" },
   { name:"Authentic Indian Masala Aroma", cat:"baby", price:199, combo:"", scent:"Cinnamon & Spices", desc:"Topped with real clove, cardamom, cinnamon & pepper.", img:"masala-aroma.jpg" },
   { name:"The Mandala Soul", cat:"baby", price:499, combo:"Set of 2 ₹799", scent:"Lemongrass · Sandalwood", desc:"Decorative tin, reusable as jewelry box.", badge:"Eco", img:"mandala-soul.jpg" },
 ];
 
-/* ═══════════════════════════════════════════
-   TESTIMONIALS DATA
-   ═══════════════════════════════════════════ */
 const testimonials = [
   { name:"Priya Sharma", city:"Delhi", text:"Ordered the Chai Wala Sukoon for my mom's birthday — she cried! The fragrance is so real, jaise fresh chai ban rahi ho. Packaging bhi ekdum premium thi.", rating:5 },
   { name:"Rahul Mehta", city:"Mumbai", text:"Bought 50+ candles for my sister's wedding — every guest asked where we got them from. Deepanshi ji ne personally handle kiya. Highly recommended!", rating:5 },
@@ -1611,14 +957,240 @@ const testimonials = [
   { name:"Sneha Patel", city:"Ahmedabad", text:"The Mandala Soul candle is stunning. The tin is reusable and so beautiful. Customer service was also top-notch.", rating:5 },
   { name:"Rohan Desai", city:"Pune", text:"Bought baby-themed candles for my sister's baby shower. Everyone loved them. Perfect return gifts!", rating:5 },
   { name:"Meera Joshi", city:"Kolkata", text:"The Rose Teddy Bear candle is too cute to burn! But I did, and the fragrance lasted so long. Worth every rupee.", rating:5 },
+  { name:"Aditya Nair", city:"Kochi", text:"Gifted the Celebration Champagne candle to my wife on our anniversary. She was speechless. Pure luxury!", rating:5 },
+  { name:"Isha Gupta", city:"Lucknow", text:"The Rasmalai Treat Candle looks exactly like real rasmalai! Guests couldn't believe it was a candle.", rating:5 },
+  { name:"Karan Malhotra", city:"Chandigarh", text:"Ordered the Whiskey on the Rock for my dad's birthday. The realistic detail is unbelievable. He loved it!", rating:5 },
 ];
 
-/* ═══════════════════════════════════════════
-   LOADER SEQUENCE — CINEMATIC
-   ═══════════════════════════════════════════ */
-document.addEventListener('DOMContentLoaded', () => {
+const faqs = [
+  { q:"How long does a candle burn?", a:"Burn time varies by size: 50-75g candles burn 8-12 hours, 100-150g burn 15-20 hours, 200-350g burn 25-35 hours, and 400g+ jars burn 40+ hours." },
+  { q:"Do you ship internationally?", a:"Yes! We ship worldwide with export-safe packaging. Charges depend on country, weight, and customs policies." },
+  { q:"Can I customize candles for my wedding or event?", a:"Absolutely! We offer full customization — colors, fragrances, packaging, and personal messages. Minimum order for bulk customization starts at 50 pieces." },
+  { q:"What payment methods do you accept?", a:"Currently we accept UPI, bank transfer, and payment via WhatsApp confirmation. Online card payments coming soon." },
+  { q:"How do I place a bulk order?", a:"Simply WhatsApp us at +91 87505 77905 with your requirement (quantity, occasion, customization). We'll send you a quote within 24 hours." },
+  { q:"Are the candles safe for indoor use?", a:"Yes! All our candles use natural soy wax blends with clean, soot-free burn. Just keep away from children, pets, and flammable items, and always burn on a heat-resistant surface." },
+  { q:"What is the ideal burn time per session?", a:"We recommend 1-1.5 hours for small candles, 2-3 hours for medium, 3-4 hours for large, and up to 4 hours for extra-large jars. Always allow the wax to melt evenly on first burn." },
+  { q:"Do you accept returns?", a:"Due to the fragile nature of our handmade products, we do not accept returns. However, if your product arrives damaged, please contact us within 48 hours with photos and we'll make it right." },
+  { q:"How should I store my candle?", a:"Store in a cool, dry place away from direct sunlight. Keep the lid on to preserve the fragrance when not in use." },
+  { q:"Do you offer gift wrapping?", a:"Yes! All our candles come in premium packaging perfect for gifting. For custom gift wrapping or personal messages, just let us know on WhatsApp." },
+];
 
-  // Generate dust particles
+/* ═══════════ RENDER HELPERS ═══════════ */
+function productHTML(p){
+  return `<div class="prod-card">
+    ${p.badge ? `<div class="prod-badge">${p.badge}</div>` : ''}
+    <div class="prod-image">
+      <img src="images/${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'prod-image-placeholder\\'>${p.name.charAt(0)}<small>${p.cat.toUpperCase()}</small></div>';">
+    </div>
+    <div class="prod-body">
+      <h3 class="prod-name">${p.name}</h3>
+      <p class="prod-scent">${p.scent}</p>
+      <p class="prod-desc">${p.desc}</p>
+      <div class="prod-foot">
+        <div><div class="prod-price">₹${p.price}</div>${p.combo?`<div class="prod-combo">${p.combo}</div>`:''}</div>
+        <a class="prod-cta" href="https://wa.me/918750577905?text=Hi%2C%20I%20want%20to%20order%20${encodeURIComponent(p.name)}" target="_blank">Order →</a>
+      </div>
+    </div>
+  </div>`;
+}
+
+function testiHTML(t){
+  return `<div class="testi-card reveal">
+    <div class="testi-quote">"</div>
+    <div class="testi-stars">${'★'.repeat(t.rating)}</div>
+    <p class="testi-text">"${t.text}"</p>
+    <div class="testi-author">
+      <div class="testi-avatar">${t.name.charAt(0)}</div>
+      <div><div class="testi-name">${t.name}</div><div class="testi-city">${t.city}</div></div>
+    </div>
+  </div>`;
+}
+
+function renderProducts(id, cat='all', limit=null){
+  const el = document.getElementById(id);
+  if (!el) return;
+  let list = cat === 'all' ? products : products.filter(p => p.cat === cat);
+  if (limit) list = list.slice(0, limit);
+  el.innerHTML = list.map(productHTML).join('');
+}
+
+function renderTestis(id, limit=null){
+  const el = document.getElementById(id);
+  if (!el) return;
+  let list = limit ? testimonials.slice(0, limit) : testimonials;
+  el.innerHTML = list.map(testiHTML).join('');
+}
+
+/* ═══════════ CATEGORY CARDS (home) ═══════════ */
+const cats = [
+  { n:"01", cat:"sculptural", title:"Sculptural", desc:"Artistic showpieces — 3D flower towers, princess dresses, rose bouquets." },
+  { n:"02", cat:"jar", title:"Jar & Gel", desc:"Elegant gel-wax jars with embedded florals, foils & evil-eye charms." },
+  { n:"03", cat:"gourmet", title:"Gourmet", desc:"Realistic chai, coffee, samosa, rasmalai & dessert-inspired candles." },
+  { n:"04", cat:"festive", title:"Festive", desc:"Lohri bonfire, Christmas tree pillars, snowflakes & celebration glasses." },
+  { n:"05", cat:"gifting", title:"Gifting", desc:"Heart blooms, secret-message candles & curated sets for every occasion." },
+  { n:"06", cat:"baby", title:"Baby & Aura", desc:"Gender-reveal footprints, baby shower minis & healing aura candles." },
+];
+
+document.getElementById('homeCatGrid').innerHTML = cats.map(c => `
+  <a class="cat-card reveal" data-cat-link="${c.cat}">
+    <span class="cat-num">${c.n}</span>
+    <h3>${c.title}</h3>
+    <p>${c.desc}</p>
+    <span class="cat-arrow">Explore <span>→</span></span>
+  </a>
+`).join('');
+
+/* ═══════════ FAQ RENDER ═══════════ */
+document.getElementById('faqWrap').innerHTML = faqs.map(f => `
+  <div class="faq-item">
+    <button class="faq-q">${f.q}<span class="plus">+</span></button>
+    <div class="faq-a"><p>${f.a}</p></div>
+  </div>
+`).join('');
+
+document.getElementById('faqWrap').addEventListener('click', e => {
+  const q = e.target.closest('.faq-q');
+  if (!q) return;
+  q.parentElement.classList.toggle('open');
+});
+
+/* ═══════════ ROUTER — SPA ═══════════ */
+const routes = {
+  '': 'page-home', '/': 'page-home',
+  '/shop': 'page-shop',
+  '/celebration': 'page-celebration',
+  '/reviews': 'page-reviews',
+  '/about': 'page-about',
+  '/founder': 'page-founder',
+  '/custom-orders': 'page-custom-orders',
+  '/contact': 'page-contact',
+  '/faq': 'page-faq',
+  '/shipping': 'page-shipping',
+  '/privacy': 'page-privacy',
+  '/terms': 'page-terms',
+};
+
+function navigate(){
+  const hash = window.location.hash.replace('#', '') || '/';
+  let routeKey = hash;
+  // Handle shop#category
+  let filterCat = null;
+  if (hash.startsWith('/shop/')) {
+    filterCat = hash.split('/')[2];
+    routeKey = '/shop';
+  }
+  const pageId = routes[routeKey] || 'page-404';
+
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('is-active'));
+  const active = document.getElementById(pageId);
+  if (active) {
+    active.classList.add('is-active');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Re-render reveals for new page
+    setTimeout(initReveals, 50);
+  }
+
+  // Nav active state
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + routeKey);
+  });
+
+  // Shop filter
+  if (pageId === 'page-shop') {
+    const cat = filterCat || 'all';
+    document.querySelectorAll('#shopTabs .tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.cat === cat);
+    });
+    renderProducts('shopGrid', cat);
+  }
+
+  // Close mobile menu
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('backdrop').classList.remove('open');
+}
+
+window.addEventListener('hashchange', navigate);
+
+/* ═══════════ CUSTOM EVENTS ═══════════ */
+// Shop tabs
+document.getElementById('shopTabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  document.querySelectorAll('#shopTabs .tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  renderProducts('shopGrid', tab.dataset.cat);
+  if (window.gsap) gsap.from('#shopGrid .prod-card', { y:20, opacity:0, duration:.5, stagger:.04, ease:'power2.out' });
+});
+
+// Category cards link
+document.getElementById('homeCatGrid').addEventListener('click', e => {
+  const c = e.target.closest('[data-cat-link]');
+  if (!c) return;
+  window.location.hash = '#/shop/' + c.dataset.catLink;
+});
+
+/* ═══════════ SEARCH / MENU ═══════════ */
+const searchOverlay = document.getElementById('searchOverlay');
+document.getElementById('searchBtn').addEventListener('click', () => {
+  searchOverlay.classList.add('open');
+  setTimeout(() => document.getElementById('searchInput').focus(), 300);
+});
+document.getElementById('searchClose').addEventListener('click', () => searchOverlay.classList.remove('open'));
+searchOverlay.addEventListener('click', e => { if (e.target === searchOverlay) searchOverlay.classList.remove('open'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') searchOverlay.classList.remove('open'); });
+
+// Mobile menu
+const mobileMenu = document.getElementById('mobileMenu');
+const backdrop = document.getElementById('backdrop');
+document.getElementById('hamburger').addEventListener('click', () => {
+  mobileMenu.classList.add('open'); backdrop.classList.add('open');
+});
+document.getElementById('menuClose').addEventListener('click', () => {
+  mobileMenu.classList.remove('open'); backdrop.classList.remove('open');
+});
+backdrop.addEventListener('click', () => {
+  mobileMenu.classList.remove('open'); backdrop.classList.remove('open');
+});
+
+/* ═══════════ NAV SCROLL ═══════════ */
+window.addEventListener('scroll', () => {
+  document.getElementById('header').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* ═══════════ REVEALS ═══════════ */
+function initReveals(){
+  const els = document.querySelectorAll('.page.is-active .reveal:not(.in)');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(el => io.observe(el));
+}
+
+/* ═══════════ COUNTDOWN ═══════════ */
+function startCountdown(){
+  const end = new Date(); end.setDate(end.getDate() + 2); end.setHours(end.getHours() + 14);
+  setInterval(() => {
+    const now = new Date(); let diff = end - now;
+    if (diff < 0) diff = 0;
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    const pad = v => String(v).padStart(2, '0');
+    const D = document.getElementById('cd-days'); if (!D) return;
+    D.textContent = pad(d);
+    document.getElementById('cd-hours').textContent = pad(h);
+    document.getElementById('cd-mins').textContent = pad(m);
+    document.getElementById('cd-secs').textContent = pad(s);
+  }, 1000);
+}
+
+/* ═══════════ INIT ═══════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  // Loader
   const dust = document.getElementById('dust');
   for (let i = 0; i < 40; i++) {
     const s = document.createElement('span');
@@ -1629,22 +1201,16 @@ document.addEventListener('DOMContentLoaded', () => {
     s.style.transform = `scale(${0.5 + Math.random() * 1.2})`;
     dust.appendChild(s);
   }
-
-  // Generate embers
   const embersC = document.getElementById('embers');
   for (let i = 0; i < 20; i++) {
     const e = document.createElement('span');
     e.style.left = (30 + Math.random() * 40) + '%';
     e.style.bottom = '0';
-    e.dataset.delay = Math.random() * 6;
     e.style.animation = `emberRise ${3 + Math.random() * 4}s ease-out ${Math.random() * 6}s infinite`;
     embersC.appendChild(e);
   }
-
-  // Build brand name letter by letter
   const brandName = document.getElementById('brandName');
-  const text = "DEEP BY SONI";
-  text.split('').forEach((ch, i) => {
+  "DEEP BY SONI".split('').forEach(ch => {
     const span = document.createElement('span');
     span.className = 'l' + (ch === ' ' ? ' sp' : '');
     span.textContent = ch === ' ' ? ' ' : ch;
@@ -1652,234 +1218,62 @@ document.addEventListener('DOMContentLoaded', () => {
     brandName.appendChild(span);
   });
 
-  // Add keyframe styles dynamically
   const style = document.createElement('style');
   style.textContent = `
-    @keyframes dustFloat {
-      0% { opacity: 0; transform: translateY(0) scale(0.5); }
-      50% { opacity: 1; }
-      100% { opacity: 0; transform: translateY(-80px) scale(1.2); }
-    }
-    @keyframes emberRise {
-      0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
-      15% { opacity: 1; }
-      70% { opacity: 0.7; }
-      100% { opacity: 0; transform: translate(${(-40 + Math.random() * 80).toFixed(0)}px, -250px) scale(1.5); }
-    }
-    @keyframes flameFlicker {
-      0%,100% { transform: translateX(-50%) scale(1) rotate(-1deg); }
-      25% { transform: translateX(-50%) scale(1.03) rotate(1deg); }
-      50% { transform: translateX(-50%) scale(0.97) rotate(-0.5deg); }
-      75% { transform: translateX(-50%) scale(1.05) rotate(1.5deg); }
-    }
-    @keyframes raysSpin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    @keyframes smokeRise {
-      0% { opacity: 0; transform: translateX(-50%) translateY(0) scale(0.5); }
-      30% { opacity: 0.5; }
-      100% { opacity: 0; transform: translateX(-50%) translateY(-60px) scale(1.5); }
-    }
+    @keyframes dustFloat{0%{opacity:0;transform:translateY(0) scale(0.5)}50%{opacity:1}100%{opacity:0;transform:translateY(-80px) scale(1.2)}}
+    @keyframes emberRise{0%{opacity:0;transform:translate(0,0) scale(0.5)}15%{opacity:1}70%{opacity:.7}100%{opacity:0;transform:translate(0,-250px) scale(1.5)}}
+    @keyframes flameFlicker{0%,100%{transform:translateX(-50%) scale(1) rotate(-1deg)}25%{transform:translateX(-50%) scale(1.03) rotate(1deg)}50%{transform:translateX(-50%) scale(.97) rotate(-.5deg)}75%{transform:translateX(-50%) scale(1.05) rotate(1.5deg)}}
+    @keyframes raysSpin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+    @keyframes smokeRise{0%{opacity:0;transform:translateX(-50%) translateY(0) scale(.5)}30%{opacity:.5}100%{opacity:0;transform:translateX(-50%) translateY(-60px) scale(1.5)}}
   `;
   document.head.appendChild(style);
 
-  // GSAP CINEMATIC TIMELINE
   const tl = gsap.timeline();
+  tl.to('.dust span', { opacity: i => 0.3 + Math.random() * 0.5, duration: 1.5, stagger: 0.01, ease: 'power2.out' }, 0)
+    .to('#jar', { opacity: 1, y: 0, duration: 1.8, ease: 'power3.out' }, 0.6)
+    .to('#wax', { opacity: 1, duration: 1.2, ease: 'power2.out' }, 1.2)
+    .to('#shine', { opacity: 1, duration: 1.2 }, 1.2)
+    .to('#wick', { height: 16, duration: 0.7, ease: 'power2.out' }, 2)
+    .to('#flash', { opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out' }, 2.6)
+    .to('#flash', { opacity: 0, scale: 1.5, duration: 0.5, ease: 'power2.in' }, 2.9)
+    .to('#flame', { scale: 1, duration: 0.8, ease: 'power2.out' }, 2.7)
+    .add(() => { document.getElementById('flame').style.animation = 'flameFlicker 0.15s ease-in-out infinite alternate'; }, 3.5)
+    .to('#rays', { opacity: 1, duration: 2, ease: 'power2.out' }, 3.2)
+    .add(() => { document.getElementById('rays').style.animation = 'raysSpin 60s linear infinite'; }, 3.2)
+    .to('#glow', { opacity: 1, scale: 1, duration: 2.5, ease: 'power2.out' }, 3.2)
+    .add(() => { document.getElementById('smoke').style.animation = 'smokeRise 3s ease-out infinite'; }, 3.5)
+    .to('#brandName .l', { opacity: 1, y: 0, rotateX: 0, duration: 1, stagger: 0.06, ease: 'power3.out' }, 4)
+    .to('#brandSub', { opacity: 1, duration: 1, ease: 'power2.out' }, 5)
+    .to('#brandLine', { width: '100%', duration: 1.2, ease: 'power2.out' }, 5.2)
+    .to('#bloom', { opacity: 1, scale: 1, duration: 0.6, ease: 'power2.in' }, 6.5)
+    .to('#bloom', { scale: 20, duration: 1, ease: 'power2.in' }, 7)
+    .to('#loader', { opacity: 0, duration: 0.8, ease: 'power2.inOut' }, 7.2)
+    .add(() => {
+      document.getElementById('loader').style.display = 'none';
+      document.body.classList.remove('loading');
+    }, 8)
+    .to('.hero-el', { opacity: 1, y: 0, duration: 1.2, stagger: 0.15, ease: 'power3.out' }, 8)
+    .to('#waFloat', { opacity: 1, duration: 0.8 }, 8.5);
 
-  // Phase 1: Atmosphere builds (0-1.5s)
-  tl.to('.dust span', {
-    opacity: (i) => 0.3 + Math.random() * 0.5,
-    duration: 1.5,
-    stagger: 0.01,
-    ease: 'power2.out'
-  }, 0)
+  gsap.set('.hero-el', { y: 30, opacity: 0 });
 
-  // Phase 2: Candle jar rises from darkness (0.6s)
-  .to('#jar', {
-    opacity: 1,
-    y: 0,
-    duration: 1.8,
-    ease: 'power3.out'
-  }, 0.6)
+  // Data render
+  renderProducts('featuredGrid', 'all', 6);
+  renderProducts('shopGrid', 'all');
+  renderProducts('festiveGrid', 'festive', 6);
+  renderTestis('homeTestiGrid', 6);
+  renderTestis('allTestiGrid');
 
-  // Phase 3: Wax fades in (1.2s)
-  .to('#wax', { opacity: 1, duration: 1.2, ease: 'power2.out' }, 1.2)
-  .to('#shine', { opacity: 1, duration: 1.2 }, 1.2)
+  // Initial route
+  if (!window.location.hash) window.location.hash = '#/';
+  navigate();
 
-  // Phase 4: Wick grows (2s)
-  .to('#wick', { height: 16, duration: 0.7, ease: 'power2.out' }, 2)
+  // Countdown
+  startCountdown();
 
-  // Phase 5: Match-strike flash (2.6s)
-  .to('#flash', { opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out' }, 2.6)
-  .to('#flash', { opacity: 0, scale: 1.5, duration: 0.5, ease: 'power2.in' }, 2.9)
-
-  // Phase 6: Flame ignites (2.7s)
-  .to('#flame', { scale: 1, duration: 0.8, ease: 'power2.out' }, 2.7)
-  .add(() => {
-    document.getElementById('flame').style.animation = 'flameFlicker 0.15s ease-in-out infinite alternate';
-  }, 3.5)
-
-  // Phase 7: Rays and glow bloom (3.2s)
-  .to('#rays', { opacity: 1, duration: 2, ease: 'power2.out' }, 3.2)
-  .add(() => {
-    document.getElementById('rays').style.animation = 'raysSpin 60s linear infinite';
-  }, 3.2)
-  .to('#glow', { opacity: 1, scale: 1, duration: 2.5, ease: 'power2.out' }, 3.2)
-
-  // Phase 8: Smoke curls (3.5s)
-  .add(() => {
-    document.getElementById('smoke').style.animation = 'smokeRise 3s ease-out infinite';
-  }, 3.5)
-
-  // Phase 9: Brand reveal — letters cascade (4s)
-  .to('#brandName .l', {
-    opacity: 1,
-    y: 0,
-    rotateX: 0,
-    duration: 1,
-    stagger: 0.06,
-    ease: 'power3.out'
-  }, 4)
-
-  // Phase 10: Subtitle + line (5s)
-  .to('#brandSub', { opacity: 1, duration: 1, ease: 'power2.out' }, 5)
-  .to('#brandLine', { width: '100%', duration: 1.2, ease: 'power2.out' }, 5.2)
-  .to('#brandLine::after', { opacity: 1, duration: 0.5 }, 6.4)
-
-  // Phase 11: Final light bloom — flash of light covers screen (6.5s)
-  .to('#bloom', { opacity: 1, scale: 1, duration: 0.6, ease: 'power2.in' }, 6.5)
-  .to('#bloom', { scale: 20, duration: 1, ease: 'power2.in' }, 7)
-  .to('#loader', { opacity: 0, duration: 0.8, ease: 'power2.inOut' }, 7.2)
-  .add(() => {
-    document.getElementById('loader').style.display = 'none';
-    document.body.classList.remove('loading');
-  }, 8)
-
-  // Phase 12: Website fades in (7.8s)
-  .to('#header', { opacity: 1, duration: 1, ease: 'power2.out' }, 7.8)
-  .to('.hero-el', {
-    opacity: 1, y: 0, duration: 1.2, stagger: 0.15, ease: 'power3.out'
-  }, 8)
-  .to('#waFloat', { opacity: 1, duration: 0.8 }, 8.5);
+  // Reveals
+  initReveals();
 });
-
-/* ═══════════════════════════════════════════
-   RENDER PRODUCTS
-   ═══════════════════════════════════════════ */
-const grid = document.getElementById('prodGrid');
-
-function renderProducts(cat='all') {
-  const list = cat === 'all' ? products : products.filter(p => p.cat === cat);
-  grid.innerHTML = list.map((p) => `
-    <div class="prod-card">
-      ${p.badge ? `<div class="prod-badge">${p.badge}</div>` : ''}
-      <div class="prod-image">
-        <img src="images/${p.img}" alt="${p.name}" loading="lazy"
-             onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'prod-image-placeholder\\'>${p.name.charAt(0)}<small>${p.cat.toUpperCase()}</small></div>';">
-      </div>
-      <div class="prod-body">
-        <h3 class="prod-name">${p.name}</h3>
-        <p class="prod-scent">${p.scent}</p>
-        <p class="prod-desc">${p.desc}</p>
-        <div class="prod-foot">
-          <div>
-            <div class="prod-price">₹${p.price}</div>
-            ${p.combo ? `<div class="prod-combo">${p.combo}</div>` : ''}
-          </div>
-          <a class="prod-cta" href="https://wa.me/918750577905?text=Hi%2C%20I%20want%20to%20order%20${encodeURIComponent(p.name)}" target="_blank">Order →</a>
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
-renderProducts();
-
-/* Render testimonials */
-const testiGrid = document.getElementById('testiGrid');
-testiGrid.innerHTML = testimonials.map(t => `
-  <div class="testi-card reveal">
-    <div class="testi-quote">"</div>
-    <div class="testi-stars">${'★'.repeat(t.rating)}</div>
-    <p class="testi-text">"${t.text}"</p>
-    <div class="testi-author">
-      <div class="testi-avatar">${t.name.charAt(0)}</div>
-      <div>
-        <div class="testi-name">${t.name}</div>
-        <div class="testi-city">${t.city}</div>
-      </div>
-    </div>
-  </div>
-`).join('');
-
-/* ═══════════════════════════════════════════
-   TABS
-   ═══════════════════════════════════════════ */
-document.querySelectorAll('.tab').forEach(t => {
-  t.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-    t.classList.add('active');
-    renderProducts(t.dataset.cat);
-    gsap.from('#prodGrid .prod-card', { y: 20, opacity: 0, duration: .5, stagger: .04, ease:'power2.out' });
-  });
-});
-
-/* Filter from category card */
-window.filterTo = function(cat) {
-  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-  const tab = document.querySelector(`.tab[data-cat="${cat}"]`);
-  if (tab) tab.classList.add('active');
-  renderProducts(cat);
-};
-
-/* ═══════════════════════════════════════════
-   NAV SCROLL
-   ═══════════════════════════════════════════ */
-window.addEventListener('scroll', () => {
-  document.getElementById('header').classList.toggle('scrolled', window.scrollY > 80);
-});
-
-/* ═══════════════════════════════════════════
-   SEARCH OVERLAY
-   ═══════════════════════════════════════════ */
-const searchOverlay = document.getElementById('searchOverlay');
-document.getElementById('searchBtn').addEventListener('click', () => {
-  searchOverlay.classList.add('open');
-  setTimeout(() => document.getElementById('searchInput').focus(), 300);
-});
-document.getElementById('searchClose').addEventListener('click', () => searchOverlay.classList.remove('open'));
-searchOverlay.addEventListener('click', (e) => { if (e.target === searchOverlay) searchOverlay.classList.remove('open'); });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') searchOverlay.classList.remove('open'); });
-
-/* ═══════════════════════════════════════════
-   MOBILE MENU
-   ═══════════════════════════════════════════ */
-const mobileMenu = document.getElementById('mobileMenu');
-const backdrop = document.getElementById('backdrop');
-document.getElementById('hamburger').addEventListener('click', () => {
-  mobileMenu.classList.add('open');
-  backdrop.classList.add('open');
-});
-function closeMenu() {
-  mobileMenu.classList.remove('open');
-  backdrop.classList.remove('open');
-}
-document.getElementById('menuClose').addEventListener('click', closeMenu);
-backdrop.addEventListener('click', closeMenu);
-mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-
-/* ═══════════════════════════════════════════
-   SCROLL REVEALS
-   ═══════════════════════════════════════════ */
-gsap.registerPlugin(ScrollTrigger);
-gsap.utils.toArray('.reveal').forEach(el => {
-  gsap.from(el, {
-    scrollTrigger: { trigger: el, start: 'top 90%' },
-    opacity: 0, y: 60, duration: 1.1, ease: 'power3.out'
-  });
-});
-
-gsap.set('.hero-el', { y: 30, opacity: 0 });
 </script>
 </body>
 </html>
