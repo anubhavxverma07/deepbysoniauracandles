@@ -14,217 +14,390 @@
   --bg:#faf6f0;--bg-alt:#f5ede0;--ink:#2a2118;--ink-soft:#5c5142;
   --gold:#a67c00;--gold-light:#c9a227;--gold-bright:#e8c675;
   --gold-soft:#b89968;--line:rgba(166,124,0,.18);
+  --red:#c0392b;--green:#27ae60;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 body.loading{overflow:hidden}
+body.no-scroll{overflow:hidden}
 a{color:inherit}
 img{max-width:100%;display:block}
 
-/* ══════════ LOADER ══════════ */
+/* ═══ LOADER ═══ */
 #loader{position:fixed;inset:0;z-index:99999;background:radial-gradient(ellipse at 50% 60%,#2a1608 0%,#1a0f08 40%,#060302 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;overflow:hidden;transition:opacity 1.4s cubic-bezier(.7,0,.3,1)}
 #loader::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 55%,transparent 30%,rgba(0,0,0,.6) 80%,rgba(0,0,0,.9) 100%);z-index:3}
 .dust{position:absolute;inset:0;pointer-events:none;z-index:1}
-.dust span{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--gold-bright);box-shadow:0 0 6px var(--gold-bright),0 0 12px rgba(232,198,117,.6);opacity:0}
+.dust span{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--gold-bright);box-shadow:0 0 6px var(--gold-bright);opacity:0}
 .embers{position:absolute;left:50%;top:42%;width:200px;height:400px;transform:translateX(-50%);pointer-events:none;z-index:5}
-.embers span{position:absolute;width:3px;height:3px;border-radius:50%;background:#ff9a1a;box-shadow:0 0 8px #ff9a1a,0 0 16px rgba(255,154,26,.5);opacity:0}
+.embers span{position:absolute;width:3px;height:3px;border-radius:50%;background:#ff9a1a;box-shadow:0 0 8px #ff9a1a;opacity:0}
 .loader-scene{position:relative;width:260px;height:380px;display:flex;align-items:flex-end;justify-content:center;z-index:6}
 .rays{position:absolute;top:5%;left:50%;transform:translateX(-50%);width:800px;height:800px;pointer-events:none;z-index:2;opacity:0}
 .rays::before{content:'';position:absolute;inset:0;background:conic-gradient(from 0deg,transparent 0deg,rgba(255,200,110,.06) 15deg,transparent 30deg,transparent 60deg,rgba(255,200,110,.05) 75deg,transparent 90deg,transparent 120deg,rgba(255,200,110,.06) 135deg,transparent 150deg,transparent 180deg,rgba(255,200,110,.05) 195deg,transparent 210deg,transparent 240deg,rgba(255,200,110,.06) 255deg,transparent 270deg,transparent 300deg,rgba(255,200,110,.05) 315deg,transparent 330deg,transparent 360deg);border-radius:50%}
 .glow{position:absolute;top:30%;left:50%;transform:translate(-50%,-50%) scale(0.1);width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(255,210,120,.45) 0%,rgba(255,170,60,.22) 18%,rgba(255,120,30,.08) 38%,transparent 68%);opacity:0;pointer-events:none;filter:blur(30px);z-index:1}
 .jar{position:relative;width:150px;height:220px;opacity:0;transform:translateY(60px);z-index:8;filter:drop-shadow(0 30px 60px rgba(0,0,0,.8))}
-.jar-glass{position:absolute;inset:0;border-radius:14px 14px 10px 10px;background:linear-gradient(90deg,rgba(255,240,210,.10) 0%,rgba(255,250,235,.03) 15%,rgba(255,250,235,.08) 50%,rgba(255,250,235,.03) 85%,rgba(255,240,210,.10) 100%),linear-gradient(180deg,rgba(255,250,235,.14) 0%,rgba(255,245,225,.06) 40%,rgba(240,220,180,.10) 100%);border:1px solid rgba(255,240,210,.28);box-shadow:inset 0 0 40px rgba(255,220,160,.12),inset -12px 0 30px rgba(0,0,0,.35),inset 12px 0 25px rgba(255,240,220,.10),0 20px 60px rgba(0,0,0,.7);overflow:hidden}
+.jar-glass{position:absolute;inset:0;border-radius:14px 14px 10px 10px;background:linear-gradient(90deg,rgba(255,240,210,.10) 0%,rgba(255,250,235,.03) 15%,rgba(255,250,235,.08) 50%,rgba(255,250,235,.03) 85%,rgba(255,240,210,.10) 100%),linear-gradient(180deg,rgba(255,250,235,.14) 0%,rgba(255,245,225,.06) 40%,rgba(240,220,180,.10) 100%);border:1px solid rgba(255,240,210,.28);box-shadow:inset 0 0 40px rgba(255,220,160,.12),inset -12px 0 30px rgba(0,0,0,.35),0 20px 60px rgba(0,0,0,.7);overflow:hidden}
 .jar-glass::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;height:14px;background:linear-gradient(180deg,#c9a227 0%,#e8c675 30%,#a67c00 70%,#6b5000 100%);border-radius:14px 14px 2px 2px;box-shadow:inset 0 -3px 6px rgba(0,0,0,.3),0 0 10px rgba(232,198,117,.4)}
-.wax{position:absolute;bottom:6px;left:8px;right:8px;height:175px;border-radius:6px;background:linear-gradient(180deg,#fdf6e3 0%,#f4e6c8 20%,#e8d3a8 55%,#d4bb8a 85%,#c2a56b 100%);box-shadow:inset -8px 0 20px rgba(160,120,60,.25),inset 8px 0 15px rgba(255,255,255,.4),inset 0 -20px 30px rgba(140,100,50,.15);opacity:0}
+.wax{position:absolute;bottom:6px;left:8px;right:8px;height:175px;border-radius:6px;background:linear-gradient(180deg,#fdf6e3 0%,#f4e6c8 20%,#e8d3a8 55%,#d4bb8a 85%,#c2a56b 100%);box-shadow:inset -8px 0 20px rgba(160,120,60,.25),inset 8px 0 15px rgba(255,255,255,.4);opacity:0}
 .wax::before{content:'';position:absolute;top:-5px;left:0;right:0;height:14px;background:radial-gradient(ellipse at 50% 50%,#fdf6e3 0%,#f4e6c8 55%,#e8d3a8 80%,transparent 100%);border-radius:50%}
 .jar-shine{position:absolute;top:20px;left:15px;width:20px;height:130px;background:linear-gradient(180deg,rgba(255,255,255,.35) 0%,rgba(255,255,255,.15) 30%,transparent 70%);border-radius:12px;filter:blur(2px);z-index:9;opacity:0;pointer-events:none}
 .wick{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:2px;height:0;background:linear-gradient(180deg,#2a1a0a 0%,#1a0f08 100%);border-radius:1px;z-index:10}
 .flame{position:absolute;top:-80px;left:50%;transform:translateX(-50%) scale(0);width:32px;height:78px;transform-origin:bottom center;z-index:11}
-.flame-outer{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 78%,rgba(255,220,140,.9) 0%,rgba(255,180,60,.95) 22%,rgba(255,130,20,.85) 48%,rgba(255,80,0,.55) 72%,rgba(200,40,0,.2) 88%,transparent 100%);border-radius:50% 50% 45% 45% / 72% 72% 28% 28%;filter:blur(3px)}
+.flame-outer{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 78%,rgba(255,220,140,.9) 0%,rgba(255,180,60,.95) 22%,rgba(255,130,20,.85) 48%,rgba(255,80,0,.55) 72%,transparent 100%);border-radius:50% 50% 45% 45% / 72% 72% 28% 28%;filter:blur(3px)}
 .flame-mid{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:20px;height:52px;background:radial-gradient(ellipse at 50% 80%,rgba(255,255,220,.95) 0%,rgba(255,230,140,.9) 40%,rgba(255,180,60,.6) 75%,transparent 100%);border-radius:50% 50% 45% 45% / 70% 70% 30% 30%;filter:blur(1.5px)}
-.flame-inner{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:10px;height:28px;background:radial-gradient(ellipse at 50% 75%,#ffffff 0%,#fff8d0 45%,#ffe090 75%,transparent 100%);border-radius:50% 50% 40% 40% / 60% 60% 40% 40%;filter:blur(1px)}
+.flame-inner{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:10px;height:28px;background:radial-gradient(ellipse at 50% 75%,#fff 0%,#fff8d0 45%,#ffe090 75%,transparent 100%);border-radius:50% 50% 40% 40% / 60% 60% 40% 40%;filter:blur(1px)}
 .flame-base{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:14px;height:12px;background:radial-gradient(ellipse at 50% 30%,rgba(140,200,255,.8) 0%,rgba(80,150,255,.5) 50%,transparent 100%);border-radius:50%;filter:blur(2px)}
 .flash{position:absolute;top:30%;left:50%;transform:translate(-50%,-50%) scale(0);width:300px;height:300px;background:radial-gradient(circle,rgba(255,255,255,.9) 0%,rgba(255,220,140,.4) 30%,transparent 70%);border-radius:50%;opacity:0;pointer-events:none;z-index:20;filter:blur(10px)}
 .smoke{position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:30px;height:60px;opacity:0;z-index:12;pointer-events:none}
 .smoke::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:4px;height:40px;background:linear-gradient(180deg,transparent,rgba(200,200,200,.35),transparent);border-radius:50%;filter:blur(4px)}
 .loader-brand{position:relative;z-index:15;text-align:center;margin-top:40px}
 .loader-brand h1{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,5vw,42px);font-weight:400;letter-spacing:10px;text-transform:uppercase;white-space:nowrap;display:inline-block}
-.loader-brand h1 .l{display:inline-block;opacity:0;transform:translateY(30px) rotateX(-60deg);background:linear-gradient(180deg,#fff3d0 0%,#e8c675 40%,#a67c00 70%,#e8c675 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 25px rgba(232,198,117,.4)}
+.loader-brand h1 .l{display:inline-block;opacity:0;transform:translateY(30px) rotateX(-60deg);background:linear-gradient(180deg,#fff3d0 0%,#e8c675 40%,#a67c00 70%,#e8c675 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .loader-brand h1 .l.sp{width:12px}
 .loader-brand h1 .l.by{color:var(--gold-bright);-webkit-text-fill-color:var(--gold-bright);font-style:italic;font-size:.7em;letter-spacing:6px}
-.loader-brand-sub{font-size:10px;letter-spacing:12px;color:rgba(232,198,117,.75);margin-top:18px;text-transform:uppercase;font-weight:400;opacity:0}
-.loader-line{width:0;height:1px;margin:26px auto 0;background:linear-gradient(90deg,transparent,#e8c675,transparent);position:relative}
+.loader-brand-sub{font-size:10px;letter-spacing:12px;color:rgba(232,198,117,.75);margin-top:18px;text-transform:uppercase;opacity:0}
+.loader-line{width:0;height:1px;margin:26px auto 0;background:linear-gradient(90deg,transparent,#e8c675,transparent)}
 .light-bloom{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%) scale(0);width:100px;height:100px;background:radial-gradient(circle,#fff8e0 0%,#ffdd77 20%,#ff9a1a 40%,transparent 70%);border-radius:50%;opacity:0;pointer-events:none;z-index:50;filter:blur(20px)}
 
-/* ══════════ HEADER ══════════ */
-header{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 5vw;display:flex;align-items:center;gap:24px;transition:all .5s cubic-bezier(.2,.7,.2,1);background:rgba(250,246,240,.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid transparent}
-header.scrolled{background:rgba(250,246,240,.97);padding:10px 5vw;border-bottom:1px solid var(--line);box-shadow:0 4px 30px rgba(42,33,24,.05)}
+/* ═══ TOP BANNER ═══ */
+.top-banner{background:linear-gradient(90deg,var(--ink),#3a2410,var(--ink));color:#f5e6c8;text-align:center;padding:10px 6vw;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:600;position:relative;z-index:1001;display:none}
+.top-banner.show{display:block}
+.top-banner span{color:var(--gold-bright)}
+.top-banner .banner-close{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#f5e6c8;cursor:pointer;font-size:16px;padding:4px 8px;opacity:.7}
+.top-banner .banner-close:hover{opacity:1}
+
+/* ═══ HEADER ═══ */
+header{position:fixed;top:0;left:0;right:0;z-index:1000;padding:14px 5vw;display:flex;align-items:center;gap:20px;transition:all .4s ease;background:rgba(250,246,240,.95);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid transparent}
+header.with-banner{top:38px}
+header.scrolled{padding:10px 5vw;border-bottom:1px solid var(--line);box-shadow:0 4px 30px rgba(42,33,24,.06)}
 .header-left{flex-shrink:0}
-.logo-link{display:flex;align-items:center;gap:14px;text-decoration:none}
-.logo-img{height:52px;width:auto;object-fit:contain;transition:all .4s ease}
-header.scrolled .logo-img{height:44px}
-.logo-text{font-family:'Cormorant Garamond',serif;font-size:20px;letter-spacing:5px;text-transform:uppercase;color:var(--ink);font-weight:700;line-height:1;white-space:nowrap}
+.logo-link{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-img{height:48px;width:auto;object-fit:contain;transition:height .3s}
+header.scrolled .logo-img{height:40px}
+.logo-text{font-family:'Cormorant Garamond',serif;font-size:17px;letter-spacing:4px;text-transform:uppercase;color:var(--ink);font-weight:700;line-height:1;white-space:nowrap}
 .logo-text span{color:var(--gold)}
-.logo-text small{display:block;font-size:8px;letter-spacing:4px;color:var(--gold-soft);font-weight:500;margin-top:4px;font-family:'Inter',sans-serif}
+.logo-text small{display:block;font-size:7px;letter-spacing:3px;color:var(--gold-soft);font-weight:600;margin-top:3px;font-family:'Inter',sans-serif}
 .header-nav{flex:1;display:flex;justify-content:center}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{color:var(--ink);text-decoration:none;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:600;position:relative;padding:6px 0;transition:color .3s;cursor:pointer}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--ink);text-decoration:none;font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;position:relative;padding:6px 0;transition:color .3s;cursor:pointer}
 .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .4s cubic-bezier(.2,.7,.2,1)}
 .nav-links a:hover,.nav-links a.active{color:var(--gold)}
 .nav-links a:hover::after,.nav-links a.active::after{width:100%}
-.header-right{display:flex;align-items:center;gap:16px;flex-shrink:0}
-.icon-btn{background:none;border:none;cursor:pointer;color:var(--ink);padding:8px;position:relative;transition:color .3s,transform .3s;display:flex;align-items:center;justify-content:center}
-.icon-btn:hover{color:var(--gold);transform:scale(1.1)}
-.icon-btn svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.6}
-.cart-count{position:absolute;top:2px;right:2px;background:var(--gold);color:white;font-size:9px;font-weight:700;min-width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;color:var(--ink)}
-.hamburger svg{width:24px;height:24px;stroke:currentColor;stroke-width:1.5}
+.header-right{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto}
+.icon-btn{background:none;border:none;cursor:pointer;color:var(--ink);padding:9px;position:relative;transition:color .3s,transform .3s;display:flex;align-items:center;justify-content:center;border-radius:50%}
+.icon-btn:hover{color:var(--gold);transform:scale(1.08);background:rgba(166,124,0,.06)}
+.icon-btn svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.7}
+.cart-count{position:absolute;top:1px;right:1px;background:var(--red);color:#fff;font-size:9px;font-weight:700;min-width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid var(--bg);display:none}
+.cart-count.show{display:flex}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:9px;color:var(--ink)}
+.hamburger svg{width:22px;height:22px;stroke:currentColor;stroke-width:1.8;fill:none}
 
-/* Search overlay */
-.search-overlay{position:fixed;inset:0;z-index:2000;background:rgba(20,12,6,.8);backdrop-filter:blur(20px);display:flex;align-items:flex-start;justify-content:center;padding-top:20vh;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility .4s ease}
+/* ═══ SEARCH OVERLAY ═══ */
+.search-overlay{position:fixed;inset:0;z-index:2000;background:rgba(20,12,6,.85);backdrop-filter:blur(20px);display:flex;align-items:flex-start;justify-content:center;padding-top:15vh;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
 .search-overlay.open{opacity:1;visibility:visible}
 .search-box{width:90%;max-width:640px}
-.search-box input{width:100%;background:transparent;border:none;border-bottom:2px solid var(--gold);color:#f5e6c8;font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;padding:16px 0;outline:none;letter-spacing:1px}
-.search-box input::placeholder{color:rgba(245,230,200,.4);font-style:italic}
-.search-hint{color:rgba(245,230,200,.5);font-size:11px;letter-spacing:3px;text-transform:uppercase;margin-top:20px}
-.search-close{position:absolute;top:30px;right:5vw;background:none;border:none;cursor:pointer;color:rgba(245,230,200,.7);font-size:30px;padding:10px;line-height:1}
+.search-box input{width:100%;background:transparent;border:none;border-bottom:2px solid var(--gold);color:#f5e6c8;font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;padding:16px 0;outline:none;letter-spacing:1px}
+.search-box input::placeholder{color:rgba(245,230,200,.35);font-style:italic}
+.search-hint{color:rgba(245,230,200,.45);font-size:10px;letter-spacing:3px;text-transform:uppercase;margin-top:16px}
+.search-results{margin-top:30px;max-height:55vh;overflow-y:auto}
+.search-result{display:flex;align-items:center;gap:16px;padding:14px 12px;border-radius:8px;cursor:pointer;transition:background .2s}
+.search-result:hover{background:rgba(232,198,117,.1)}
+.search-result-img{width:52px;height:52px;border-radius:6px;background:linear-gradient(160deg,#f5ede0,#ede0c8);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);overflow:hidden}
+.search-result-img img{width:100%;height:100%;object-fit:cover}
+.search-result-info{flex:1}
+.search-result-name{color:#f5e6c8;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500}
+.search-result-price{color:var(--gold-bright);font-size:13px;margin-top:2px}
+.search-empty{color:rgba(245,230,200,.5);text-align:center;padding:30px;font-style:italic}
+.search-close{position:absolute;top:24px;right:5vw;background:none;border:none;cursor:pointer;color:rgba(245,230,200,.7);font-size:30px;padding:10px;line-height:1}
 
-/* Mobile menu */
-.mobile-menu{position:fixed;top:0;right:0;bottom:0;width:84%;max-width:380px;background:var(--bg);z-index:1500;transform:translateX(100%);transition:transform .5s cubic-bezier(.2,.7,.2,1);padding:90px 40px 40px;display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.15);overflow-y:auto}
+/* ═══ MOBILE MENU ═══ */
+.mobile-menu{position:fixed;top:0;right:0;bottom:0;width:84%;max-width:360px;background:var(--bg);z-index:1500;transform:translateX(100%);transition:transform .45s cubic-bezier(.2,.7,.2,1);padding:80px 32px 32px;display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.2);overflow-y:auto}
 .mobile-menu.open{transform:translateX(0)}
-.mobile-menu-close{position:absolute;top:24px;right:24px;background:none;border:none;cursor:pointer;color:var(--ink);font-size:28px;line-height:1}
+.mobile-menu-close{position:absolute;top:22px;right:22px;background:none;border:none;cursor:pointer;color:var(--ink);font-size:26px;line-height:1;padding:6px}
 .mobile-menu ul{list-style:none}
-.mobile-menu ul li{padding:18px 0;border-bottom:1px solid var(--line)}
-.mobile-menu ul a{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--ink);text-decoration:none;letter-spacing:2px;display:flex;justify-content:space-between;align-items:center;transition:color .3s,padding-left .3s;cursor:pointer}
-.mobile-menu ul a:hover{color:var(--gold);padding-left:10px}
-.mobile-menu ul a::after{content:'→';color:var(--gold);font-size:18px}
-.mobile-menu-footer{margin-top:auto;padding-top:30px;border-top:1px solid var(--line)}
-.mobile-menu-footer p{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-soft);margin-bottom:12px}
-.mobile-menu-footer a{display:block;color:var(--ink-soft);text-decoration:none;font-size:14px;padding:6px 0;transition:color .3s}
+.mobile-menu ul li{padding:16px 0;border-bottom:1px solid var(--line)}
+.mobile-menu ul a{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--ink);text-decoration:none;letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;transition:color .3s,padding-left .3s;cursor:pointer;font-weight:500}
+.mobile-menu ul a:hover,.mobile-menu ul a.active{color:var(--gold);padding-left:8px}
+.mobile-menu ul a::after{content:'→';color:var(--gold);font-size:16px}
+.mobile-menu-footer{margin-top:auto;padding-top:24px;border-top:1px solid var(--line)}
+.mobile-menu-footer p{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-soft);margin-bottom:10px;font-weight:600}
+.mobile-menu-footer a{display:block;color:var(--ink-soft);text-decoration:none;font-size:13px;padding:5px 0;transition:color .3s}
 .mobile-menu-footer a:hover{color:var(--gold)}
-.overlay-backdrop{position:fixed;inset:0;background:rgba(20,12,6,.5);z-index:1400;opacity:0;visibility:hidden;transition:all .4s ease}
-.overlay-backdrop.open{opacity:1;visibility:visible}
 
-/* ══════════ PAGE ROUTING ══════════ */
+/* ═══ CART DRAWER ═══ */
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:92%;max-width:440px;background:var(--bg);z-index:1600;transform:translateX(100%);transition:transform .45s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.2)}
+.cart-drawer.open{transform:translateX(0)}
+.cart-header{padding:24px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.cart-header h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;letter-spacing:1px}
+.cart-close{background:none;border:none;cursor:pointer;font-size:24px;color:var(--ink);padding:4px;line-height:1}
+.cart-body{flex:1;overflow-y:auto;padding:20px 26px}
+.cart-empty{text-align:center;padding:60px 20px;color:var(--ink-soft)}
+.cart-empty-icon{font-size:56px;opacity:.4;margin-bottom:16px}
+.cart-empty p{font-family:'Cormorant Garamond',serif;font-size:20px;margin-bottom:8px;color:var(--ink)}
+.cart-empty small{font-size:12px;letter-spacing:1px}
+.cart-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);position:relative}
+.cart-item-img{width:74px;height:74px;border-radius:6px;background:linear-gradient(160deg,#f5ede0,#ede0c8);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold);overflow:hidden}
+.cart-item-img img{width:100%;height:100%;object-fit:cover}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.25;padding-right:24px}
+.cart-item-price{font-size:13px;color:var(--gold);font-weight:600;margin-bottom:10px}
+.cart-item-qty{display:flex;align-items:center;gap:10px}
+.qty-btn{width:26px;height:26px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:14px;color:var(--ink);border-radius:4px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.qty-btn:hover{border-color:var(--gold);color:var(--gold)}
+.qty-val{font-size:14px;font-weight:600;min-width:20px;text-align:center}
+.cart-item-remove{position:absolute;top:16px;right:0;background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:16px;padding:4px;opacity:.6;transition:opacity .2s}
+.cart-item-remove:hover{opacity:1;color:var(--red)}
+.cart-footer{padding:20px 26px 26px;border-top:1px solid var(--line);flex-shrink:0;background:var(--bg-alt)}
+.cart-coupon{display:flex;gap:8px;margin-bottom:14px}
+.cart-coupon input{flex:1;padding:11px 14px;border:1px solid var(--line);background:#fff;font-family:'Inter',sans-serif;font-size:12px;color:var(--ink);outline:none;text-transform:uppercase;letter-spacing:1px}
+.cart-coupon input:focus{border-color:var(--gold)}
+.cart-coupon button{padding:11px 18px;background:var(--ink);color:var(--bg);border:none;cursor:pointer;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;font-family:'Inter',sans-serif}
+.cart-coupon button:hover{background:var(--gold)}
+.coupon-msg{font-size:11px;letter-spacing:1px;margin-bottom:14px;font-weight:600}
+.coupon-msg.success{color:var(--green)}
+.coupon-msg.error{color:var(--red)}
+.cart-summary{margin-bottom:16px}
+.cart-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:var(--ink-soft)}
+.cart-row.discount{color:var(--green)}
+.cart-row.total{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--ink);padding-top:12px;border-top:1px solid var(--line);margin-top:6px}
+.cart-row.total span:last-child{color:var(--gold)}
+.cart-cta{width:100%;padding:16px;background:var(--gold);color:#fff;border:none;cursor:pointer;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:700;font-family:'Inter',sans-serif;transition:all .3s}
+.cart-cta:hover{background:var(--ink)}
+.cart-shipping-note{text-align:center;font-size:11px;color:var(--ink-soft);margin-top:12px;letter-spacing:.5px}
+.cart-shipping-note strong{color:var(--gold)}
+
+/* ═══ POPUP OFFER ═══ */
+.popup-offer{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(200%);z-index:1800;background:#fff;border:2px solid var(--gold);border-radius:14px;padding:24px 26px;max-width:420px;width:calc(100% - 32px);box-shadow:0 25px 70px rgba(0,0,0,.25);transition:transform .6s cubic-bezier(.2,.7,.2,1);overflow:hidden}
+.popup-offer.show{transform:translateX(-50%) translateY(0)}
+.popup-offer::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold-bright),var(--gold))}
+.popup-close{position:absolute;top:10px;right:14px;background:none;border:none;cursor:pointer;font-size:18px;color:var(--ink-soft);padding:4px;line-height:1}
+.popup-offer h4{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:8px;color:var(--ink);padding-right:24px}
+.popup-offer p{font-size:13px;color:var(--ink-soft);line-height:1.6;margin-bottom:16px}
+.popup-offer .popup-cta{display:inline-block;padding:11px 22px;background:var(--gold);color:#fff;text-decoration:none;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;border:none;cursor:pointer;font-family:'Inter',sans-serif}
+.popup-offer .popup-cta:hover{background:var(--ink)}
+
+/* ═══ PAGE ROUTING ═══ */
 .page{display:none}
-.page.is-active{display:block;animation:pageIn .6s cubic-bezier(.2,.7,.2,1) both}
-@keyframes pageIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.page.is-active{display:block;animation:pageIn .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
-/* ══════════ HERO ══════════ */
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:160px 6vw 100px;position:relative;overflow:hidden;background:var(--bg)}
+/* ═══ HERO ═══ */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:150px 6vw 100px;position:relative;overflow:hidden;background:var(--bg)}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(255,200,120,.20) 0%,transparent 42%),radial-gradient(circle at 12% 88%,rgba(201,162,39,.10) 0%,transparent 38%),radial-gradient(circle at 88% 12%,rgba(166,124,0,.08) 0%,transparent 38%);z-index:0}
-.hero-tag{font-size:11px;letter-spacing:9px;color:var(--gold);text-transform:uppercase;margin-bottom:38px;font-weight:600;position:relative;display:inline-flex;align-items:center;gap:16px}
-.hero-tag::before,.hero-tag::after{content:'';width:40px;height:1px;background:var(--gold)}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(56px,11vw,160px);font-weight:300;line-height:.92;letter-spacing:-1px;color:var(--ink);position:relative;max-width:1200px}
+.hero-tag{font-size:10.5px;letter-spacing:8px;color:var(--gold);text-transform:uppercase;margin-bottom:34px;font-weight:600;position:relative;display:inline-flex;align-items:center;gap:14px}
+.hero-tag::before,.hero-tag::after{content:'';width:34px;height:1px;background:var(--gold)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,10vw,150px);font-weight:300;line-height:.92;letter-spacing:-1px;color:var(--ink);position:relative;max-width:1200px}
 .hero h1 em{font-style:italic;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-light) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:400}
-.hero-sub{max-width:620px;margin:44px auto 0;font-size:15.5px;line-height:1.9;color:var(--ink-soft);font-weight:300;position:relative}
-.hero-cta{margin-top:58px;display:flex;gap:22px;justify-content:center;flex-wrap:wrap;position:relative}
-.btn{padding:17px 44px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-size:11px;letter-spacing:3.5px;text-transform:uppercase;font-weight:700;text-decoration:none;cursor:pointer;transition:all .4s ease;position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;font-family:'Inter',sans-serif}
-.btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;transition:transform .4s}
+.hero-sub{max-width:600px;margin:40px auto 0;font-size:15px;line-height:1.9;color:var(--ink-soft);font-weight:300;position:relative}
+.hero-cta{margin-top:50px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap;position:relative}
+.btn{padding:16px 40px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-size:10.5px;letter-spacing:3px;text-transform:uppercase;font-weight:700;text-decoration:none;cursor:pointer;transition:all .35s ease;position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;font-family:'Inter',sans-serif}
+.btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.2;transition:transform .35s}
 .btn:hover svg{transform:translateX(4px)}
-.btn::before{content:'';position:absolute;inset:0;background:var(--gold);transform:translateY(101%);transition:transform .4s cubic-bezier(.2,.7,.2,1);z-index:-1}
-.btn:hover{color:var(--bg)}
+.btn::before{content:'';position:absolute;inset:0;background:var(--gold);transform:translateY(101%);transition:transform .35s cubic-bezier(.2,.7,.2,1);z-index:-1}
+.btn:hover{color:#fff}
 .btn:hover::before{transform:translateY(0)}
-.btn-solid{background:var(--gold);color:var(--bg)}
+.btn-solid{background:var(--gold);color:#fff}
 .btn-solid::before{display:none}
-.btn-solid:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
-.scroll-hint{position:absolute;bottom:44px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;font-weight:600}
-.scroll-hint::after{content:'';display:block;width:1px;height:46px;margin:14px auto 0;background:linear-gradient(180deg,var(--gold),transparent);animation:scrollLine 2.2s ease-in-out infinite}
+.btn-solid:hover{background:var(--ink);border-color:var(--ink)}
+.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);font-size:9.5px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;font-weight:700}
+.scroll-hint::after{content:'';display:block;width:1px;height:42px;margin:12px auto 0;background:linear-gradient(180deg,var(--gold),transparent);animation:scrollLine 2.2s ease-in-out infinite}
 @keyframes scrollLine{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.3);opacity:.3}}
 
-/* ══════════ PAGE HERO (inner pages) ══════════ */
-.page-hero{padding:180px 6vw 70px;text-align:center;background:var(--bg);position:relative;border-bottom:1px solid var(--line)}
+/* ═══ CANDLE PEEK ═══ */
+.candle-peek{position:fixed;bottom:0;z-index:50;width:140px;pointer-events:none;transition:all 1s cubic-bezier(.2,.7,.2,1);opacity:0}
+.candle-peek.left{left:-160px}
+.candle-peek.right{right:-160px}
+.candle-peek.show{opacity:1}
+.candle-peek.left.show{left:10px}
+.candle-peek.right.show{right:10px}
+.candle-peek img{width:100%;height:auto;filter:drop-shadow(0 10px 30px rgba(0,0,0,.25))}
+.candle-peek .peek-bubble{position:absolute;background:#fff;border:1px solid var(--line);padding:8px 14px;border-radius:20px;font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:var(--ink);white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.candle-peek.left .peek-bubble{top:-10px;left:100%;margin-left:10px}
+.candle-peek.right .peek-bubble{top:-10px;right:100%;margin-right:10px}
+@media (max-width:860px){.candle-peek{width:100px}.candle-peek .peek-bubble{font-size:12px;padding:6px 10px}}
+
+/* ═══ PAGE HERO ═══ */
+.page-hero{padding:170px 6vw 60px;text-align:center;background:var(--bg);position:relative;border-bottom:1px solid var(--line)}
 .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(255,200,120,.14) 0%,transparent 50%);pointer-events:none}
-.page-hero .kicker{font-size:11px;letter-spacing:9px;color:var(--gold);text-transform:uppercase;margin-bottom:22px;font-weight:600;display:inline-flex;align-items:center;gap:16px;position:relative}
-.page-hero .kicker::before,.page-hero .kicker::after{content:'';width:30px;height:1px;background:var(--gold)}
-.page-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,7vw,96px);font-weight:300;line-height:1.05;letter-spacing:1px;color:var(--ink);position:relative}
+.page-hero .kicker{font-size:10.5px;letter-spacing:8px;color:var(--gold);text-transform:uppercase;margin-bottom:20px;font-weight:600;display:inline-flex;align-items:center;gap:14px;position:relative}
+.page-hero .kicker::before,.page-hero .kicker::after{content:'';width:26px;height:1px;background:var(--gold)}
+.page-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,6.5vw,88px);font-weight:300;line-height:1.05;letter-spacing:1px;color:var(--ink);position:relative}
 .page-hero h1 em{font-style:italic;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:400}
-.page-hero p{font-size:14.5px;color:var(--ink-soft);margin-top:20px;font-weight:300;max-width:560px;margin-left:auto;margin-right:auto;position:relative;line-height:1.8}
+.page-hero p{font-size:14px;color:var(--ink-soft);margin-top:18px;font-weight:300;max-width:540px;margin-left:auto;margin-right:auto;position:relative;line-height:1.8}
 
-/* ══════════ TRUST BAR ══════════ */
-.trust-bar{background:var(--ink);color:var(--bg);padding:40px 6vw;border-top:1px solid rgba(232,198,117,.2);border-bottom:1px solid rgba(232,198,117,.2)}
-.trust-grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:30px}
-.trust-item{text-align:center;padding:12px;display:flex;flex-direction:column;align-items:center;gap:12px}
-.trust-item svg{width:26px;height:26px;stroke:var(--gold-bright);fill:none;stroke-width:1.4}
-.trust-item p{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(245,230,200,.9);font-weight:500}
+/* ═══ TRUST BAR ═══ */
+.trust-bar{background:var(--ink);color:var(--bg);padding:36px 6vw}
+.trust-grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:26px}
+.trust-item{text-align:center;padding:10px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.trust-item svg{width:24px;height:24px;stroke:var(--gold-bright);fill:none;stroke-width:1.4}
+.trust-item p{font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(245,230,200,.9);font-weight:600}
 
-/* ══════════ SECTIONS ══════════ */
-section{padding:110px 6vw;position:relative}
-.section-head{text-align:center;margin-bottom:70px}
-.section-head .kicker{font-size:11px;letter-spacing:9px;color:var(--gold);text-transform:uppercase;margin-bottom:22px;font-weight:600;display:inline-flex;align-items:center;gap:16px}
-.section-head .kicker::before,.section-head .kicker::after{content:'';width:30px;height:1px;background:var(--gold)}
-.section-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,64px);font-weight:300;color:var(--ink);letter-spacing:1px;line-height:1.08}
+/* ═══ SECTIONS ═══ */
+section{padding:100px 6vw;position:relative}
+.section-head{text-align:center;margin-bottom:60px}
+.section-head .kicker{font-size:10.5px;letter-spacing:8px;color:var(--gold);text-transform:uppercase;margin-bottom:20px;font-weight:600;display:inline-flex;align-items:center;gap:14px}
+.section-head .kicker::before,.section-head .kicker::after{content:'';width:26px;height:1px;background:var(--gold)}
+.section-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.8vw,58px);font-weight:300;color:var(--ink);letter-spacing:1px;line-height:1.08}
 .section-head h2 em{font-style:italic;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:400}
-.section-more{text-align:center;margin-top:60px}
+.section-more{text-align:center;margin-top:50px}
 
-/* ══════════ CATEGORIES ══════════ */
-.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;max-width:1300px;margin:0 auto}
-.cat-card{position:relative;padding:52px 32px 44px;min-height:280px;border:1px solid var(--line);background:var(--bg-alt);display:flex;flex-direction:column;justify-content:flex-end;transition:all .5s cubic-bezier(.2,.7,.2,1);overflow:hidden;cursor:pointer;text-decoration:none;color:inherit}
-.cat-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(201,162,39,.18),transparent 60%);opacity:0;transition:opacity .5s ease}
-.cat-card:hover{border-color:var(--gold);transform:translateY(-8px);box-shadow:0 30px 60px rgba(166,124,0,.15)}
+/* ═══ CATEGORIES ═══ */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;max-width:1300px;margin:0 auto}
+.cat-card{position:relative;padding:46px 28px 38px;min-height:260px;border:1px solid var(--line);background:var(--bg-alt);display:flex;flex-direction:column;justify-content:flex-end;transition:all .45s cubic-bezier(.2,.7,.2,1);overflow:hidden;cursor:pointer;text-decoration:none;color:inherit}
+.cat-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(201,162,39,.18),transparent 60%);opacity:0;transition:opacity .45s}
+.cat-card:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 25px 55px rgba(166,124,0,.15)}
 .cat-card:hover::before{opacity:1}
-.cat-num{position:absolute;top:32px;right:32px;font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--gold);letter-spacing:2px;font-style:italic}
-.cat-card h3{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--ink);margin-bottom:12px;position:relative}
-.cat-card p{font-size:13px;color:var(--ink-soft);line-height:1.7;font-weight:300;position:relative;margin-bottom:18px}
-.cat-arrow{position:relative;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:gap .3s}
+.cat-num{position:absolute;top:26px;right:26px;font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--gold);letter-spacing:2px;font-style:italic}
+.cat-card h3{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--ink);margin-bottom:10px;position:relative}
+.cat-card p{font-size:12.5px;color:var(--ink-soft);line-height:1.65;font-weight:300;position:relative;margin-bottom:14px}
+.cat-arrow{position:relative;font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:gap .3s}
 .cat-card:hover .cat-arrow{gap:14px}
 
-/* ══════════ PRODUCTS ══════════ */
+/* ═══ PRODUCTS ═══ */
 .shop-section{background:linear-gradient(180deg,var(--bg),var(--bg-alt),var(--bg))}
-.tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:60px}
-.tab{padding:13px 26px;border:1px solid var(--line);background:transparent;color:var(--ink-soft);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;transition:all .3s ease;font-family:'Inter',sans-serif;font-weight:600}
+.tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:50px}
+.tab{padding:11px 22px;border:1px solid var(--line);background:transparent;color:var(--ink-soft);font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;font-family:'Inter',sans-serif;font-weight:600}
 .tab:hover{border-color:var(--gold);color:var(--gold)}
-.tab.active{background:var(--gold);color:var(--bg);border-color:var(--gold)}
-.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:26px;max-width:1300px;margin:0 auto}
-.prod-card{border:1px solid var(--line);background:#fff;position:relative;overflow:hidden;transition:all .5s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column;box-shadow:0 2px 12px rgba(42,33,24,.04)}
-.prod-card:hover{border-color:var(--gold);transform:translateY(-8px);box-shadow:0 30px 60px rgba(166,124,0,.18)}
+.tab.active{background:var(--gold);color:#fff;border-color:var(--gold)}
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px;max-width:1300px;margin:0 auto}
+.prod-card{border:1px solid var(--line);background:#fff;position:relative;overflow:hidden;transition:all .45s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column;box-shadow:0 2px 12px rgba(42,33,24,.04);cursor:pointer}
+.prod-card:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 25px 55px rgba(166,124,0,.15)}
 .prod-image{width:100%;aspect-ratio:1;background:radial-gradient(circle at 50% 40%,rgba(255,220,160,.35) 0%,transparent 60%),linear-gradient(160deg,#f5ede0,#ede0c8);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
-.prod-image img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
-.prod-card:hover .prod-image img{transform:scale(1.08)}
-.prod-image-placeholder{font-family:'Cormorant Garamond',serif;font-size:90px;background:linear-gradient(135deg,rgba(201,162,39,.6),rgba(166,124,0,.35));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;font-weight:400}
-.prod-image-placeholder small{display:block;font-size:18px;-webkit-text-fill-color:rgba(166,124,0,.5);letter-spacing:4px;margin-top:-6px}
-.prod-body{padding:28px 26px 24px;display:flex;flex-direction:column;flex-grow:1}
-.prod-badge{position:absolute;top:16px;right:16px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:6px 12px;z-index:2;font-weight:700}
-.prod-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:8px;line-height:1.25}
-.prod-scent{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;font-weight:600}
-.prod-desc{font-size:12.5px;color:var(--ink-soft);line-height:1.7;font-weight:300;margin-bottom:24px;flex-grow:1}
-.prod-foot{display:flex;justify-content:space-between;align-items:flex-end;padding-top:20px;border-top:1px solid var(--line)}
-.prod-price{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);font-weight:700}
-.prod-combo{font-size:10px;color:var(--ink-soft);margin-top:4px;letter-spacing:1px}
-.prod-cta{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:3px;transition:all .3s;text-decoration:none;font-weight:700}
+.prod-image img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.prod-card:hover .prod-image img{transform:scale(1.06)}
+.prod-image-placeholder{font-family:'Cormorant Garamond',serif;font-size:80px;background:linear-gradient(135deg,rgba(201,162,39,.6),rgba(166,124,0,.35));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;font-weight:400}
+.prod-image-placeholder small{display:block;font-size:15px;-webkit-text-fill-color:rgba(166,124,0,.5);letter-spacing:3px;margin-top:-4px}
+.prod-body{padding:24px 22px 20px;display:flex;flex-direction:column;flex-grow:1}
+.prod-badge{position:absolute;top:14px;right:14px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#fff;background:var(--gold);padding:5px 10px;z-index:2;font-weight:700}
+.prod-badge.sale{background:var(--red)}
+.prod-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--ink);margin-bottom:6px;line-height:1.25}
+.prod-scent{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:600}
+.prod-desc{font-size:12px;color:var(--ink-soft);line-height:1.65;font-weight:300;margin-bottom:20px;flex-grow:1}
+.prod-foot{display:flex;justify-content:space-between;align-items:flex-end;padding-top:16px;border-top:1px solid var(--line)}
+.prod-price{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:700}
+.prod-combo{font-size:9.5px;color:var(--ink-soft);margin-top:3px;letter-spacing:.5px}
+.prod-cta{font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px;transition:all .3s;text-decoration:none;font-weight:700;background:none;border-left:none;border-right:none;border-top:none;cursor:pointer;font-family:'Inter',sans-serif}
 .prod-card:hover .prod-cta{color:var(--ink);border-color:var(--ink)}
 
-/* ══════════ FOUNDER SPOT ══════════ */
-.founder-spot{background:var(--ink);color:var(--bg);padding:110px 6vw;position:relative;overflow:hidden}
+/* ═══ PRODUCT DETAIL ═══ */
+.product-detail{padding:130px 6vw 80px;max-width:1300px;margin:0 auto}
+.pd-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;margin-bottom:70px}
+.pd-gallery{position:relative}
+.pd-main-image{aspect-ratio:1;background:radial-gradient(circle at 50% 40%,rgba(255,220,160,.35) 0%,transparent 60%),linear-gradient(160deg,#f5ede0,#ede0c8);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.pd-main-image img{width:100%;height:100%;object-fit:cover}
+.pd-main-image .placeholder{font-family:'Cormorant Garamond',serif;font-size:180px;background:linear-gradient(135deg,rgba(201,162,39,.6),rgba(166,124,0,.35));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic}
+.pd-thumbs{display:flex;gap:10px;margin-top:14px;overflow-x:auto;padding-bottom:4px}
+.pd-thumb{width:74px;height:74px;flex-shrink:0;border:2px solid transparent;background:linear-gradient(160deg,#f5ede0,#ede0c8);cursor:pointer;transition:border .3s;overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold)}
+.pd-thumb.active{border-color:var(--gold)}
+.pd-thumb img{width:100%;height:100%;object-fit:cover}
+.pd-info{padding-top:10px}
+.pd-badge{display:inline-block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#fff;background:var(--gold);padding:5px 11px;font-weight:700;margin-bottom:16px}
+.pd-name{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,44px);font-weight:600;line-height:1.1;margin-bottom:14px;color:var(--ink)}
+.pd-scent{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:600}
+.pd-price-wrap{display:flex;align-items:baseline;gap:14px;margin-bottom:24px}
+.pd-price{font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--gold);font-weight:700}
+.pd-old-price{font-size:18px;color:var(--ink-soft);text-decoration:line-through;font-weight:300}
+.pd-desc{font-size:14.5px;line-height:1.85;color:var(--ink-soft);font-weight:300;margin-bottom:28px}
+.pd-qty{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.pd-qty label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);font-weight:600}
+.pd-qty-wrap{display:flex;align-items:center;border:1px solid var(--line);background:#fff}
+.pd-qty-btn{width:38px;height:42px;background:none;border:none;cursor:pointer;font-size:16px;color:var(--ink);transition:all .2s}
+.pd-qty-btn:hover{color:var(--gold)}
+.pd-qty-val{width:44px;height:42px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+.pd-actions{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.pd-actions .btn{width:100%;justify-content:center;padding:16px}
+.pd-trust{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding-top:24px;border-top:1px solid var(--line)}
+.pd-trust-item{text-align:center;font-size:10.5px;letter-spacing:1px;color:var(--ink-soft);font-weight:500;line-height:1.4}
+.pd-trust-item div{font-size:20px;margin-bottom:6px}
+.pd-related{margin-top:40px}
+.pd-related h3{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:500;text-align:center;margin-bottom:36px;color:var(--ink)}
+.pd-related h3 em{font-style:italic;color:var(--gold)}
+
+/* ═══ CHECKOUT ═══ */
+.checkout-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:50px;padding:40px 6vw 80px}
+.checkout-form-wrap h2{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:500;margin-bottom:28px;color:var(--ink)}
+.checkout-form-wrap h2 em{font-style:italic;color:var(--gold)}
+.form-section{margin-bottom:30px}
+.form-section h4{font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:16px;font-family:'Inter',sans-serif}
+.form-row{margin-bottom:16px}
+.form-row label{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin-bottom:8px;font-family:'Inter',sans-serif}
+.form-row input,.form-row textarea,.form-row select{width:100%;padding:13px 16px;border:1px solid var(--line);background:#fff;font-family:'Inter',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:border .3s;resize:vertical;border-radius:4px}
+.form-row input:focus,.form-row textarea:focus,.form-row select:focus{border-color:var(--gold)}
+.form-row textarea{min-height:90px}
+.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.gift-wrap-toggle{display:flex;align-items:center;justify-content:space-between;padding:16px;border:1px solid var(--line);background:#fff;border-radius:4px;margin-bottom:16px}
+.gift-wrap-info{flex:1}
+.gift-wrap-info h5{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.gift-wrap-info p{font-size:11px;color:var(--ink-soft)}
+.switch{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;cursor:pointer;inset:0;background:#ccc;transition:.3s;border-radius:24px}
+.slider:before{position:absolute;content:"";height:18px;width:18px;left:3px;bottom:3px;background:#fff;transition:.3s;border-radius:50%}
+.switch input:checked + .slider{background:var(--gold)}
+.switch input:checked + .slider:before{transform:translateX(20px)}
+.checkout-summary{position:sticky;top:100px;align-self:flex-start;background:var(--bg-alt);border:1px solid var(--line);padding:30px 26px}
+.checkout-summary h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;margin-bottom:22px;color:var(--ink)}
+.summary-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.summary-item-img{width:50px;height:50px;border-radius:5px;background:linear-gradient(160deg,#f5ede0,#ede0c8);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);overflow:hidden}
+.summary-item-img img{width:100%;height:100%;object-fit:cover}
+.summary-item-info{flex:1;min-width:0}
+.summary-item-name{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px;line-height:1.25}
+.summary-item-qty{font-size:11px;color:var(--ink-soft)}
+.summary-item-price{font-size:13px;color:var(--gold);font-weight:600;flex-shrink:0}
+.summary-totals{margin-top:18px}
+.summary-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:var(--ink-soft)}
+.summary-row.discount{color:var(--green)}
+.summary-row.total{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--ink);padding-top:14px;border-top:1px solid var(--line);margin-top:8px}
+.summary-row.total span:last-child{color:var(--gold)}
+.place-order-btn{width:100%;padding:18px;background:var(--gold);color:#fff;border:none;cursor:pointer;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:700;font-family:'Inter',sans-serif;transition:background .3s;margin-top:22px;display:flex;align-items:center;justify-content:center;gap:10px}
+.place-order-btn:hover{background:var(--ink)}
+.place-order-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* ═══ QR PAGE ═══ */
+.qr-wrap{max-width:600px;margin:0 auto;text-align:center;padding:40px 6vw 80px}
+.qr-card{background:#fff;border:1px solid var(--line);padding:40px 30px;border-radius:12px;box-shadow:0 20px 60px rgba(166,124,0,.1)}
+.qr-card h3{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;margin-bottom:10px;color:var(--ink)}
+.qr-card .qr-amount{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--gold);margin:14px 0}
+.qr-card .qr-sub{font-size:13px;color:var(--ink-soft);margin-bottom:24px}
+.qr-image-wrap{background:#fff;padding:18px;border:1px solid var(--line);border-radius:10px;display:inline-block;margin-bottom:24px}
+.qr-image-wrap img{max-width:240px;width:100%;height:auto;display:block}
+.qr-instructions{text-align:left;background:var(--bg-alt);padding:20px 22px;border-radius:8px;margin-bottom:24px}
+.qr-instructions h5{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:12px}
+.qr-instructions ol{margin-left:18px;color:var(--ink-soft);font-size:13px;line-height:1.9}
+.qr-instructions ol strong{color:var(--ink)}
+.qr-whatsapp{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:#25D366;color:#fff;text-decoration:none;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;border-radius:6px;font-family:'Inter',sans-serif}
+.qr-whatsapp:hover{background:#1da851}
+.qr-whatsapp svg{width:18px;height:18px;fill:#fff}
+
+/* ═══ FOUNDER SPOT ═══ */
+.founder-spot{background:var(--ink);color:var(--bg);padding:100px 6vw;position:relative;overflow:hidden}
 .founder-spot::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(201,162,39,.15) 0%,transparent 60%);pointer-events:none}
-.founder-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:center;position:relative}
+.founder-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:70px;align-items:center;position:relative}
 .founder-visual{aspect-ratio:4/5;background:linear-gradient(160deg,#2a1a08,#1a0f08);border:1px solid rgba(232,198,117,.3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .founder-visual::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,rgba(232,198,117,.25),transparent 60%)}
-.founder-visual .letter{font-family:'Cormorant Garamond',serif;font-size:240px;font-style:italic;background:linear-gradient(180deg,#e8c675,#a67c00);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;opacity:.55;position:relative;z-index:1}
-.founder-text .kicker{font-size:11px;letter-spacing:9px;color:var(--gold-bright);text-transform:uppercase;margin-bottom:26px;font-weight:600;display:inline-flex;align-items:center;gap:14px}
-.founder-text .kicker::before{content:'';width:30px;height:1px;background:var(--gold-bright)}
-.founder-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,50px);font-weight:300;line-height:1.15;margin-bottom:28px;color:#f5e6c8}
+.founder-visual .letter{font-family:'Cormorant Garamond',serif;font-size:220px;font-style:italic;background:linear-gradient(180deg,#e8c675,#a67c00);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;opacity:.55;position:relative;z-index:1}
+.founder-text .kicker{font-size:10.5px;letter-spacing:8px;color:var(--gold-bright);text-transform:uppercase;margin-bottom:22px;font-weight:600;display:inline-flex;align-items:center;gap:14px}
+.founder-text .kicker::before{content:'';width:26px;height:1px;background:var(--gold-bright)}
+.founder-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.8vw,46px);font-weight:300;line-height:1.15;margin-bottom:24px;color:#f5e6c8}
 .founder-text h2 em{color:var(--gold-bright);font-style:italic;font-weight:400}
-.founder-text p{font-size:14.5px;line-height:1.9;color:rgba(245,230,200,.72);font-weight:300;margin-bottom:20px}
+.founder-text p{font-size:14px;line-height:1.9;color:rgba(245,230,200,.72);font-weight:300;margin-bottom:18px}
 .founder-text strong{color:var(--gold-bright);font-weight:600}
-.founder-sign{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--gold-bright);margin-top:32px}
-.founder-sign small{display:block;font-size:10px;letter-spacing:5px;text-transform:uppercase;color:rgba(232,198,117,.6);font-style:normal;margin-top:10px;font-family:'Inter',sans-serif}
-.founder-cta{margin-top:36px}
+.founder-sign{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--gold-bright);margin-top:28px}
+.founder-sign small{display:block;font-size:9.5px;letter-spacing:4px;text-transform:uppercase;color:rgba(232,198,117,.6);font-style:normal;margin-top:8px;font-family:'Inter',sans-serif}
 
-/* ══════════ TESTIMONIALS ══════════ */
-.testi-grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
-.testi-card{background:#fff;border:1px solid var(--line);padding:40px 34px 34px;position:relative;transition:all .5s ease}
-.testi-card:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 25px 50px rgba(166,124,0,.12)}
-.testi-quote{font-family:'Cormorant Garamond',serif;font-size:70px;line-height:.5;color:var(--gold-light);opacity:.3;position:absolute;top:24px;right:30px}
-.testi-stars{color:var(--gold);font-size:14px;letter-spacing:3px;margin-bottom:20px}
-.testi-text{font-family:'Cormorant Garamond',serif;font-size:17px;line-height:1.65;color:var(--ink);font-weight:400;margin-bottom:26px;font-style:italic}
-.testi-author{display:flex;align-items:center;gap:14px;padding-top:20px;border-top:1px solid var(--line)}
-.testi-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold-light),var(--gold));display:flex;align-items:center;justify-content:center;color:var(--bg);font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600}
-.testi-name{font-weight:600;font-size:14px;color:var(--ink)}
-.testi-city{font-size:11px;color:var(--ink-soft);letter-spacing:1px;margin-top:2px}
+/* ═══ TESTIMONIALS ═══ */
+.testi-grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px}
+.testi-card{background:#fff;border:1px solid var(--line);padding:34px 30px 28px;position:relative;transition:all .4s}
+.testi-card:hover{border-color:var(--gold);transform:translateY(-5px);box-shadow:0 20px 45px rgba(166,124,0,.12)}
+.testi-quote{font-family:'Cormorant Garamond',serif;font-size:60px;line-height:.5;color:var(--gold-light);opacity:.3;position:absolute;top:22px;right:26px}
+.testi-stars{color:var(--gold);font-size:13px;letter-spacing:2px;margin-bottom:16px}
+.testi-text{font-family:'Cormorant Garamond',serif;font-size:16px;line-height:1.65;color:var(--ink);font-weight:400;margin-bottom:22px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--line)}
+.testi-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gold-light),var(--gold));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600}
+.testi-name{font-weight:600;font-size:13px;color:var(--ink)}
+.testi-city{font-size:10.5px;color:var(--ink-soft);letter-spacing:1px;margin-top:1px}
 
-/* ══════════ CELEBRATION ══════════ */
+/* ═══ CELEBRATION ═══ */
 .celeb-hero{background:var(--ink);color:var(--bg);border-bottom-color:rgba(232,198,117,.2)}
 .celeb-hero::before{background:radial-gradient(circle at 50% 40%,rgba(232,198,117,.2) 0%,transparent 55%)}
 .celeb-hero .kicker{color:var(--gold-bright)}
@@ -232,170 +405,190 @@ section{padding:110px 6vw;position:relative}
 .celeb-hero h1{color:#f5e6c8}
 .celeb-hero h1 em{background:linear-gradient(135deg,var(--gold-bright),var(--gold-light));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .celeb-hero p{color:rgba(245,230,200,.7)}
-.countdown{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:40px;position:relative}
-.count-box{min-width:90px;padding:20px 14px;border:1px solid rgba(232,198,117,.3);background:rgba(0,0,0,.2);text-align:center}
-.count-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:500;color:var(--gold-bright);line-height:1}
-.count-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(232,198,117,.7);margin-top:10px}
-.offer-hero-grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
-.offer-big{padding:50px 36px;text-align:center;border:1px solid var(--line);background:#fff;transition:all .5s ease;position:relative;overflow:hidden}
-.offer-big:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 30px 60px rgba(166,124,0,.15)}
-.offer-big::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:80px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.offer-big .off-pct{font-family:'Cormorant Garamond',serif;font-size:76px;font-weight:500;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
-.offer-big h4{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin:16px 0 12px}
-.offer-big p{font-size:13px;color:var(--ink-soft);font-weight:300;line-height:1.7}
-.combo-grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
-.combo-card{border:1px solid var(--line);background:linear-gradient(160deg,var(--bg-alt),#fff);padding:40px 32px;text-align:center;transition:all .5s ease}
-.combo-card:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 25px 50px rgba(166,124,0,.12)}
-.combo-card h4{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;margin-bottom:12px}
-.combo-card p{font-size:13px;color:var(--ink-soft);margin-bottom:22px;font-weight:300}
-.combo-price{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:var(--gold)}
-.combo-old{font-size:16px;color:var(--ink-soft);text-decoration:line-through;margin-left:10px;font-weight:300}
-.gift-card{text-align:center;padding:90px 6vw;background:var(--ink);color:var(--bg);position:relative;overflow:hidden}
-.gift-card::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(232,198,117,.15),transparent 60%);pointer-events:none}
-.gift-card h2{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4.5vw,56px);font-weight:300;margin-bottom:24px;color:#f5e6c8;position:relative}
-.gift-card h2 em{color:var(--gold-bright);font-style:italic;font-weight:400}
-.gift-card p{font-size:15px;color:rgba(245,230,200,.7);margin-bottom:40px;font-weight:300;max-width:560px;margin-left:auto;margin-right:auto;position:relative}
-.gift-card .btn{background:var(--gold-bright);border-color:var(--gold-bright);color:var(--ink)}
-.gift-card .btn::before{display:none}
-.gift-card .btn:hover{background:var(--bg);border-color:var(--bg);color:var(--ink)}
+.countdown{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:34px;position:relative}
+.count-box{min-width:80px;padding:16px 12px;border:1px solid rgba(232,198,117,.3);background:rgba(0,0,0,.2);text-align:center}
+.count-num{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:500;color:var(--gold-bright);line-height:1}
+.count-label{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(232,198,117,.7);margin-top:8px}
+.offer-hero-grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.offer-big{padding:44px 30px;text-align:center;border:1px solid var(--line);background:#fff;transition:all .4s;position:relative;overflow:hidden}
+.offer-big:hover{border-color:var(--gold);transform:translateY(-5px);box-shadow:0 25px 55px rgba(166,124,0,.15)}
+.offer-big::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:70px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.offer-big .off-pct{font-family:'Cormorant Garamond',serif;font-size:68px;font-weight:500;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.offer-big h4{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;margin:14px 0 10px}
+.offer-big p{font-size:12.5px;color:var(--ink-soft);font-weight:300;line-height:1.65}
+.combo-grid{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.combo-card{border:1px solid var(--line);background:linear-gradient(160deg,var(--bg-alt),#fff);padding:34px 28px;text-align:center;transition:all .4s}
+.combo-card:hover{border-color:var(--gold);transform:translateY(-5px);box-shadow:0 22px 45px rgba(166,124,0,.12)}
+.combo-card h4{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:10px}
+.combo-card p{font-size:12.5px;color:var(--ink-soft);margin-bottom:18px;font-weight:300}
+.combo-price{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--gold)}
+.combo-old{font-size:15px;color:var(--ink-soft);text-decoration:line-through;margin-left:8px;font-weight:300}
+.bogo-section{background:linear-gradient(135deg,var(--ink),#3a2410);color:#f5e6c8;padding:70px 6vw;text-align:center;position:relative;overflow:hidden}
+.bogo-section::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(232,198,117,.15),transparent 60%);pointer-events:none}
+.bogo-section h2{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4.5vw,56px);font-weight:300;margin-bottom:16px;position:relative}
+.bogo-section h2 em{color:var(--gold-bright);font-style:italic;font-weight:400}
+.bogo-section p{font-size:15px;color:rgba(245,230,200,.75);margin-bottom:32px;position:relative;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.7}
+.bogo-section .bogo-tag{display:inline-block;background:var(--gold-bright);color:var(--ink);padding:10px 22px;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:700;border-radius:4px}
+.gift-card-section{text-align:center;padding:80px 6vw;background:var(--ink);color:var(--bg);position:relative;overflow:hidden}
+.gift-card-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(232,198,117,.15),transparent 60%);pointer-events:none}
+.gift-card-section h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,50px);font-weight:300;margin-bottom:20px;color:#f5e6c8;position:relative}
+.gift-card-section h2 em{color:var(--gold-bright);font-style:italic;font-weight:400}
+.gift-card-section p{font-size:14.5px;color:rgba(245,230,200,.7);margin-bottom:36px;font-weight:300;max-width:540px;margin-left:auto;margin-right:auto;position:relative;line-height:1.8}
 
-/* ══════════ FAQ ══════════ */
-.faq-wrap{max-width:900px;margin:0 auto}
-.faq-item{border-bottom:1px solid var(--line);padding:0}
-.faq-q{width:100%;background:none;border:none;text-align:left;padding:28px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--ink);transition:color .3s}
+/* ═══ FAQ ═══ */
+.faq-wrap{max-width:880px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:24px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--ink);transition:color .3s;font-family:'Cormorant Garamond',serif}
 .faq-q:hover{color:var(--gold)}
-.faq-q .plus{width:22px;height:22px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold);font-size:16px;line-height:1;transition:transform .4s ease;font-family:'Inter',sans-serif}
+.faq-q .plus{width:22px;height:22px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold);font-size:15px;line-height:1;transition:transform .35s;font-family:'Inter',sans-serif}
 .faq-item.open .plus{transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .5s ease,padding .3s ease}
-.faq-item.open .faq-a{max-height:400px;padding-bottom:28px}
-.faq-a p{font-size:14.5px;color:var(--ink-soft);line-height:1.85;font-weight:300}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .45s ease,padding .3s ease}
+.faq-item.open .faq-a{max-height:400px;padding-bottom:24px}
+.faq-a p{font-size:14px;color:var(--ink-soft);line-height:1.8;font-weight:300}
 
-/* ══════════ CONTACT ══════════ */
-.contact-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:70px}
-.contact-info h3{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:500;margin-bottom:20px}
-.contact-info p{font-size:14px;color:var(--ink-soft);line-height:1.8;margin-bottom:36px;font-weight:300}
-.contact-block{margin-bottom:28px}
-.contact-block h5{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px;font-family:'Inter',sans-serif}
-.contact-block a,.contact-block p{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--ink);text-decoration:none;font-weight:500;transition:color .3s;line-height:1.4;display:block}
+/* ═══ CONTACT ═══ */
+.contact-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:60px}
+.contact-info h3{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:500;margin-bottom:16px}
+.contact-info>p{font-size:13.5px;color:var(--ink-soft);line-height:1.8;margin-bottom:30px;font-weight:300}
+.contact-block{margin-bottom:24px}
+.contact-block h5{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px;font-family:'Inter',sans-serif}
+.contact-block a,.contact-block p{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--ink);text-decoration:none;font-weight:500;transition:color .3s;line-height:1.4;display:block}
 .contact-block a:hover{color:var(--gold)}
-.contact-form{background:#fff;border:1px solid var(--line);padding:44px 40px}
-.form-row{margin-bottom:22px}
-.form-row label{display:block;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px;font-family:'Inter',sans-serif}
-.form-row input,.form-row textarea{width:100%;padding:14px 16px;border:1px solid var(--line);background:var(--bg);font-family:'Inter',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:border .3s;resize:vertical}
-.form-row input:focus,.form-row textarea:focus{border-color:var(--gold)}
-.form-row textarea{min-height:130px}
-.form-submit{width:100%;padding:16px;background:var(--gold);color:var(--bg);border:none;cursor:pointer;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:700;font-family:'Inter',sans-serif;transition:background .3s}
-.form-submit:hover{background:var(--ink);color:var(--bg)}
+.contact-form{background:#fff;border:1px solid var(--line);padding:38px 34px}
+.form-submit{width:100%;padding:16px;background:var(--gold);color:#fff;border:none;cursor:pointer;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:700;font-family:'Inter',sans-serif;transition:background .3s}
+.form-submit:hover{background:var(--ink)}
 
-/* ══════════ ABOUT / FOUNDER PAGES ══════════ */
-.about-section{padding:110px 6vw}
-.about-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:70px;align-items:center}
+/* ═══ ABOUT / FOUNDER PAGES ═══ */
+.about-section{padding:90px 6vw}
+.about-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:60px;align-items:center}
 .about-visual{aspect-ratio:4/5;background:linear-gradient(160deg,var(--bg-alt),#ead9b8);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .about-visual::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,rgba(201,162,39,.22),transparent 60%)}
-.about-visual .letter{font-family:'Cormorant Garamond',serif;font-size:220px;background:linear-gradient(180deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;opacity:.45;font-style:italic;position:relative;z-index:1}
-.about-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.2vw,56px);font-weight:300;line-height:1.15;margin-bottom:30px;color:var(--ink)}
+.about-visual .letter{font-family:'Cormorant Garamond',serif;font-size:200px;background:linear-gradient(180deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;opacity:.45;font-style:italic;position:relative;z-index:1}
+.about-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,50px);font-weight:300;line-height:1.15;margin-bottom:24px;color:var(--ink)}
 .about-text h2 em{font-style:italic;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:400}
-.about-text p{font-size:15px;line-height:1.9;color:var(--ink-soft);font-weight:300;margin-bottom:20px}
+.about-text p{font-size:14.5px;line-height:1.9;color:var(--ink-soft);font-weight:300;margin-bottom:18px}
 .about-text strong{color:var(--ink);font-weight:600}
-.values-grid{max-width:1300px;margin:80px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
-.value-card{padding:36px 30px;border:1px solid var(--line);background:var(--bg-alt);text-align:center;transition:all .4s ease}
-.value-card:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 20px 45px rgba(166,124,0,.1)}
-.value-card .v-icon{font-size:32px;margin-bottom:16px}
-.value-card h4{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:10px}
-.value-card p{font-size:13px;color:var(--ink-soft);line-height:1.7;font-weight:300}
+.values-grid{max-width:1300px;margin:60px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.value-card{padding:32px 26px;border:1px solid var(--line);background:var(--bg-alt);text-align:center;transition:all .4s}
+.value-card:hover{border-color:var(--gold);transform:translateY(-5px);box-shadow:0 18px 40px rgba(166,124,0,.1)}
+.value-card .v-icon{font-size:30px;margin-bottom:14px}
+.value-card h4{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;margin-bottom:8px}
+.value-card p{font-size:12.5px;color:var(--ink-soft);line-height:1.65;font-weight:300}
 
-/* ══════════ SHIPPING/PRIVACY/TERMS ══════════ */
-.doc-page{max-width:820px;margin:0 auto;padding:0 6vw}
-.doc-page h2{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:500;margin:50px 0 18px;color:var(--ink)}
+/* ═══ DOC PAGES ═══ */
+.doc-page{max-width:800px;margin:0 auto;padding:0 6vw}
+.doc-page h2{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;margin:40px 0 14px;color:var(--ink)}
 .doc-page h2:first-child{margin-top:0}
-.doc-page p,.doc-page li{font-size:14.5px;line-height:1.9;color:var(--ink-soft);font-weight:300;margin-bottom:14px}
-.doc-page ul{margin-left:24px;margin-bottom:14px}
+.doc-page p,.doc-page li{font-size:14px;line-height:1.85;color:var(--ink-soft);font-weight:300;margin-bottom:12px}
+.doc-page ul{margin-left:22px;margin-bottom:12px}
 .doc-page strong{color:var(--ink);font-weight:600}
 
-/* ══════════ NEWSLETTER ══════════ */
-.newsletter{background:var(--bg-alt);padding:90px 6vw;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.newsletter-wrap{max-width:800px;margin:0 auto;text-align:center}
-.newsletter h3{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,44px);font-weight:300;margin-bottom:16px;color:var(--ink);line-height:1.15}
+/* ═══ NEWSLETTER ═══ */
+.newsletter{background:var(--bg-alt);padding:80px 6vw;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.newsletter-wrap{max-width:760px;margin:0 auto;text-align:center}
+.newsletter h3{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.8vw,42px);font-weight:300;margin-bottom:14px;color:var(--ink);line-height:1.15}
 .newsletter h3 em{font-style:italic;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:400}
-.newsletter p{font-size:14px;color:var(--ink-soft);margin-bottom:36px;font-weight:300}
-.newsletter-form{display:flex;gap:0;max-width:520px;margin:0 auto;border:1px solid var(--line);background:#fff}
-.newsletter-form input{flex:1;padding:18px 24px;background:transparent;border:none;font-family:'Inter',sans-serif;font-size:13px;color:var(--ink);outline:none}
-.newsletter-form button{padding:18px 32px;background:var(--gold);color:var(--bg);border:none;cursor:pointer;font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;font-family:'Inter',sans-serif;transition:background .3s}
+.newsletter p{font-size:13.5px;color:var(--ink-soft);margin-bottom:32px;font-weight:300}
+.newsletter-form{display:flex;gap:0;max-width:500px;margin:0 auto;border:1px solid var(--line);background:#fff}
+.newsletter-form input{flex:1;padding:16px 22px;background:transparent;border:none;font-family:'Inter',sans-serif;font-size:13px;color:var(--ink);outline:none}
+.newsletter-form button{padding:16px 28px;background:var(--gold);color:#fff;border:none;cursor:pointer;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;font-family:'Inter',sans-serif;transition:background .3s}
 .newsletter-form button:hover{background:var(--ink)}
 
-/* ══════════ FOOTER ══════════ */
-footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
-.foot-grid{max-width:1300px;margin:0 auto 60px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:60px}
-.foot-brand-logo{display:flex;align-items:center;gap:14px;margin-bottom:22px}
-.foot-brand-logo img{height:54px;width:auto}
-.foot-brand-name{font-family:'Cormorant Garamond',serif;font-size:18px;letter-spacing:4px;color:#f5e6c8;text-transform:uppercase;font-weight:700;line-height:1}
+/* ═══ FOOTER ═══ */
+footer{padding:80px 6vw 32px;background:var(--ink);color:rgba(245,230,200,.75)}
+.foot-grid{max-width:1300px;margin:0 auto 50px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:50px}
+.foot-brand-logo{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.foot-brand-logo img{height:48px;width:auto}
+.foot-brand-name{font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:3.5px;color:#f5e6c8;text-transform:uppercase;font-weight:700;line-height:1}
 .foot-brand-name span{color:var(--gold-bright)}
-.foot-brand-name small{display:block;font-size:8px;letter-spacing:3px;color:rgba(232,198,117,.7);font-weight:500;margin-top:4px;font-family:'Inter',sans-serif}
-.foot-brand p{font-size:13px;line-height:1.85;font-weight:300;max-width:340px;color:rgba(245,230,200,.6)}
-.foot-col h4{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-bright);margin-bottom:24px;font-weight:700}
+.foot-brand-name small{display:block;font-size:7px;letter-spacing:2.5px;color:rgba(232,198,117,.7);font-weight:600;margin-top:3px;font-family:'Inter',sans-serif}
+.foot-brand p{font-size:12.5px;line-height:1.8;font-weight:300;max-width:320px;color:rgba(245,230,200,.6)}
+.foot-col h4{font-size:10.5px;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold-bright);margin-bottom:20px;font-weight:700}
 .foot-col ul{list-style:none}
-.foot-col ul li{margin-bottom:12px}
-.foot-col a{color:rgba(245,230,200,.65);text-decoration:none;font-size:13px;font-weight:300;transition:color .3s;cursor:pointer}
+.foot-col ul li{margin-bottom:10px}
+.foot-col a{color:rgba(245,230,200,.65);text-decoration:none;font-size:12.5px;font-weight:300;transition:color .3s;cursor:pointer}
 .foot-col a:hover{color:var(--gold-bright)}
-.foot-bottom{max-width:1300px;margin:0 auto;padding-top:36px;border-top:1px solid rgba(232,198,117,.15);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;font-size:11px;color:rgba(245,230,200,.45);letter-spacing:1px}
-.foot-crafted{font-size:12px;letter-spacing:1.5px;color:rgba(245,230,200,.7);font-family:'Cormorant Garamond',serif;font-style:italic}
+.foot-bottom{max-width:1300px;margin:0 auto;padding-top:32px;border-top:1px solid rgba(232,198,117,.15);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-size:10.5px;color:rgba(245,230,200,.45);letter-spacing:.5px}
+.foot-crafted{font-size:11.5px;letter-spacing:1px;color:rgba(245,230,200,.7);font-family:'Cormorant Garamond',serif;font-style:italic}
 .foot-crafted strong{color:var(--gold-bright);font-style:normal;font-weight:600}
-.foot-social{display:flex;gap:14px}
-.foot-social a{width:36px;height:36px;border-radius:50%;border:1px solid rgba(232,198,117,.3);display:flex;align-items:center;justify-content:center;transition:all .3s}
+.foot-social{display:flex;gap:12px}
+.foot-social a{width:34px;height:34px;border-radius:50%;border:1px solid rgba(232,198,117,.3);display:flex;align-items:center;justify-content:center;transition:all .3s}
 .foot-social a:hover{background:var(--gold);border-color:var(--gold)}
-.foot-social svg{width:16px;height:16px;stroke:var(--gold-bright);fill:none;stroke-width:1.5}
-.foot-social a:hover svg{stroke:var(--bg)}
+.foot-social svg{width:15px;height:15px;stroke:var(--gold-bright);fill:none;stroke-width:1.6}
+.foot-social a:hover svg{stroke:#fff}
 
-/* ══════════ WHATSAPP FLOAT ══════════ */
-.wa-float{position:fixed;bottom:28px;right:28px;z-index:900;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(37,211,102,.35);text-decoration:none;transition:transform .3s ease;animation:waPulse 2.4s ease-in-out infinite;opacity:0}
+/* ═══ WHATSAPP ═══ */
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:900;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(37,211,102,.35);text-decoration:none;transition:transform .3s;animation:waPulse 2.4s ease-in-out infinite;opacity:0}
 .wa-float.show{opacity:1}
 .wa-float:hover{transform:scale(1.08)}
 .wa-float svg{width:28px;height:28px;fill:#fff}
 @keyframes waPulse{0%,100%{box-shadow:0 8px 30px rgba(37,211,102,.35)}50%{box-shadow:0 8px 50px rgba(37,211,102,.65)}}
 
-/* ══════════ REVEAL ══════════ */
-.reveal{opacity:0;transform:translateY(40px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.7,.2,1)}
+/* ═══ BACK TO TOP ═══ */
+.back-top{position:fixed;bottom:90px;right:24px;z-index:900;width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .3s}
+.back-top.show{opacity:1;visibility:visible}
+.back-top:hover{background:var(--gold)}
+.back-top svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* ═══ REVEAL ═══ */
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
 
-/* ══════════ RESPONSIVE ══════════ */
+/* ═══ RESPONSIVE ═══ */
 @media (max-width:960px){
   .header-nav{display:none}
-  .hamburger{display:block}
-  .header-right .icon-btn.search-btn,.header-right .icon-btn.cart-btn{display:none}
-  .logo-img{height:42px}
-  header.scrolled .logo-img{height:36px}
-  .logo-text{font-size:15px;letter-spacing:3px}
-  .logo-text small{font-size:7px;letter-spacing:3px}
-  section{padding:80px 5vw}
-  .hero{padding:130px 5vw 90px}
-  .page-hero{padding:140px 5vw 60px}
-  .founder-wrap,.about-grid,.contact-wrap{grid-template-columns:1fr;gap:44px}
-  .founder-visual,.about-visual{max-width:340px;margin:0 auto;aspect-ratio:1}
-  .founder-visual .letter,.about-visual .letter{font-size:150px}
-  .foot-grid{grid-template-columns:1fr;gap:40px}
+  .hamburger{display:flex}
+  .header-right .icon-btn.search-btn,.header-right .icon-btn.cart-btn{display:flex}
+  .logo-img{height:40px}
+  header.scrolled .logo-img{height:34px}
+  .logo-text{font-size:13px;letter-spacing:2.5px}
+  .logo-text small{font-size:6.5px;letter-spacing:2px}
+  section{padding:70px 5vw}
+  .hero{padding:130px 5vw 80px}
+  .page-hero{padding:140px 5vw 50px}
+  .founder-wrap,.about-grid,.contact-wrap,.checkout-wrap{grid-template-columns:1fr;gap:40px}
+  .pd-grid{grid-template-columns:1fr;gap:30px}
+  .founder-visual,.about-visual{max-width:320px;margin:0 auto;aspect-ratio:1}
+  .founder-visual .letter,.about-visual .letter{font-size:140px}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:36px}
   .newsletter-form{flex-direction:column}
-  .newsletter-form button{padding:18px}
-  .loader-brand h1{letter-spacing:6px}
-  .loader-brand h1 .l.sp{width:8px}
-  .search-box input{font-size:24px}
+  .newsletter-form button{padding:16px}
+  .loader-brand h1{letter-spacing:5px}
+  .loader-brand h1 .l.sp{width:7px}
+  .search-box input{font-size:22px}
   .trust-grid{grid-template-columns:repeat(2,1fr)}
-  .contact-form{padding:32px 24px}
+  .contact-form{padding:28px 22px}
+  .checkout-summary{position:static}
+  .form-grid-2{grid-template-columns:1fr}
+  .cart-drawer{width:100%}
 }
 @media (max-width:500px){
-  .hero-tag{font-size:9px;letter-spacing:5px}
-  .hero-tag::before,.hero-tag::after{width:20px}
-  .prod-grid{grid-template-columns:1fr}
+  .hero-tag{font-size:9px;letter-spacing:4px}
+  .hero-tag::before,.hero-tag::after{width:18px}
+  .prod-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .prod-body{padding:16px 14px 14px}
+  .prod-name{font-size:16px}
+  .prod-desc{font-size:11px;margin-bottom:12px}
+  .prod-price{font-size:20px}
+  .prod-cta{font-size:9px;letter-spacing:1.5px}
   .cat-grid{grid-template-columns:1fr}
   .testi-grid{grid-template-columns:1fr}
   .hero-cta{flex-direction:column;width:100%}
   .hero-cta .btn{width:100%;justify-content:center}
   .values-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr;gap:30px}
+  .count-box{min-width:66px;padding:12px 8px}
+  .count-num{font-size:32px}
+  .pd-trust{grid-template-columns:1fr}
+  .qr-card{padding:28px 20px}
+  .qr-card .qr-amount{font-size:38px}
+  .top-banner{font-size:9px;letter-spacing:2px;padding:8px 5vw}
 }
 </style>
 </head>
 <body class="loading">
 
-<!-- ═══════════ LOADER (Home only) ═══════════ -->
+<!-- LOADER -->
 <div id="loader">
   <div class="dust" id="dust"></div>
   <div class="rays" id="rays"></div>
@@ -423,29 +616,36 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
   <div class="light-bloom" id="bloom"></div>
 </div>
 
-<!-- ═══════════ SEARCH ═══════════ -->
+<!-- TOP BANNER -->
+<div class="top-banner" id="topBanner">
+  🎉 Buy 2 Get 1 Free on all candles — Limited Time <span>Shop Now →</span>
+  <button class="banner-close" onclick="closeBanner()">✕</button>
+</div>
+
+<!-- SEARCH OVERLAY -->
 <div class="search-overlay" id="searchOverlay">
   <button class="search-close" id="searchClose">×</button>
   <div class="search-box">
-    <input type="text" placeholder="Search candles, scents..." id="searchInput">
+    <input type="text" placeholder="Search candles, scents, occasions..." id="searchInput" autocomplete="off">
     <p class="search-hint">Try: "chai", "rose", "gift", "diwali"</p>
+    <div class="search-results" id="searchResults"></div>
   </div>
 </div>
 
-<!-- ═══════════ MOBILE MENU ═══════════ -->
+<!-- MOBILE MENU -->
 <div class="overlay-backdrop" id="backdrop"></div>
 <aside class="mobile-menu" id="mobileMenu">
   <button class="mobile-menu-close" id="menuClose">×</button>
   <ul>
     <li><a data-nav href="#/">Home</a></li>
-    <li><a data-nav href="#/shop">Shop</a></li>
+    <li><a data-nav href="#/shop">Shop All</a></li>
     <li><a data-nav href="#/celebration">Celebration</a></li>
     <li><a data-nav href="#/reviews">Reviews</a></li>
     <li><a data-nav href="#/about">About</a></li>
     <li><a data-nav href="#/founder">Our Story</a></li>
     <li><a data-nav href="#/custom-orders">Custom Orders</a></li>
-    <li><a data-nav href="#/contact">Contact</a></li>
     <li><a data-nav href="#/faq">FAQ</a></li>
+    <li><a data-nav href="#/contact">Contact</a></li>
   </ul>
   <div class="mobile-menu-footer">
     <p>Get in touch</p>
@@ -454,7 +654,26 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
   </div>
 </aside>
 
-<!-- ═══════════ HEADER ═══════════ -->
+<!-- CART DRAWER -->
+<div class="overlay-backdrop" id="cartBackdrop"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="cart-close" id="cartClose">×</button>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-footer" id="cartFooter"></div>
+</aside>
+
+<!-- POPUP OFFER -->
+<div class="popup-offer" id="popupOffer">
+  <button class="popup-close" onclick="closePopup()">×</button>
+  <h4>🎉 Buy 2 Get 1 Free!</h4>
+  <p>Limited time offer — add any 3 candles to your cart, get the lowest value one absolutely FREE. Auto-applied at checkout.</p>
+  <button class="popup-cta" onclick="closePopup(); navigateTo('/shop')">Shop Now →</button>
+</div>
+
+<!-- HEADER -->
 <header id="header">
   <div class="header-left">
     <a href="#/" class="logo-link" data-nav>
@@ -474,14 +693,14 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
   </nav>
   <div class="header-right">
     <button class="icon-btn search-btn" id="searchBtn" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
-    <button class="icon-btn cart-btn" aria-label="Cart"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-count">0</span></button>
+    <button class="icon-btn cart-btn" id="cartBtn" aria-label="Cart"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-count" id="cartCount">0</span></button>
     <button class="hamburger" id="hamburger" aria-label="Menu"><svg viewBox="0 0 24 24"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg></button>
   </div>
 </header>
 
 <main id="app">
 
-<!-- ═══════════ HOME PAGE ═══════════ -->
+<!-- HOME -->
 <div class="page" id="page-home">
   <section class="hero">
     <div class="hero-bg"></div>
@@ -509,7 +728,7 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
     <div class="cat-grid" id="homeCatGrid"></div>
   </section>
 
-  <section class="shop-section" style="padding-top:40px">
+  <section class="shop-section" style="padding-top:30px">
     <div class="section-head"><p class="kicker">Loved by Many</p><h2>Signature <em>Creations</em></h2></div>
     <div class="prod-grid" id="featuredGrid"></div>
     <div class="section-more"><a href="#/shop" data-nav class="btn btn-solid">View All Products <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
@@ -524,7 +743,7 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
         <p>I'm <strong>Deepanshi Verma</strong> — after 9 years in corporate, I asked myself one quiet question: <em>"If I can build someone else's dream, why not my own?"</em></p>
         <p>A simple Diwali shopping day planted the first seed. On <strong>7th November 2025</strong>, I poured my first candle — the Golden Bloom. One week later, <em>Deep By Soni Aura Candles</em> was born.</p>
         <div class="founder-sign">Deepanshi Verma<small>Founder &amp; Candle Artist</small></div>
-        <div class="founder-cta"><a href="#/founder" data-nav class="btn">Read Full Story <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
+        <div class="founder-cta" style="margin-top:30px"><a href="#/founder" data-nav class="btn">Read Full Story <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
       </div>
     </div>
   </section>
@@ -547,14 +766,14 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
   </section>
 </div>
 
-<!-- ═══════════ SHOP PAGE ═══════════ -->
+<!-- SHOP -->
 <div class="page" id="page-shop">
   <section class="page-hero">
     <p class="kicker">The Shop</p>
     <h1>All <em>Creations</em></h1>
     <p>40+ handcrafted candles — every scent, every mood, every moment covered.</p>
   </section>
-  <section class="shop-section" style="padding-top:60px">
+  <section class="shop-section" style="padding-top:50px">
     <div class="tabs" id="shopTabs">
       <button class="tab active" data-cat="all">All</button>
       <button class="tab" data-cat="sculptural">Sculptural</button>
@@ -568,12 +787,112 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
   </section>
 </div>
 
-<!-- ═══════════ CELEBRATION PAGE ═══════════ -->
+<!-- PRODUCT DETAIL -->
+<div class="page" id="page-product">
+  <div class="product-detail" id="productDetail"></div>
+</div>
+
+<!-- CHECKOUT -->
+<div class="page" id="page-checkout">
+  <section class="page-hero">
+    <p class="kicker">Checkout</p>
+    <h1>Almost <em>There</em></h1>
+    <p>Fill your details and place your order on WhatsApp. We'll send you the payment QR.</p>
+  </section>
+  <div class="checkout-wrap">
+    <div class="checkout-form-wrap">
+      <h2>Your <em>Details</em></h2>
+      <form id="checkoutForm" onsubmit="event.preventDefault(); placeOrder();">
+        <div class="form-section">
+          <h4>Contact Information</h4>
+          <div class="form-grid-2">
+            <div class="form-row"><label>Full Name *</label><input type="text" id="coName" required></div>
+            <div class="form-row"><label>Phone *</label><input type="tel" id="coPhone" required></div>
+          </div>
+          <div class="form-row"><label>Email (optional)</label><input type="email" id="coEmail"></div>
+        </div>
+        <div class="form-section">
+          <h4>Shipping Address</h4>
+          <div class="form-row"><label>Full Address *</label><textarea id="coAddress" required placeholder="House no, Street, Landmark..."></textarea></div>
+          <div class="form-grid-2">
+            <div class="form-row"><label>City *</label><input type="text" id="coCity" required></div>
+            <div class="form-row"><label>Pincode *</label><input type="text" id="coPincode" required pattern="[0-9]{6}"></div>
+          </div>
+          <div class="form-row"><label>State *</label><select id="coState" required>
+            <option value="">Select State</option>
+            <option>Andhra Pradesh</option><option>Assam</option><option>Bihar</option>
+            <option>Chhattisgarh</option><option>Delhi</option><option>Goa</option>
+            <option>Gujarat</option><option>Haryana</option><option>Himachal Pradesh</option>
+            <option>Jharkhand</option><option>Karnataka</option><option>Kerala</option>
+            <option>Madhya Pradesh</option><option>Maharashtra</option><option>Odisha</option>
+            <option>Punjab</option><option>Rajasthan</option><option>Tamil Nadu</option>
+            <option>Telangana</option><option>Uttar Pradesh</option><option>Uttarakhand</option>
+            <option>West Bengal</option><option>Other</option>
+          </select></div>
+        </div>
+        <div class="form-section">
+          <h4>Gift Options</h4>
+          <div class="gift-wrap-toggle">
+            <div class="gift-wrap-info">
+              <h5>🎁 Gift Wrapping</h5>
+              <p>Premium wrapping + handwritten card · ₹100</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="coGiftWrap" onchange="updateCheckout()">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="form-row"><label>Gift Message (optional)</label><textarea id="coGiftMsg" placeholder="Your personal message..."></textarea></div>
+        </div>
+        <div class="form-section">
+          <h4>Notes</h4>
+          <div class="form-row"><label>Special Instructions (optional)</label><textarea id="coNotes" placeholder="Any special requests..."></textarea></div>
+        </div>
+      </form>
+    </div>
+    <div class="checkout-summary" id="checkoutSummary"></div>
+  </div>
+</div>
+
+<!-- QR PAGE -->
+<div class="page" id="page-qr">
+  <section class="page-hero">
+    <p class="kicker">Payment</p>
+    <h1>Scan &amp; <em>Pay</em></h1>
+    <p>Complete your payment by scanning the QR code below.</p>
+  </section>
+  <div class="qr-wrap">
+    <div class="qr-card">
+      <h3>Order Amount</h3>
+      <div class="qr-amount" id="qrAmount">₹0</div>
+      <p class="qr-sub">Pay this exact amount using any UPI app</p>
+      <div class="qr-image-wrap">
+        <img src="payment-qr.png" alt="Payment QR" onerror="this.parentElement.innerHTML='<p style=\'color:#5c5142;font-size:13px;padding:20px\'>QR code will appear here.<br>Please add payment-qr.png to GitHub.</p>'">
+      </div>
+      <div class="qr-instructions">
+        <h5>How to complete your order</h5>
+        <ol>
+          <li>Open any UPI app — <strong>GPay, PhonePe, Paytm</strong></li>
+          <li>Scan the QR code above</li>
+          <li>Pay the exact amount shown</li>
+          <li>Take a <strong>screenshot</strong> of the payment</li>
+          <li>Send the screenshot on WhatsApp</li>
+        </ol>
+      </div>
+      <a href="https://wa.me/918750577905?text=Hi%2C%20I%27ve%20made%20the%20payment.%20Sending%20screenshot%20now." target="_blank" class="qr-whatsapp">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Send Screenshot on WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- CELEBRATION -->
 <div class="page" id="page-celebration">
   <section class="page-hero celeb-hero">
     <p class="kicker">Festival Dhamaka</p>
     <h1>Celebrate with <em>Light.</em></h1>
-    <p>Limited-time offers on handcrafted luxury candles — for every festival, every celebration, every moment worth remembering.</p>
+    <p>Limited-time offers on handcrafted luxury candles — for every festival, every celebration.</p>
     <div class="countdown">
       <div class="count-box"><div class="count-num" id="cd-days">02</div><div class="count-label">Days</div></div>
       <div class="count-box"><div class="count-num" id="cd-hours">14</div><div class="count-label">Hours</div></div>
@@ -585,10 +904,16 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
   <section>
     <div class="section-head"><p class="kicker">Festive Offers</p><h2>Deals Made for <em>Celebration</em></h2></div>
     <div class="offer-hero-grid">
-      <div class="offer-big reveal"><div class="off-pct">15%</div><h4>Flat Discount</h4><p>On all purchases above ₹5,000. Applicable on the entire collection.</p></div>
-      <div class="offer-big reveal"><div class="off-pct">10%</div><h4>Extra Savings</h4><p>Additional discount on orders above ₹3,000. Stacks with other offers.</p></div>
+      <div class="offer-big reveal"><div class="off-pct">15%</div><h4>Flat Discount</h4><p>On all purchases above ₹5,000. Use code <strong>FESTIVE15</strong> at checkout.</p></div>
+      <div class="offer-big reveal"><div class="off-pct">10%</div><h4>Extra Savings</h4><p>On orders above ₹3,000. Use code <strong>BULK10</strong> at checkout.</p></div>
       <div class="offer-big reveal"><div class="off-pct">✈</div><h4>Worldwide Shipping</h4><p>Safe, tracked delivery to any corner of the world. Export-safe packaging.</p></div>
     </div>
+  </section>
+
+  <section class="bogo-section">
+    <h2>Buy 2, <em>Get 1 Free!</em></h2>
+    <p>Add any 3 candles to your cart — the lowest value candle becomes absolutely FREE. Automatically applied at checkout. No code needed.</p>
+    <div class="bogo-tag">Auto-Applied · No Code Needed</div>
   </section>
 
   <section class="shop-section">
@@ -603,10 +928,10 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
     </div>
   </section>
 
-  <section class="gift-card">
+  <section class="gift-card-section">
     <h2>Give the Gift of <em>Light.</em></h2>
     <p>Not sure what to pick? Give a Deep By Soni gift card — let them choose their own candle story.</p>
-    <a href="https://wa.me/918750577905?text=Hi%2C%20I%27d%20like%20a%20Deep%20By%20Soni%20gift%20card" target="_blank" class="btn">Order Gift Card <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    <a href="https://wa.me/918750577905?text=Hi%2C%20I%27d%20like%20a%20Deep%20By%20Soni%20gift%20card" target="_blank" class="btn btn-solid">Order Gift Card <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </section>
 
   <section>
@@ -615,26 +940,23 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
   </section>
 </div>
 
-<!-- ═══════════ REVIEWS PAGE ═══════════ -->
+<!-- REVIEWS -->
 <div class="page" id="page-reviews">
   <section class="page-hero">
     <p class="kicker">Loved by Many</p>
     <h1>Words From <em>Happy Hearts</em></h1>
     <p>Real experiences from customers across India — and the world.</p>
   </section>
-  <section>
-    <div class="testi-grid" id="allTestiGrid"></div>
-  </section>
+  <section><div class="testi-grid" id="allTestiGrid"></div></section>
 </div>
 
-<!-- ═══════════ ABOUT PAGE ═══════════ -->
+<!-- ABOUT -->
 <div class="page" id="page-about">
   <section class="page-hero">
     <p class="kicker">About Us</p>
     <h1>The Soul Behind <em>the Glow</em></h1>
     <p>Deep By Soni Aura Candles — born from courage, creativity, and the desire to turn passion into purpose.</p>
   </section>
-
   <section class="about-section">
     <div class="about-grid">
       <div class="about-visual reveal"><div class="letter">D</div></div>
@@ -644,7 +966,6 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
         <p>Crafted with devotion, designed with elegance, and created to elevate every moment of your life — <strong>Deep By Soni Aura Candles</strong> brings creativity into everyday living.</p>
       </div>
     </div>
-
     <div class="values-grid">
       <div class="value-card reveal"><div class="v-icon">🕯️</div><h4>Handcrafted</h4><p>Every candle hand-poured with intention, emotion &amp; detail.</p></div>
       <div class="value-card reveal"><div class="v-icon">🌿</div><h4>Natural Wax</h4><p>Premium soy blends for a clean, soot-free, long burn.</p></div>
@@ -652,23 +973,15 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
       <div class="value-card reveal"><div class="v-icon">💝</div><h4>Made for Gifting</h4><p>Perfect for festivals, weddings, corporate &amp; personal moments.</p></div>
     </div>
   </section>
-
-  <section class="newsletter">
-    <div class="newsletter-wrap">
-      <h3>Our <em>Promise</em></h3>
-      <p>Unique sculptural designs. High detailing &amp; smooth finishing. Strong fragrance throw. Safe, clean, long burn hours.</p>
-    </div>
-  </section>
 </div>
 
-<!-- ═══════════ FOUNDER PAGE ═══════════ -->
+<!-- FOUNDER -->
 <div class="page" id="page-founder">
   <section class="page-hero">
     <p class="kicker">Our Story</p>
     <h1>The Journey of <em>Deepanshi</em></h1>
-    <p>From 9 years in corporate to becoming a candle artist — this is a story of courage, family, and following your heart.</p>
+    <p>From 9 years in corporate to becoming a candle artist — a story of courage, family, and following your heart.</p>
   </section>
-
   <section class="about-section">
     <div class="about-grid">
       <div class="about-visual reveal"><div class="letter">D</div></div>
@@ -679,24 +992,14 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
         <p>The real turning point came on a simple <strong>Diwali shopping day</strong>. I saw people happily picking up plain white candles — such small candles, yet so much joy. That's when the thought struck: <em>If people love these simple candles so much, why not create something more beautiful, more unique?</em></p>
         <p>On <strong>7th November 2025</strong>, I poured my very first candle — the <em>Golden Bloom</em>. Exactly one week later, on <strong>14th November 2025</strong>, <em>Deep By Soni Aura Candles</em> was officially launched.</p>
         <p>Today, this brand is not just my work — it is my journey of courage, creativity, devotion, and turning light into art.</p>
-        <p style="font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:var(--gold);margin-top:30px">"Dreams don't need to be perfect — they just need a brave beginning."</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;color:var(--gold);margin-top:26px">"Dreams don't need to be perfect — they just need a brave beginning."</p>
         <div class="founder-sign" style="color:var(--gold)">Deepanshi Verma<small style="color:var(--ink-soft)">Founder &amp; Candle Artist</small></div>
       </div>
     </div>
   </section>
-
-  <section class="shop-section">
-    <div class="section-head"><p class="kicker">The Craft</p><h2>From Her <em>Hands to Your Home</em></h2></div>
-    <div class="values-grid">
-      <div class="value-card reveal"><div class="v-icon">🌸</div><h4>Golden Bloom</h4><p>Her first signature creation — crafted with melted golden foil &amp; finished with a soft soy-wax bloom.</p></div>
-      <div class="value-card reveal"><div class="v-icon">☕</div><h4>Chai Candle</h4><p>Inspired by a perfectly brewed cup of chai — with real cardamom, black pepper, clove &amp; cinnamon.</p></div>
-      <div class="value-card reveal"><div class="v-icon">🎨</div><h4>Artistic Joy</h4><p>From gourmet candles like samosa &amp; rasmalai, to sculptural roses &amp; princess dresses.</p></div>
-      <div class="value-card reveal"><div class="v-icon">💫</div><h4>Emotional Gifting</h4><p>Secret message candles that reveal hidden words as they melt — unforgettable moments.</p></div>
-    </div>
-  </section>
 </div>
 
-<!-- ═══════════ CUSTOM ORDERS PAGE ═══════════ -->
+<!-- CUSTOM ORDERS -->
 <div class="page" id="page-custom-orders">
   <section class="page-hero">
     <p class="kicker">Custom Orders</p>
@@ -712,13 +1015,13 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
       <div class="value-card reveal"><div class="v-icon">🎨</div><h4>Custom Fragrance</h4><p>Choose from 16+ available fragrances, or request a specific blend.</p></div>
       <div class="value-card reveal"><div class="v-icon">💌</div><h4>Personal Message</h4><p>Handwritten cards, custom packaging &amp; personalized touches.</p></div>
     </div>
-    <div style="text-align:center;margin-top:60px">
+    <div style="text-align:center;margin-top:50px">
       <a href="https://wa.me/918750577905?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20custom%20orders" target="_blank" class="btn btn-solid">Enquire on WhatsApp <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
   </section>
 </div>
 
-<!-- ═══════════ CONTACT PAGE ═══════════ -->
+<!-- CONTACT -->
 <div class="page" id="page-contact">
   <section class="page-hero">
     <p class="kicker">Get in Touch</p>
@@ -730,24 +1033,12 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
       <div class="contact-info">
         <h3>Deepanshi Verma</h3>
         <p>Founder &amp; Candle Artist — Deep By Soni Aura Candles</p>
-        <div class="contact-block">
-          <h5>Phone / WhatsApp</h5>
-          <a href="tel:+918750577905">+91 87505 77905</a>
-        </div>
-        <div class="contact-block">
-          <h5>Email</h5>
-          <a href="mailto:deepbysoniauracandles@gmail.com">deepbysoniauracandles@gmail.com</a>
-        </div>
-        <div class="contact-block">
-          <h5>Instagram</h5>
-          <a href="https://instagram.com/deepbysoniauracandle" target="_blank">@deepbysoniauracandle</a>
-        </div>
-        <div class="contact-block">
-          <h5>Shipping</h5>
-          <p>Pan-India · Worldwide</p>
-        </div>
+        <div class="contact-block"><h5>Phone / WhatsApp</h5><a href="tel:+918750577905">+91 87505 77905</a></div>
+        <div class="contact-block"><h5>Email</h5><a href="mailto:deepbysoniauracandles@gmail.com">deepbysoniauracandles@gmail.com</a></div>
+        <div class="contact-block"><h5>Instagram</h5><a href="https://instagram.com/deepbysoniauracandle" target="_blank">@deepbysoniauracandle</a></div>
+        <div class="contact-block"><h5>Shipping</h5><p>Pan-India · Worldwide</p></div>
       </div>
-      <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you, Deepanshi will reach out soon!');">
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you! Deepanshi will reach out soon.'); this.reset();">
         <div class="form-row"><label>Your Name</label><input type="text" required></div>
         <div class="form-row"><label>Email</label><input type="email" required></div>
         <div class="form-row"><label>Phone</label><input type="tel"></div>
@@ -758,34 +1049,26 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
   </section>
 </div>
 
-<!-- ═══════════ FAQ PAGE ═══════════ -->
+<!-- FAQ -->
 <div class="page" id="page-faq">
   <section class="page-hero">
     <p class="kicker">Questions?</p>
     <h1>Frequently <em>Asked</em></h1>
     <p>Everything you need to know about our candles, shipping, and custom orders.</p>
   </section>
-  <section>
-    <div class="faq-wrap" id="faqWrap"></div>
-  </section>
+  <section><div class="faq-wrap" id="faqWrap"></div></section>
 </div>
 
-<!-- ═══════════ SHIPPING PAGE ═══════════ -->
+<!-- SHIPPING -->
 <div class="page" id="page-shipping">
-  <section class="page-hero">
-    <p class="kicker">Shipping</p>
-    <h1>Safe Delivery, <em>Always</em></h1>
-  </section>
+  <section class="page-hero"><p class="kicker">Shipping</p><h1>Safe Delivery, <em>Always</em></h1></section>
   <section><div class="doc-page">
     <h2>Safe Packaging Guarantee</h2>
     <p>All candles are packed in multi-layer bubble wrap with a shockproof hard box. Sculptural &amp; luxury jars are shipped with double-protection packaging.</p>
     <h2>Shipping Charges</h2>
-    <p>Calculated based on order weight and delivery location. Exact charges are shared after order confirmation. We always choose the most affordable and safest courier option.</p>
+    <p>Shipping charges are calculated at checkout based on your order value and location. <strong>Free shipping on all orders above ₹999.</strong> Orders below ₹999 attract a flat ₹79 shipping fee.</p>
     <h2>Delivery Time</h2>
-    <ul>
-      <li><strong>India:</strong> 3-7 business days depending on location</li>
-      <li><strong>International:</strong> 10-18 business days, depending on country</li>
-    </ul>
+    <ul><li><strong>India:</strong> 3-7 business days depending on location</li><li><strong>International:</strong> 10-18 business days, depending on country</li></ul>
     <h2>International Shipping</h2>
     <p>International orders are welcome. Charges depend on country, weight, and customs policies. We select trusted courier partners to offer fair and competitive rates.</p>
     <h2>Customs &amp; Duties</h2>
@@ -793,44 +1076,37 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
   </div></section>
 </div>
 
-<!-- ═══════════ PRIVACY PAGE ═══════════ -->
+<!-- PRIVACY -->
 <div class="page" id="page-privacy">
   <section class="page-hero"><p class="kicker">Legal</p><h1>Privacy <em>Policy</em></h1></section>
   <section><div class="doc-page">
     <h2>Information We Collect</h2>
     <p>We collect your name, phone number, email address, and shipping address when you place an order or contact us. This information is used only to fulfill your order and improve our service.</p>
     <h2>How We Use Your Information</h2>
-    <ul>
-      <li>To process &amp; deliver your orders</li>
-      <li>To communicate about order status &amp; offers</li>
-      <li>To improve our products &amp; services</li>
-    </ul>
+    <ul><li>To process &amp; deliver your orders</li><li>To communicate about order status &amp; offers</li><li>To improve our products &amp; services</li></ul>
     <h2>Data Protection</h2>
     <p>Your data is never sold or shared with third parties except shipping partners essential for delivery. All information is stored securely.</p>
-    <h2>Cookies</h2>
-    <p>Our website uses minimal cookies for basic functionality. We do not track you across other websites.</p>
+    <h2>Cookies &amp; Local Storage</h2>
+    <p>Our website uses browser local storage only to remember your cart and customer details for convenience. We do not track you across other websites.</p>
     <h2>Contact</h2>
     <p>For any privacy-related questions: <strong>deepbysoniauracandles@gmail.com</strong></p>
   </div></section>
 </div>
 
-<!-- ═══════════ TERMS PAGE ═══════════ -->
+<!-- TERMS -->
 <div class="page" id="page-terms">
   <section class="page-hero"><p class="kicker">Legal</p><h1>Terms &amp; <em>Conditions</em></h1></section>
   <section><div class="doc-page">
     <h2>Product Disclaimer</h2>
     <p>All our candles are handcrafted. Slight variations in color, size, and finish are natural and part of the charm — not a defect.</p>
     <h2>Fragile Product Notice</h2>
-    <p>Candles are fragile products. We take utmost care in packaging, but we are not responsible for damage caused by mishandling or rough transportation. Any issue must be reported within 48 hours of delivery with photos.</p>
+    <p>Candles are fragile products. We take utmost care in packaging, but any damage caused by mishandling or rough transportation must be reported within 48 hours of delivery with photos.</p>
+    <h2>No Returns Policy</h2>
+    <p>Due to the fragile nature of our handmade candles, we do not accept returns or exchanges. However, if your product arrives damaged, contact us within 48 hours with photos and we will make it right.</p>
     <h2>Order Confirmation</h2>
-    <p>Orders are confirmed via WhatsApp or email. Payment must be completed before dispatch.</p>
+    <p>Orders are confirmed via WhatsApp or email after payment. Payment must be completed before dispatch.</p>
     <h2>Use &amp; Safety</h2>
-    <ul>
-      <li>Trim the wick to ¼ inch before each use</li>
-      <li>Do not burn for more than 2-4 hours at a time</li>
-      <li>Keep away from children, pets, and flammable items</li>
-      <li>Always burn on a heat-resistant surface</li>
-    </ul>
+    <ul><li>Trim the wick to ¼ inch before each use</li><li>Do not burn for more than 2-4 hours at a time</li><li>Keep away from children, pets, and flammable items</li><li>Always burn on a heat-resistant surface</li></ul>
     <h2>Pricing</h2>
     <p>All prices are in INR and subject to change. Offers apply as per terms mentioned on the offer page.</p>
     <h2>Contact</h2>
@@ -838,19 +1114,25 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
   </div></section>
 </div>
 
-<!-- ═══════════ 404 PAGE ═══════════ -->
+<!-- 404 -->
 <div class="page" id="page-404">
   <section class="page-hero">
     <p class="kicker">Lost in the Glow</p>
     <h1>Page Not <em>Found</em></h1>
     <p>The page you're looking for has melted away. Let's light your way back home.</p>
-    <div style="margin-top:40px"><a href="#/" data-nav class="btn btn-solid">Back to Home <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
+    <div style="margin-top:34px"><a href="#/" data-nav class="btn btn-solid">Back to Home <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
   </section>
 </div>
 
 </main>
 
-<!-- ═══════════ FOOTER ═══════════ -->
+<!-- CANDLE PEEK -->
+<div class="candle-peek left" id="candlePeek">
+  <div class="peek-bubble" id="peekBubble">Psst... Buy 2 Get 1 Free! 🎉</div>
+  <img src="peek-candle.png" alt="Candle" onerror="this.style.display='none';">
+</div>
+
+<!-- FOOTER -->
 <footer>
   <div class="foot-grid">
     <div class="foot-brand">
@@ -904,49 +1186,59 @@ footer{padding:90px 6vw 36px;background:var(--ink);color:rgba(245,230,200,.75)}
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
+<button class="back-top" id="backTop" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg></button>
+
 <script>
-/* ═══════════ PRODUCTS DATA ═══════════ */
+/* ═══════════════════════════════════════════
+   PRODUCTS DATA
+   ═══════════════════════════════════════════ */
 const products = [
-  { name:"Golden & Silver Bloom Candle", cat:"jar", price:349, combo:"Combo ₹599", scent:"Rose · Queen of Flowers", desc:"Dual-layer metallic gel wax with shimmering gold & silver flakes.", badge:"Bestseller", img:"golden-silver-bloom.jpg" },
-  { name:"Luxury Dual Layer Jar Candle", cat:"jar", price:599, combo:"Golden + Silver ₹1199", scent:"Lemongrass · Rose · Vanilla", desc:"Soy wax top, gel wax bottom with golden & silver foil flakes.", badge:"Premium", img:"luxury-dual-layer.jpg" },
-  { name:"Aura Protector Evil Eye Jar", cat:"jar", price:299, combo:"", scent:"Rose · Lavender · Jasmine", desc:"Crystal-clear gel wax with dried florals & evil-eye charm.", img:"aura-protector.jpg" },
-  { name:"Aqua Aura Floral Jar Candle", cat:"jar", price:179, combo:"Set of 2 ₹299", scent:"Aqua Breeze", desc:"Dual-layered gel wax with dried rose petals.", img:"aqua-aura-floral.jpg" },
-  { name:"He or She Rose Aura (Tiny)", cat:"jar", price:179, combo:"Set of 2 ₹299", scent:"Rose", desc:"Soy heart shapes under gel wax, topped with a 3D daisy flower.", img:"he-she-rose-aura.jpg" },
-  { name:"Royal Pomegranate Luxe", cat:"jar", price:499, combo:"Set of 2 ₹899", scent:"Sweet Fruit Blend", desc:"Layered candle with realistic pomegranate seeds on top.", badge:"New", img:"royal-pomegranate.jpg" },
-  { name:"Tiny-Tiny Cute Jar Candle", cat:"jar", price:199, combo:"", scent:"Strawberry · Vanilla", desc:"Minimalist single-layer soy wax, topped with dried flowers.", img:"tiny-tiny-jar.jpg" },
-  { name:"Indian Sweet Laddu Delight Jar", cat:"jar", price:149, combo:"Set of 2 ₹249", scent:"Vanilla · Marigold", desc:"Laddu candle floating in elegant soy wax.", img:"laddu-delight-jar.jpg" },
-  { name:"Coffee Ice Shot Candle", cat:"gourmet", price:349, combo:"Set ₹499", scent:"Vanilla · Sandalwood", desc:"Realistic gel wax ice cubes with layered wax.", badge:"Loved", img:"coffee-ice-shot.jpg" },
-  { name:"Strawberry Cheesecake", cat:"gourmet", price:349, combo:"Gourmet Duo ₹599", scent:"Strawberry · Vanilla", desc:"Three realistic layers with handcrafted strawberry topper.", img:"strawberry-cheesecake.jpg" },
-  { name:"Samosa Delight Candle", cat:"gourmet", price:349, combo:"", scent:"Cardamom & Ginger", desc:"Ultimate realistic samosa — unique Indian foodie gifting.", img:"samosa-delight.jpg" },
-  { name:"Chai Wala Sukoon", cat:"gourmet", price:349, combo:"Chai + Coffee ₹549", scent:"Cardamom & Ginger", desc:"Topped with real cardamom, cinnamon & black pepper.", badge:"Signature", img:"chai-wala-sukoon.jpg" },
-  { name:"Rasmalai Treat Candle", cat:"gourmet", price:349, combo:"Set of 2 ₹599", scent:"Vanilla", desc:"Soft, puffy texture like real rasmalai.", img:"rasmalai-treat.jpg" },
-  { name:"Pick Your Favourite Scoop", cat:"gourmet", price:499, combo:"Set of 2 ₹899", scent:"Rose · Vanilla", desc:"Molded wax scoops with authentic textures & toppings.", img:"favourite-scoop.jpg" },
-  { name:"2-in-1 Forever Berry Bowl", cat:"gourmet", price:699, combo:"", scent:"Fruit Basket · Strawberry", desc:"Wax berries in a reusable wooden bowl.", badge:"Eco", img:"forever-berry-bowl.jpg" },
-  { name:"Indian Sweet Classic Laddu", cat:"gourmet", price:59, combo:"Set of 4 ₹199", scent:"Vanilla · Marigold", desc:"Realistic laddu with silver warq.", img:"classic-laddu.jpg" },
-  { name:"Lohri Bonfire Candle", cat:"festive", price:499, combo:"Festive Pack ₹849", scent:"Soothing Sandalwood", desc:"Miniature bonfire with real peanut, popcorn & sticks.", badge:"Festive", img:"lohri-bonfire.jpg" },
-  { name:"Christmas Tree Pillar", cat:"festive", price:299, combo:"Festive Pack ₹500", scent:"Vanilla", desc:"Detailed hand-poured Christmas tree.", img:"christmas-tree-pillar.jpg" },
-  { name:"Snowflake Votive", cat:"festive", price:125, combo:"Set of 4 ₹449", scent:"Aqua Breeze", desc:"Delicate snowflake shape. Float in water or use individually.", img:"snowflake-votive.jpg" },
-  { name:"Festive Bubble Duo", cat:"festive", price:169, combo:"Set of 2 ₹199", scent:"Sandalwood · Fruit Basket", desc:"Dual-coloured bubble shapes — Christmas themed.", img:"festive-bubble-duo.jpg" },
-  { name:"Celebration Red Wine", cat:"festive", price:499, combo:"", scent:"Green Apple · Fruit Basket", desc:"Premium long-stemmed glass with gold glitter wax.", img:"celebration-red-wine.jpg" },
-  { name:"Celebration Champagne", cat:"festive", price:499, combo:"Set of 2 ₹899", scent:"Aqua Breeze · Fresh Lime", desc:"Champagne glass with realistic foam top.", badge:"Gifting", img:"celebration-champagne.jpg" },
-  { name:"Whiskey on the Rock", cat:"festive", price:499, combo:"", scent:"Soothing Sandalwood", desc:"Realistic whiskey glass candle.", img:"whiskey-rock.jpg" },
-  { name:"Royal Rose Bouquet Candle", cat:"sculptural", price:549, combo:"Set of 2 ₹899", scent:"French Rose", desc:"Floral masterpiece in customized colours.", badge:"Signature", img:"royal-rose-bouquet.jpg" },
-  { name:"3D Flower Tower Pillar", cat:"sculptural", price:499, combo:"", scent:"First Spring", desc:"Stacked 3D floral design.", img:"flower-tower-pillar.jpg" },
-  { name:"Princess Dress Sculptural", cat:"sculptural", price:249, combo:"Set of 4 ₹899", scent:"Queen of Flowers", desc:"Princess gown shaped candles in soft pastels.", img:"princess-dress.jpg" },
-  { name:"The Heritage Floral Pillar", cat:"sculptural", price:179, combo:"", scent:"Mogra · Jasmine", desc:"High-detail 3D floral texture.", img:"heritage-floral.jpg" },
-  { name:"Rose Teddy Bear Candle", cat:"sculptural", price:249, combo:"Bear + Heart ₹449", scent:"Rose · Lavender", desc:"Teddy bear with rose texture.", img:"rose-teddy-bear.jpg" },
-  { name:"Modern Round Spiral Spire", cat:"sculptural", price:129, combo:"", scent:"Soothing Sandalwood", desc:"Sculptural twist design.", img:"round-spiral-spire.jpg" },
-  { name:"Modern Spiral Cone Shape", cat:"sculptural", price:149, combo:"", scent:"Soothing Sandalwood", desc:"Upward-flowing spiral.", img:"spiral-cone.jpg" },
-  { name:"Daisy Flower Floating", cat:"sculptural", price:59, combo:"Set of 4 ₹200", scent:"Aqua Breeze", desc:"Floats gracefully on water.", img:"daisy-floating.jpg" },
-  { name:"Secret Message Candle", cat:"gifting", price:249, combo:"Set of 2 ₹449", scent:"Lavender · Vanilla", desc:"As wax melts, hidden message reveals.", badge:"Viral", img:"secret-message.jpg" },
-  { name:"Mystery Message Heart", cat:"gifting", price:549, combo:"", scent:"French Rose", desc:"Reusable wooden heart with hidden personalized message.", img:"mystery-message-heart.jpg" },
-  { name:"Flat Heart Bloom", cat:"gifting", price:99, combo:"Set of 4 ₹349", scent:"Rose", desc:"Flat design with rose texture.", img:"flat-heart-bloom.jpg" },
-  { name:"Baby Themed Mini Candles", cat:"baby", price:149, combo:"Set of 6 ₹599", scent:"Vanilla", desc:"6 shapes — teddy, bottle, pacifier, stroller & footprints.", img:"baby-themed-mini.jpg" },
-  { name:"Tiny Steps Footprint Votive", cat:"baby", price:299, combo:"Set of 2 ₹449", scent:"French Lavender", desc:"Blue & pink footprints — symbolic gender-reveal memory.", img:"tiny-steps-footprint.jpg" },
-  { name:"Authentic Indian Masala Aroma", cat:"baby", price:199, combo:"", scent:"Cinnamon & Spices", desc:"Topped with real clove, cardamom, cinnamon & pepper.", img:"masala-aroma.jpg" },
-  { name:"The Mandala Soul", cat:"baby", price:499, combo:"Set of 2 ₹799", scent:"Lemongrass · Sandalwood", desc:"Decorative tin, reusable as jewelry box.", badge:"Eco", img:"mandala-soul.jpg" },
+  { id:"golden-silver-bloom", name:"Golden & Silver Bloom Candle", cat:"jar", price:349, combo:"Combo ₹599", scent:"Rose · Queen of Flowers", desc:"Dual-layer metallic gel wax with shimmering gold & silver flakes. A luxurious centerpiece for any special occasion.", badge:"Bestseller", img:"golden-silver-bloom.jpg", images:["golden-silver-bloom.jpg"] },
+  { id:"luxury-dual-layer", name:"Luxury Dual Layer Jar Candle", cat:"jar", price:599, combo:"Golden + Silver ₹1199", scent:"Lemongrass · Rose · Vanilla", desc:"Soy wax top, gel wax bottom with golden & silver foil flakes. Pure luxury in a jar.", badge:"Premium", img:"luxury-dual-layer.jpg", images:["luxury-dual-layer.jpg"] },
+  { id:"aura-protector", name:"Aura Protector Evil Eye Jar", cat:"jar", price:299, combo:"", scent:"Rose · Lavender · Jasmine", desc:"Crystal-clear gel wax with dried florals & evil-eye charm. Protection in beauty.", img:"aura-protector.jpg", images:["aura-protector.jpg"] },
+  { id:"aqua-aura-floral", name:"Aqua Aura Floral Jar Candle", cat:"jar", price:179, combo:"Set of 2 ₹299", scent:"Aqua Breeze", desc:"Dual-layered gel wax with dried rose petals, topped with creamy soy wax.", img:"aqua-aura-floral.jpg", images:["aqua-aura-floral.jpg"] },
+  { id:"he-she-rose-aura", name:"He or She Rose Aura (Tiny)", cat:"jar", price:179, combo:"Set of 2 ₹299", scent:"Rose", desc:"Soy heart shapes under gel wax, topped with a 3D daisy flower.", img:"he-she-rose-aura.jpg", images:["he-she-rose-aura.jpg"] },
+  { id:"royal-pomegranate", name:"Royal Pomegranate Luxe", cat:"jar", price:499, combo:"Set of 2 ₹899", scent:"Sweet Fruit Blend", desc:"Layered candle with realistic pomegranate seeds on top. A piece of art.", badge:"New", img:"royal-pomegranate.jpg", images:["royal-pomegranate.jpg"] },
+  { id:"tiny-tiny-jar", name:"Tiny-Tiny Cute Jar Candle", cat:"jar", price:199, combo:"", scent:"Strawberry · Vanilla", desc:"Minimalist single-layer soy wax, topped with dried flowers.", img:"tiny-tiny-jar.jpg", images:["tiny-tiny-jar.jpg"] },
+  { id:"laddu-delight-jar", name:"Indian Sweet Laddu Delight Jar", cat:"jar", price:149, combo:"Set of 2 ₹249", scent:"Vanilla · Marigold", desc:"Laddu candle floating in elegant soy wax. Perfect for return gifting.", img:"laddu-delight-jar.jpg", images:["laddu-delight-jar.jpg"] },
+
+  { id:"coffee-ice-shot", name:"Coffee Ice Shot Candle", cat:"gourmet", price:349, combo:"Set ₹499", scent:"Vanilla · Sandalwood", desc:"Realistic gel wax ice cubes with layered wax — for coffee lovers.", badge:"Loved", img:"coffee-ice-shot.jpg", images:["coffee-ice-shot.jpg"] },
+  { id:"strawberry-cheesecake", name:"Strawberry Cheesecake", cat:"gourmet", price:349, combo:"Gourmet Duo ₹599", scent:"Strawberry · Vanilla", desc:"Three realistic layers with handcrafted strawberry topper.", img:"strawberry-cheesecake.jpg", images:["strawberry-cheesecake.jpg"] },
+  { id:"samosa-delight", name:"Samosa Delight Candle", cat:"gourmet", price:349, combo:"", scent:"Cardamom & Ginger", desc:"Ultimate realistic samosa — unique Indian foodie gifting.", img:"samosa-delight.jpg", images:["samosa-delight.jpg"] },
+  { id:"chai-wala-sukoon", name:"Chai Wala Sukoon", cat:"gourmet", price:349, combo:"Chai + Coffee ₹549", scent:"Cardamom & Ginger", desc:"Topped with real cardamom, cinnamon & black pepper. Authentic chai aroma.", badge:"Signature", img:"chai-wala-sukoon.jpg", images:["chai-wala-sukoon.jpg"] },
+  { id:"rasmalai-treat", name:"Rasmalai Treat Candle", cat:"gourmet", price:349, combo:"Set of 2 ₹599", scent:"Vanilla", desc:"Soft, puffy texture like real rasmalai. Decorative & memorable.", img:"rasmalai-treat.jpg", images:["rasmalai-treat.jpg"] },
+  { id:"favourite-scoop", name:"Pick Your Favourite Scoop", cat:"gourmet", price:499, combo:"Set of 2 ₹899", scent:"Rose · Vanilla", desc:"Molded wax scoops with authentic textures & delicious toppings.", img:"favourite-scoop.jpg", images:["favourite-scoop.jpg"] },
+  { id:"forever-berry-bowl", name:"2-in-1 Forever Berry Bowl", cat:"gourmet", price:699, combo:"", scent:"Fruit Basket · Strawberry", desc:"Wax berries in a reusable wooden bowl — light it, love it, reuse it.", badge:"Eco", img:"forever-berry-bowl.jpg", images:["forever-berry-bowl.jpg"] },
+  { id:"classic-laddu", name:"Indian Sweet Classic Laddu", cat:"gourmet", price:59, combo:"Set of 4 ₹199", scent:"Vanilla · Marigold", desc:"Realistic laddu with silver warq. Budget + travel friendly.", img:"classic-laddu.jpg", images:["classic-laddu.jpg"] },
+
+  { id:"lohri-bonfire", name:"Lohri Bonfire Candle", cat:"festive", price:499, combo:"Festive Pack ₹849", scent:"Soothing Sandalwood", desc:"Miniature bonfire with real peanut, popcorn & wooden sticks embedded.", badge:"Festive", img:"lohri-bonfire.jpg", images:["lohri-bonfire.jpg"] },
+  { id:"christmas-tree-pillar", name:"Christmas Tree Pillar", cat:"festive", price:299, combo:"Festive Pack ₹500", scent:"Vanilla", desc:"Detailed hand-poured Christmas tree — perfect holiday centerpiece.", img:"christmas-tree-pillar.jpg", images:["christmas-tree-pillar.jpg"] },
+  { id:"snowflake-votive", name:"Snowflake Votive", cat:"festive", price:125, combo:"Set of 4 ₹449", scent:"Aqua Breeze", desc:"Delicate snowflake shape. Use individually or float in water.", img:"snowflake-votive.jpg", images:["snowflake-votive.jpg"] },
+  { id:"festive-bubble-duo", name:"Festive Bubble Duo", cat:"festive", price:169, combo:"Set of 2 ₹199", scent:"Sandalwood · Fruit Basket", desc:"Dual-coloured bubble shapes — Christmas themed. Customizable.", img:"festive-bubble-duo.jpg", images:["festive-bubble-duo.jpg"] },
+  { id:"celebration-red-wine", name:"Celebration Red Wine", cat:"festive", price:499, combo:"", scent:"Green Apple · Fruit Basket", desc:"Premium long-stemmed glass with shimmering gold glitter wax.", img:"celebration-red-wine.jpg", images:["celebration-red-wine.jpg"] },
+  { id:"celebration-champagne", name:"Celebration Champagne", cat:"festive", price:499, combo:"Set of 2 ₹899", scent:"Aqua Breeze · Fresh Lime", desc:"Champagne glass with realistic foam top & gold glitter wax.", badge:"Gifting", img:"celebration-champagne.jpg", images:["celebration-champagne.jpg"] },
+  { id:"whiskey-rock", name:"Whiskey on the Rock", cat:"festive", price:499, combo:"", scent:"Soothing Sandalwood", desc:"Realistic whiskey glass candle — perfect for the connoisseur.", img:"whiskey-rock.jpg", images:["whiskey-rock.jpg"] },
+
+  { id:"royal-rose-bouquet", name:"Royal Rose Bouquet Candle", cat:"sculptural", price:549, combo:"Set of 2 ₹899", scent:"French Rose", desc:"Floral masterpiece in customized colours. A royal centerpiece.", badge:"Signature", img:"royal-rose-bouquet.jpg", images:["royal-rose-bouquet.jpg"] },
+  { id:"flower-tower-pillar", name:"3D Flower Tower Pillar", cat:"sculptural", price:499, combo:"", scent:"First Spring", desc:"Stacked 3D floral design blending heritage with modern decor.", img:"flower-tower-pillar.jpg", images:["flower-tower-pillar.jpg"] },
+  { id:"princess-dress", name:"Princess Dress Sculptural", cat:"sculptural", price:249, combo:"Set of 4 ₹899", scent:"Queen of Flowers", desc:"Princess gown shaped candles in soft pastels. Bridal & décor favorite.", img:"princess-dress.jpg", images:["princess-dress.jpg"] },
+  { id:"heritage-floral", name:"The Heritage Floral Pillar", cat:"sculptural", price:179, combo:"", scent:"Mogra · Jasmine", desc:"High-detail 3D floral texture — a luxury centerpiece.", img:"heritage-floral.jpg", images:["heritage-floral.jpg"] },
+  { id:"rose-teddy-bear", name:"Rose Teddy Bear Candle", cat:"sculptural", price:249, combo:"Bear + Heart ₹449", scent:"Rose · Lavender", desc:"Teddy bear with rose texture. Cuteness meets elegance.", img:"rose-teddy-bear.jpg", images:["rose-teddy-bear.jpg"] },
+  { id:"round-spiral-spire", name:"Modern Round Spiral Spire", cat:"sculptural", price:129, combo:"", scent:"Soothing Sandalwood", desc:"Sculptural twist design — minimal, modern, decorative.", img:"round-spiral-spire.jpg", images:["round-spiral-spire.jpg"] },
+  { id:"spiral-cone", name:"Modern Spiral Cone Shape", cat:"sculptural", price:149, combo:"", scent:"Soothing Sandalwood", desc:"Upward-flowing spiral — contemporary high-end décor.", img:"spiral-cone.jpg", images:["spiral-cone.jpg"] },
+  { id:"daisy-floating", name:"Daisy Flower Floating", cat:"sculptural", price:59, combo:"Set of 4 ₹200", scent:"Aqua Breeze", desc:"Floats gracefully on water. Custom colours available.", img:"daisy-floating.jpg", images:["daisy-floating.jpg"] },
+
+  { id:"secret-message", name:"Secret Message Candle", cat:"gifting", price:249, combo:"Set of 2 ₹449", scent:"Lavender · Vanilla", desc:"As wax melts, hidden message reveals — 'Will U Marry', 'I Love You'.", badge:"Viral", img:"secret-message.jpg", images:["secret-message.jpg"] },
+  { id:"mystery-message-heart", name:"Mystery Message Heart", cat:"gifting", price:549, combo:"", scent:"French Rose", desc:"Reusable wooden heart with hidden personalized message. Fully customizable.", img:"mystery-message-heart.jpg", images:["mystery-message-heart.jpg"] },
+  { id:"flat-heart-bloom", name:"Flat Heart Bloom", cat:"gifting", price:99, combo:"Set of 4 ₹349", scent:"Rose", desc:"Flat design with rose texture. Perfect romantic gifting.", img:"flat-heart-bloom.jpg", images:["flat-heart-bloom.jpg"] },
+
+  { id:"baby-themed-mini", name:"Baby Themed Mini Candles", cat:"baby", price:149, combo:"Set of 6 ₹599", scent:"Vanilla", desc:"6 shapes — teddy, bottle, pacifier, stroller & footprints.", img:"baby-themed-mini.jpg", images:["baby-themed-mini.jpg"] },
+  { id:"tiny-steps-footprint", name:"Tiny Steps Footprint Votive", cat:"baby", price:299, combo:"Set of 2 ₹449", scent:"French Lavender", desc:"Blue & pink footprints — symbolic gender-reveal memory.", img:"tiny-steps-footprint.jpg", images:["tiny-steps-footprint.jpg"] },
+  { id:"masala-aroma", name:"Authentic Indian Masala Aroma", cat:"baby", price:199, combo:"", scent:"Cinnamon & Spices", desc:"Topped with real clove, cardamom, cinnamon & pepper.", img:"masala-aroma.jpg", images:["masala-aroma.jpg"] },
+  { id:"mandala-soul", name:"The Mandala Soul", cat:"baby", price:499, combo:"Set of 2 ₹799", scent:"Lemongrass · Sandalwood", desc:"Decorative tin, reusable as jewelry box. Artistic + sustainable.", badge:"Eco", img:"mandala-soul.jpg", images:["mandala-soul.jpg"] },
 ];
 
+/* ═══ TESTIMONIALS ═══ */
 const testimonials = [
   { name:"Priya Sharma", city:"Delhi", text:"Ordered the Chai Wala Sukoon for my mom's birthday — she cried! The fragrance is so real, jaise fresh chai ban rahi ho. Packaging bhi ekdum premium thi.", rating:5 },
   { name:"Rahul Mehta", city:"Mumbai", text:"Bought 50+ candles for my sister's wedding — every guest asked where we got them from. Deepanshi ji ne personally handle kiya. Highly recommended!", rating:5 },
@@ -962,25 +1254,54 @@ const testimonials = [
   { name:"Karan Malhotra", city:"Chandigarh", text:"Ordered the Whiskey on the Rock for my dad's birthday. The realistic detail is unbelievable. He loved it!", rating:5 },
 ];
 
+/* ═══ FAQ ═══ */
 const faqs = [
   { q:"How long does a candle burn?", a:"Burn time varies by size: 50-75g candles burn 8-12 hours, 100-150g burn 15-20 hours, 200-350g burn 25-35 hours, and 400g+ jars burn 40+ hours." },
   { q:"Do you ship internationally?", a:"Yes! We ship worldwide with export-safe packaging. Charges depend on country, weight, and customs policies." },
   { q:"Can I customize candles for my wedding or event?", a:"Absolutely! We offer full customization — colors, fragrances, packaging, and personal messages. Minimum order for bulk customization starts at 50 pieces." },
-  { q:"What payment methods do you accept?", a:"Currently we accept UPI, bank transfer, and payment via WhatsApp confirmation. Online card payments coming soon." },
   { q:"How do I place a bulk order?", a:"Simply WhatsApp us at +91 87505 77905 with your requirement (quantity, occasion, customization). We'll send you a quote within 24 hours." },
   { q:"Are the candles safe for indoor use?", a:"Yes! All our candles use natural soy wax blends with clean, soot-free burn. Just keep away from children, pets, and flammable items, and always burn on a heat-resistant surface." },
   { q:"What is the ideal burn time per session?", a:"We recommend 1-1.5 hours for small candles, 2-3 hours for medium, 3-4 hours for large, and up to 4 hours for extra-large jars. Always allow the wax to melt evenly on first burn." },
   { q:"Do you accept returns?", a:"Due to the fragile nature of our handmade products, we do not accept returns. However, if your product arrives damaged, please contact us within 48 hours with photos and we'll make it right." },
   { q:"How should I store my candle?", a:"Store in a cool, dry place away from direct sunlight. Keep the lid on to preserve the fragrance when not in use." },
-  { q:"Do you offer gift wrapping?", a:"Yes! All our candles come in premium packaging perfect for gifting. For custom gift wrapping or personal messages, just let us know on WhatsApp." },
+  { q:"Do you offer gift wrapping?", a:"Yes! We offer premium gift wrapping with a handwritten card for ₹100. Just toggle the gift wrapping option at checkout." },
+  { q:"What payment methods do you accept?", a:"We accept UPI payments via QR code. Once you place your order on WhatsApp, we'll send you the payment QR. You can pay with any UPI app — GPay, PhonePe, Paytm." },
 ];
 
-/* ═══════════ RENDER HELPERS ═══════════ */
+/* ═══ COUPONS ═══ */
+const coupons = {
+  "AURAFIRST": { type:"percent", value:10, minOrder:0, desc:"10% off on first order" },
+  "FESTIVE15": { type:"percent", value:15, minOrder:5000, desc:"15% off above ₹5,000" },
+  "BULK10":    { type:"percent", value:10, minOrder:3000, desc:"10% off above ₹3,000" },
+  "CHAI50":    { type:"flat",    value:50,  minOrder:0,    desc:"₹50 off any order" },
+  "SPECIAL20": { type:"percent", value:20, minOrder:0, desc:"Exclusive 20% off" },
+  "FREESHIP":  { type:"freeship", value:0, minOrder:0, desc:"Free shipping" },
+};
+
+/* ═══ CONFIG ═══ */
+const CONFIG = {
+  whatsapp: "918750577905",
+  shippingFreeAbove: 999,
+  shippingCharge: 79,
+  giftWrapPrice: 100,
+  bogoMinItems: 3,
+};
+
+/* ═══ RENDER HELPERS ═══ */
+function getProductImage(p) {
+  if (p.images && p.images.length > 0) return p.images[0];
+  if (p.img) return p.img;
+  return null;
+}
+
 function productHTML(p){
-  return `<div class="prod-card">
-    ${p.badge ? `<div class="prod-badge">${p.badge}</div>` : ''}
+  const img = getProductImage(p);
+  return `<div class="prod-card" data-product="${p.id}">
+    ${p.badge ? `<div class="prod-badge${p.badge==='Sale'?' sale':''}">${p.badge}</div>` : ''}
     <div class="prod-image">
-      <img src="images/${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'prod-image-placeholder\\'>${p.name.charAt(0)}<small>${p.cat.toUpperCase()}</small></div>';">
+      ${img
+        ? `<img src="images/${img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'prod-image-placeholder\\'>${p.name.charAt(0)}<small>${p.cat.toUpperCase()}</small></div>';">`
+        : `<div class="prod-image-placeholder">${p.name.charAt(0)}<small>${p.cat.toUpperCase()}</small></div>`}
     </div>
     <div class="prod-body">
       <h3 class="prod-name">${p.name}</h3>
@@ -988,7 +1309,7 @@ function productHTML(p){
       <p class="prod-desc">${p.desc}</p>
       <div class="prod-foot">
         <div><div class="prod-price">₹${p.price}</div>${p.combo?`<div class="prod-combo">${p.combo}</div>`:''}</div>
-        <a class="prod-cta" href="https://wa.me/918750577905?text=Hi%2C%20I%20want%20to%20order%20${encodeURIComponent(p.name)}" target="_blank">Order →</a>
+        <button class="prod-cta" onclick="event.stopPropagation(); openProduct('${p.id}')">View →</button>
       </div>
     </div>
   </div>`;
@@ -1021,7 +1342,7 @@ function renderTestis(id, limit=null){
   el.innerHTML = list.map(testiHTML).join('');
 }
 
-/* ═══════════ CATEGORY CARDS (home) ═══════════ */
+/* ═══ CATEGORIES (home) ═══ */
 const cats = [
   { n:"01", cat:"sculptural", title:"Sculptural", desc:"Artistic showpieces — 3D flower towers, princess dresses, rose bouquets." },
   { n:"02", cat:"jar", title:"Jar & Gel", desc:"Elegant gel-wax jars with embedded florals, foils & evil-eye charms." },
@@ -1030,31 +1351,368 @@ const cats = [
   { n:"05", cat:"gifting", title:"Gifting", desc:"Heart blooms, secret-message candles & curated sets for every occasion." },
   { n:"06", cat:"baby", title:"Baby & Aura", desc:"Gender-reveal footprints, baby shower minis & healing aura candles." },
 ];
+const homeCatGrid = document.getElementById('homeCatGrid');
+if (homeCatGrid) {
+  homeCatGrid.innerHTML = cats.map(c => `
+    <a class="cat-card reveal" data-cat-link="${c.cat}">
+      <span class="cat-num">${c.n}</span>
+      <h3>${c.title}</h3>
+      <p>${c.desc}</p>
+      <span class="cat-arrow">Explore <span>→</span></span>
+    </a>
+  `).join('');
+}
 
-document.getElementById('homeCatGrid').innerHTML = cats.map(c => `
-  <a class="cat-card reveal" data-cat-link="${c.cat}">
-    <span class="cat-num">${c.n}</span>
-    <h3>${c.title}</h3>
-    <p>${c.desc}</p>
-    <span class="cat-arrow">Explore <span>→</span></span>
-  </a>
-`).join('');
+/* ═══ FAQ RENDER ═══ */
+const faqWrap = document.getElementById('faqWrap');
+if (faqWrap) {
+  faqWrap.innerHTML = faqs.map(f => `
+    <div class="faq-item">
+      <button class="faq-q">${f.q}<span class="plus">+</span></button>
+      <div class="faq-a"><p>${f.a}</p></div>
+    </div>
+  `).join('');
+  faqWrap.addEventListener('click', e => {
+    const q = e.target.closest('.faq-q');
+    if (!q) return;
+    q.parentElement.classList.toggle('open');
+  });
+}
 
-/* ═══════════ FAQ RENDER ═══════════ */
-document.getElementById('faqWrap').innerHTML = faqs.map(f => `
-  <div class="faq-item">
-    <button class="faq-q">${f.q}<span class="plus">+</span></button>
-    <div class="faq-a"><p>${f.a}</p></div>
-  </div>
-`).join('');
+/* ═══ CART SYSTEM (localStorage) ═══ */
+const CART_KEY = 'dbs_cart_v1';
+const DETAILS_KEY = 'dbs_details_v1';
+const ORDERED_KEY = 'dbs_has_ordered_v1';
+let cart = [];
+let appliedCoupon = null;
+let giftWrap = false;
 
-document.getElementById('faqWrap').addEventListener('click', e => {
-  const q = e.target.closest('.faq-q');
-  if (!q) return;
-  q.parentElement.classList.toggle('open');
-});
+function loadCart(){
+  try { cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch(e){ cart = []; }
+}
+function saveCart(){
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  updateCartCount();
+}
+function updateCartCount(){
+  const total = cart.reduce((s,i)=>s+i.qty,0);
+  const el = document.getElementById('cartCount');
+  if (!el) return;
+  if (total > 0) { el.textContent = total; el.classList.add('show'); }
+  else { el.classList.remove('show'); }
+}
+function addToCart(productId, qty=1){
+  const p = products.find(x => x.id === productId);
+  if (!p) return;
+  const existing = cart.find(i => i.id === productId);
+  if (existing) existing.qty += qty;
+  else cart.push({ id:p.id, name:p.name, price:p.price, img:getProductImage(p), cat:p.cat, qty });
+  saveCart();
+  openCart();
+  renderCart();
+}
+function updateQty(id, delta){
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+  saveCart();
+  renderCart();
+}
+function removeFromCart(id){
+  cart = cart.filter(i => i.id !== id);
+  saveCart();
+  renderCart();
+}
 
-/* ═══════════ ROUTER — SPA ═══════════ */
+/* ═══ CART CALCULATIONS ═══ */
+function calcSubtotal(){
+  return cart.reduce((s,i) => s + (i.price * i.qty), 0);
+}
+function calcBogoDiscount(){
+  const items = [];
+  cart.forEach(i => { for (let k=0;k<i.qty;k++) items.push(i.price); });
+  if (items.length < CONFIG.bogoMinItems) return 0;
+  items.sort((a,b)=>a-b);
+  const freeCount = Math.floor(items.length / CONFIG.bogoMinItems);
+  let discount = 0;
+  for (let i=0;i<freeCount;i++) discount += items[i];
+  return discount;
+}
+function calcCouponDiscount(subtotal, bogo){
+  if (!appliedCoupon) return 0;
+  const c = coupons[appliedCoupon];
+  if (!c) return 0;
+  if (subtotal < c.minOrder) return 0;
+  if (c.type === 'percent') return Math.round((subtotal - bogo) * c.value / 100);
+  if (c.type === 'flat') return Math.min(c.value, subtotal - bogo);
+  return 0;
+}
+function calcShipping(subtotal){
+  if (subtotal === 0) return 0;
+  if (!localStorage.getItem(ORDERED_KEY)) return 0;
+  if (appliedCoupon && coupons[appliedCoupon]?.type === 'freeship') return 0;
+  if (subtotal >= CONFIG.shippingFreeAbove) return 0;
+  return CONFIG.shippingCharge;
+}
+function calcTotals(){
+  const subtotal = calcSubtotal();
+  const bogo = calcBogoDiscount();
+  const couponDisc = calcCouponDiscount(subtotal, bogo);
+  const giftWrapAmt = giftWrap && cart.length > 0 ? CONFIG.giftWrapPrice : 0;
+  const shipping = calcShipping(subtotal);
+  const total = Math.max(0, subtotal - bogo - couponDisc + giftWrapAmt + shipping);
+  return { subtotal, bogo, couponDisc, giftWrap: giftWrapAmt, shipping, total };
+}
+
+/* ═══ RENDER CART ═══ */
+function renderCart(){
+  const body = document.getElementById('cartBody');
+  const footer = document.getElementById('cartFooter');
+  if (!body || !footer) return;
+
+  if (cart.length === 0){
+    body.innerHTML = `<div class="cart-empty">
+      <div class="cart-empty-icon">🕯️</div>
+      <p>Your cart is empty</p>
+      <small>Add a candle to light up your home</small>
+    </div>`;
+    footer.innerHTML = '';
+    return;
+  }
+
+  body.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-img">
+        ${item.img ? `<img src="images/${item.img}" alt="${item.name}" onerror="this.style.display='none'; this.parentElement.textContent='${item.name.charAt(0)}';">` : item.name.charAt(0)}
+      </div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-price">₹${item.price}</div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" onclick="updateQty('${item.id}', -1)">−</button>
+          <span class="qty-val">${item.qty}</span>
+          <button class="qty-btn" onclick="updateQty('${item.id}', 1)">+</button>
+        </div>
+      </div>
+      <button class="cart-item-remove" onclick="removeFromCart('${item.id}')">✕</button>
+    </div>
+  `).join('');
+
+  const t = calcTotals();
+  const couponMsg = appliedCoupon
+    ? `<div class="coupon-msg success">✓ ${appliedCoupon} applied — ${coupons[appliedCoupon].desc}</div>`
+    : '';
+
+  footer.innerHTML = `
+    <div class="cart-coupon">
+      <input type="text" id="couponInput" placeholder="COUPON CODE" ${appliedCoupon ? `value="${appliedCoupon}" disabled` : ''}>
+      <button onclick="${appliedCoupon ? 'removeCoupon()' : 'applyCoupon()'}">${appliedCoupon ? 'Remove' : 'Apply'}</button>
+    </div>
+    ${couponMsg}
+    <div class="cart-summary">
+      <div class="cart-row"><span>Subtotal</span><span>₹${t.subtotal}</span></div>
+      ${t.bogo > 0 ? `<div class="cart-row discount"><span>🎉 Buy 2 Get 1 Free</span><span>−₹${t.bogo}</span></div>` : ''}
+      ${t.couponDisc > 0 ? `<div class="cart-row discount"><span>🎟️ Coupon Discount</span><span>−₹${t.couponDisc}</span></div>` : ''}
+      ${t.giftWrap > 0 ? `<div class="cart-row"><span>🎁 Gift Wrapping</span><span>+₹${t.giftWrap}</span></div>` : ''}
+      <div class="cart-row"><span>🚚 Shipping</span><span>${t.shipping === 0 ? 'FREE' : '₹' + t.shipping}</span></div>
+      <div class="cart-row total"><span>Total</span><span>₹${t.total}</span></div>
+    </div>
+    <button class="cart-cta" onclick="goToCheckout()">Checkout →</button>
+    ${t.subtotal < CONFIG.shippingFreeAbove ? `<div class="cart-shipping-note">Add <strong>₹${CONFIG.shippingFreeAbove - t.subtotal}</strong> more for FREE shipping</div>` : `<div class="cart-shipping-note">🎉 You've unlocked <strong>FREE shipping</strong>!</div>`}
+  `;
+}
+
+/* ═══ COUPON ═══ */
+function applyCoupon(){
+  const inp = document.getElementById('couponInput');
+  if (!inp) return;
+  const code = inp.value.trim().toUpperCase();
+  if (!code) return;
+  const c = coupons[code];
+  if (!c){
+    showCouponMsg('Invalid coupon code', 'error');
+    return;
+  }
+  const subtotal = calcSubtotal();
+  if (subtotal < c.minOrder){
+    showCouponMsg(`Minimum order ₹${c.minOrder} required`, 'error');
+    return;
+  }
+  appliedCoupon = code;
+  renderCart();
+}
+function removeCoupon(){
+  appliedCoupon = null;
+  renderCart();
+}
+function showCouponMsg(msg, type){
+  const footer = document.getElementById('cartFooter');
+  if (!footer) return;
+  let existing = footer.querySelector('.coupon-msg');
+  if (existing) existing.remove();
+  const el = document.createElement('div');
+  el.className = 'coupon-msg ' + type;
+  el.textContent = msg;
+  const coupon = footer.querySelector('.cart-coupon');
+  if (coupon) coupon.after(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+/* ═══ CART DRAWER ═══ */
+function openCart(){
+  document.getElementById('cartDrawer')?.classList.add('open');
+  document.getElementById('cartBackdrop')?.classList.add('open');
+  document.body.classList.add('no-scroll');
+}
+function closeCart(){
+  document.getElementById('cartDrawer')?.classList.remove('open');
+  document.getElementById('cartBackdrop')?.classList.remove('open');
+  document.body.classList.remove('no-scroll');
+}
+
+/* ═══ GO TO CHECKOUT ═══ */
+function goToCheckout(){
+  if (cart.length === 0) return;
+  closeCart();
+  window.location.hash = '#/checkout';
+}
+
+/* ═══ CHECKOUT ═══ */
+function loadSavedDetails(){
+  try {
+    const d = JSON.parse(localStorage.getItem(DETAILS_KEY)) || {};
+    if (d.name) document.getElementById('coName').value = d.name;
+    if (d.phone) document.getElementById('coPhone').value = d.phone;
+    if (d.email) document.getElementById('coEmail').value = d.email;
+    if (d.address) document.getElementById('coAddress').value = d.address;
+    if (d.city) document.getElementById('coCity').value = d.city;
+    if (d.pincode) document.getElementById('coPincode').value = d.pincode;
+    if (d.state) document.getElementById('coState').value = d.state;
+  } catch(e){}
+}
+function saveDetails(){
+  const d = {
+    name: document.getElementById('coName').value,
+    phone: document.getElementById('coPhone').value,
+    email: document.getElementById('coEmail').value,
+    address: document.getElementById('coAddress').value,
+    city: document.getElementById('coCity').value,
+    pincode: document.getElementById('coPincode').value,
+    state: document.getElementById('coState').value,
+  };
+  localStorage.setItem(DETAILS_KEY, JSON.stringify(d));
+}
+function updateCheckout(){
+  giftWrap = document.getElementById('coGiftWrap')?.checked || false;
+  renderCheckoutSummary();
+}
+function renderCheckoutSummary(){
+  const el = document.getElementById('checkoutSummary');
+  if (!el) return;
+  if (cart.length === 0){
+    el.innerHTML = `<h3>Cart is empty</h3><p style="font-size:13px;color:var(--ink-soft);margin-bottom:20px">Add some candles first.</p><a href="#/shop" data-nav class="btn btn-solid" style="width:100%;justify-content:center">Shop Now</a>`;
+    return;
+  }
+  const t = calcTotals();
+  el.innerHTML = `
+    <h3>Order Summary</h3>
+    ${cart.map(i => `
+      <div class="summary-item">
+        <div class="summary-item-img">${i.img ? `<img src="images/${i.img}" onerror="this.style.display='none'; this.parentElement.textContent='${i.name.charAt(0)}';" alt="">` : i.name.charAt(0)}</div>
+        <div class="summary-item-info">
+          <div class="summary-item-name">${i.name}</div>
+          <div class="summary-item-qty">Qty: ${i.qty}</div>
+        </div>
+        <div class="summary-item-price">₹${i.price * i.qty}</div>
+      </div>
+    `).join('')}
+    <div class="summary-totals">
+      <div class="summary-row"><span>Subtotal</span><span>₹${t.subtotal}</span></div>
+      ${t.bogo > 0 ? `<div class="summary-row discount"><span>🎉 Buy 2 Get 1 Free</span><span>−₹${t.bogo}</span></div>` : ''}
+      ${t.couponDisc > 0 ? `<div class="summary-row discount"><span>🎟️ Coupon</span><span>−₹${t.couponDisc}</span></div>` : ''}
+      ${t.giftWrap > 0 ? `<div class="summary-row"><span>🎁 Gift Wrapping</span><span>+₹${t.giftWrap}</span></div>` : ''}
+      <div class="summary-row"><span>🚚 Shipping</span><span>${t.shipping === 0 ? 'FREE' : '₹' + t.shipping}</span></div>
+      <div class="summary-row total"><span>Total</span><span>₹${t.total}</span></div>
+    </div>
+    <button class="place-order-btn" onclick="placeOrder()">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Place Order on WhatsApp
+    </button>
+    <p style="font-size:11px;color:var(--ink-soft);text-align:center;margin-top:12px;line-height:1.5">We'll send you the payment QR code on WhatsApp</p>
+  `;
+}
+
+/* ═══ PLACE ORDER ═══ */
+function placeOrder(){
+  const name = document.getElementById('coName').value.trim();
+  const phone = document.getElementById('coPhone').value.trim();
+  const address = document.getElementById('coAddress').value.trim();
+  const city = document.getElementById('coCity').value.trim();
+  const pincode = document.getElementById('coPincode').value.trim();
+  const state = document.getElementById('coState').value;
+
+  if (!name || !phone || !address || !city || !pincode || !state){
+    alert('Please fill all required fields.');
+    return;
+  }
+  if (cart.length === 0){
+    alert('Your cart is empty.');
+    return;
+  }
+
+  saveDetails();
+
+  const t = calcTotals();
+  const email = document.getElementById('coEmail').value.trim();
+  const giftMsg = document.getElementById('coGiftMsg').value.trim();
+  const notes = document.getElementById('coNotes').value.trim();
+  const giftWrapOn = document.getElementById('coGiftWrap').checked;
+
+  let msg = `🕯️ *New Order — Deep By Soni Aura Candles*\n\n`;
+  msg += `📦 *Items:*\n`;
+  cart.forEach((i, idx) => { msg += `${idx+1}. ${i.name} × ${i.qty} = ₹${i.price * i.qty}\n`; });
+  msg += `\n💰 Subtotal: ₹${t.subtotal}\n`;
+  if (t.bogo > 0) msg += `🎉 Buy 2 Get 1 Free: −₹${t.bogo}\n`;
+  if (t.couponDisc > 0) msg += `🎟️ Coupon (${appliedCoupon}): −₹${t.couponDisc}\n`;
+  if (t.giftWrap > 0) msg += `🎁 Gift Wrapping: +₹${t.giftWrap}\n`;
+  msg += `🚚 Shipping: ${t.shipping === 0 ? 'FREE' : '₹' + t.shipping}\n`;
+  msg += `💵 *Total: ₹${t.total}*\n\n`;
+  msg += `👤 *Customer Details:*\n`;
+  msg += `Name: ${name}\n`;
+  msg += `Phone: ${phone}\n`;
+  if (email) msg += `Email: ${email}\n`;
+  msg += `Address: ${address}\n`;
+  msg += `City: ${city}\n`;
+  msg += `State: ${state}\n`;
+  msg += `Pincode: ${pincode}\n`;
+  if (giftWrapOn) msg += `\n🎁 Gift Wrapping: YES (+₹${CONFIG.giftWrapPrice})\n`;
+  if (giftMsg) msg += `💌 Gift Message: "${giftMsg}"\n`;
+  if (notes) msg += `\n📝 Notes: ${notes}\n`;
+  msg += `\n---\n✅ Please send payment QR code to confirm.`;
+
+  localStorage.setItem('dbs_last_total', t.total);
+
+  const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+
+  cart = [];
+  saveCart();
+  appliedCoupon = null;
+  localStorage.setItem(ORDERED_KEY, '1');
+
+  setTimeout(() => { window.location.hash = '#/qr'; }, 500);
+}
+
+/* ═══ QR PAGE ═══ */
+function updateQRAmount(){
+  const el = document.getElementById('qrAmount');
+  if (!el) return;
+  const total = localStorage.getItem('dbs_last_total') || '0';
+  el.textContent = '₹' + total;
+}
+
+/* ═══ ROUTER ═══ */
 const routes = {
   '': 'page-home', '/': 'page-home',
   '/shop': 'page-shop',
@@ -1068,53 +1726,188 @@ const routes = {
   '/shipping': 'page-shipping',
   '/privacy': 'page-privacy',
   '/terms': 'page-terms',
+  '/checkout': 'page-checkout',
+  '/qr': 'page-qr',
 };
 
 function navigate(){
   const hash = window.location.hash.replace('#', '') || '/';
   let routeKey = hash;
-  // Handle shop#category
   let filterCat = null;
-  if (hash.startsWith('/shop/')) {
-    filterCat = hash.split('/')[2];
-    routeKey = '/shop';
-  }
-  const pageId = routes[routeKey] || 'page-404';
+  let productId = null;
+  if (hash.startsWith('/shop/')) { filterCat = hash.split('/')[2]; routeKey = '/shop'; }
+  if (hash.startsWith('/product/')) { productId = hash.split('/')[2]; routeKey = '/product'; }
 
-  // Hide all pages
+  const pageId = routes[routeKey] || (routeKey === '/product' ? 'page-product' : 'page-404');
+
   document.querySelectorAll('.page').forEach(p => p.classList.remove('is-active'));
   const active = document.getElementById(pageId);
-  if (active) {
-    active.classList.add('is-active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    // Re-render reveals for new page
-    setTimeout(initReveals, 50);
-  }
+  if (active) active.classList.add('is-active');
+  window.scrollTo({ top: 0, behavior: 'instant' });
 
-  // Nav active state
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.classList.toggle('active', a.getAttribute('href') === '#' + routeKey);
   });
 
-  // Shop filter
   if (pageId === 'page-shop') {
     const cat = filterCat || 'all';
-    document.querySelectorAll('#shopTabs .tab').forEach(t => {
-      t.classList.toggle('active', t.dataset.cat === cat);
-    });
+    document.querySelectorAll('#shopTabs .tab').forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
     renderProducts('shopGrid', cat);
   }
+  if (pageId === 'page-product' && productId) renderProductDetail(productId);
+  if (pageId === 'page-checkout') { loadSavedDetails(); renderCheckoutSummary(); updateCheckout(); }
+  if (pageId === 'page-qr') updateQRAmount();
 
-  // Close mobile menu
-  document.getElementById('mobileMenu').classList.remove('open');
-  document.getElementById('backdrop').classList.remove('open');
+  closeMenu();
+  closeCart();
+
+  setTimeout(initReveals, 60);
 }
-
 window.addEventListener('hashchange', navigate);
 
-/* ═══════════ CUSTOM EVENTS ═══════════ */
-// Shop tabs
-document.getElementById('shopTabs').addEventListener('click', e => {
+function navigateTo(path){
+  window.location.hash = '#' + path;
+}
+function openProduct(id){
+  window.location.hash = '#/product/' + id;
+}
+
+/* ═══ PRODUCT DETAIL ═══ */
+function renderProductDetail(id){
+  const p = products.find(x => x.id === id);
+  const el = document.getElementById('productDetail');
+  if (!p || !el){ if (el) el.innerHTML = '<p style="text-align:center;padding:80px">Product not found.</p>'; return; }
+  const imgs = p.images && p.images.length > 0 ? p.images : (p.img ? [p.img] : []);
+  const related = products.filter(x => x.cat === p.cat && x.id !== p.id).slice(0, 4);
+
+  el.innerHTML = `
+    <div class="pd-grid">
+      <div class="pd-gallery">
+        <div class="pd-main-image" id="pdMainImage">
+          ${imgs[0] ? `<img src="images/${imgs[0]}" alt="${p.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'placeholder\\'>${p.name.charAt(0)}</div>';">` : `<div class="placeholder">${p.name.charAt(0)}</div>`}
+        </div>
+        ${imgs.length > 1 ? `<div class="pd-thumbs">
+          ${imgs.map((img, i) => `<div class="pd-thumb${i===0?' active':''}" onclick="switchImage('${img}', ${i})">${img ? `<img src="images/${img}" onerror="this.style.display='none'; this.parentElement.textContent='${p.name.charAt(0)}';" alt="">` : p.name.charAt(0)}</div>`).join('')}
+        </div>` : ''}
+      </div>
+      <div class="pd-info">
+        ${p.badge ? `<div class="pd-badge">${p.badge}</div>` : ''}
+        <h1 class="pd-name">${p.name}</h1>
+        <p class="pd-scent">${p.scent}</p>
+        <div class="pd-price-wrap">
+          <div class="pd-price">₹${p.price}</div>
+          ${p.combo ? `<div class="pd-old-price">${p.combo}</div>` : ''}
+        </div>
+        <p class="pd-desc">${p.desc}</p>
+        <div class="pd-qty">
+          <label>Quantity:</label>
+          <div class="pd-qty-wrap">
+            <button class="pd-qty-btn" onclick="changePDQty(-1)">−</button>
+            <div class="pd-qty-val" id="pdQty">1</div>
+            <button class="pd-qty-btn" onclick="changePDQty(1)">+</button>
+          </div>
+        </div>
+        <div class="pd-actions">
+          <button class="btn btn-solid" onclick="addToCart('${p.id}', getPDQty())" style="width:100%">Add to Cart</button>
+          <button class="btn" onclick="buyNow('${p.id}', getPDQty())" style="width:100%">Buy Now</button>
+          <a class="btn" href="https://wa.me/${CONFIG.whatsapp}?text=Hi%2C%20I%27m%20interested%20in%20${encodeURIComponent(p.name)}" target="_blank" style="width:100%">Order on WhatsApp</a>
+        </div>
+        <div class="pd-trust">
+          <div class="pd-trust-item"><div>🌿</div>Natural Wax<br>Clean Burn</div>
+          <div class="pd-trust-item"><div>📦</div>Safe Packaging<br>Shockproof Box</div>
+          <div class="pd-trust-item"><div>🚚</div>Pan-India<br>Free above ₹999</div>
+        </div>
+      </div>
+    </div>
+    ${related.length > 0 ? `<div class="pd-related">
+      <h3>You May Also <em>Like</em></h3>
+      <div class="prod-grid">${related.map(productHTML).join('')}</div>
+    </div>` : ''}
+  `;
+  window._pdQty = 1;
+}
+function changePDQty(delta){
+  window._pdQty = Math.max(1, (window._pdQty || 1) + delta);
+  const el = document.getElementById('pdQty');
+  if (el) el.textContent = window._pdQty;
+}
+function getPDQty(){ return window._pdQty || 1; }
+function switchImage(img, idx){
+  const main = document.getElementById('pdMainImage');
+  if (!main) return;
+  const p = products.find(x => x.images && x.images.includes(img));
+  main.innerHTML = img ? `<img src="images/${img}" alt="" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'placeholder\\'>${p ? p.name.charAt(0) : '?'}</div>';">` : '';
+  document.querySelectorAll('.pd-thumb').forEach((t,i) => t.classList.toggle('active', i === idx));
+}
+function buyNow(id, qty){
+  addToCart(id, qty);
+  setTimeout(() => { closeCart(); window.location.hash = '#/checkout'; }, 200);
+}
+
+/* ═══ SEARCH ═══ */
+const searchOverlay = document.getElementById('searchOverlay');
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+
+document.getElementById('searchBtn')?.addEventListener('click', () => {
+  searchOverlay.classList.add('open');
+  setTimeout(() => searchInput.focus(), 200);
+});
+document.getElementById('searchClose')?.addEventListener('click', () => searchOverlay.classList.remove('open'));
+searchOverlay?.addEventListener('click', e => { if (e.target === searchOverlay) searchOverlay.classList.remove('open'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') searchOverlay.classList.remove('open'); });
+
+searchInput?.addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase();
+  if (!q) { searchResults.innerHTML = ''; return; }
+  const matches = products.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    p.scent.toLowerCase().includes(q) ||
+    p.cat.toLowerCase().includes(q) ||
+    p.desc.toLowerCase().includes(q)
+  ).slice(0, 8);
+  if (matches.length === 0){
+    searchResults.innerHTML = `<div class="search-empty">No candles found for "${q}"</div>`;
+    return;
+  }
+  searchResults.innerHTML = matches.map(p => {
+    const img = getProductImage(p);
+    return `<div class="search-result" onclick="closeSearchGo('${p.id}')">
+      <div class="search-result-img">${img ? `<img src="images/${img}" onerror="this.style.display='none'; this.parentElement.textContent='${p.name.charAt(0)}';" alt="">` : p.name.charAt(0)}</div>
+      <div class="search-result-info">
+        <div class="search-result-name">${p.name}</div>
+        <div class="search-result-price">₹${p.price}</div>
+      </div>
+    </div>`;
+  }).join('');
+});
+function closeSearchGo(id){
+  searchOverlay.classList.remove('open');
+  searchInput.value = '';
+  searchResults.innerHTML = '';
+  openProduct(id);
+}
+
+/* ═══ MOBILE MENU ═══ */
+const mobileMenu = document.getElementById('mobileMenu');
+const backdrop = document.getElementById('backdrop');
+document.getElementById('hamburger')?.addEventListener('click', () => {
+  mobileMenu.classList.add('open'); backdrop.classList.add('open');
+});
+function closeMenu(){
+  mobileMenu?.classList.remove('open');
+  backdrop?.classList.remove('open');
+}
+document.getElementById('menuClose')?.addEventListener('click', closeMenu);
+backdrop?.addEventListener('click', closeMenu);
+
+/* ═══ CART DRAWER EVENTS ═══ */
+document.getElementById('cartBtn')?.addEventListener('click', () => { renderCart(); openCart(); });
+document.getElementById('cartClose')?.addEventListener('click', closeCart);
+document.getElementById('cartBackdrop')?.addEventListener('click', closeCart);
+
+/* ═══ SHOP TABS ═══ */
+document.getElementById('shopTabs')?.addEventListener('click', e => {
   const tab = e.target.closest('.tab');
   if (!tab) return;
   document.querySelectorAll('#shopTabs .tab').forEach(t => t.classList.remove('active'));
@@ -1123,90 +1916,128 @@ document.getElementById('shopTabs').addEventListener('click', e => {
   if (window.gsap) gsap.from('#shopGrid .prod-card', { y:20, opacity:0, duration:.5, stagger:.04, ease:'power2.out' });
 });
 
-// Category cards link
-document.getElementById('homeCatGrid').addEventListener('click', e => {
+/* ═══ CATEGORY CARDS LINK ═══ */
+document.getElementById('homeCatGrid')?.addEventListener('click', e => {
   const c = e.target.closest('[data-cat-link]');
   if (!c) return;
   window.location.hash = '#/shop/' + c.dataset.catLink;
 });
 
-/* ═══════════ SEARCH / MENU ═══════════ */
-const searchOverlay = document.getElementById('searchOverlay');
-document.getElementById('searchBtn').addEventListener('click', () => {
-  searchOverlay.classList.add('open');
-  setTimeout(() => document.getElementById('searchInput').focus(), 300);
-});
-document.getElementById('searchClose').addEventListener('click', () => searchOverlay.classList.remove('open'));
-searchOverlay.addEventListener('click', e => { if (e.target === searchOverlay) searchOverlay.classList.remove('open'); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') searchOverlay.classList.remove('open'); });
-
-// Mobile menu
-const mobileMenu = document.getElementById('mobileMenu');
-const backdrop = document.getElementById('backdrop');
-document.getElementById('hamburger').addEventListener('click', () => {
-  mobileMenu.classList.add('open'); backdrop.classList.add('open');
-});
-document.getElementById('menuClose').addEventListener('click', () => {
-  mobileMenu.classList.remove('open'); backdrop.classList.remove('open');
-});
-backdrop.addEventListener('click', () => {
-  mobileMenu.classList.remove('open'); backdrop.classList.remove('open');
+/* ═══ PRODUCT CARD CLICK ═══ */
+document.addEventListener('click', e => {
+  const card = e.target.closest('.prod-card');
+  if (!card || e.target.closest('button') || e.target.closest('a')) return;
+  const id = card.dataset.product;
+  if (id) openProduct(id);
 });
 
-/* ═══════════ NAV SCROLL ═══════════ */
+/* ═══ TOP BANNER ═══ */
+function closeBanner(){
+  document.getElementById('topBanner')?.classList.remove('show');
+  document.getElementById('header')?.classList.remove('with-banner');
+  sessionStorage.setItem('banner_closed', '1');
+}
+function showBanner(){
+  if (sessionStorage.getItem('banner_closed')) return;
+  document.getElementById('topBanner')?.classList.add('show');
+  document.getElementById('header')?.classList.add('with-banner');
+}
+
+/* ═══ POPUP OFFER ═══ */
+function showPopup(){
+  const last = localStorage.getItem('dbs_popup_seen');
+  if (last){
+    const diff = Date.now() - parseInt(last);
+    if (diff < 24*60*60*1000) return;
+  }
+  setTimeout(() => {
+    document.getElementById('popupOffer')?.classList.add('show');
+  }, 8000);
+}
+function closePopup(){
+  document.getElementById('popupOffer')?.classList.remove('show');
+  localStorage.setItem('dbs_popup_seen', Date.now().toString());
+}
+
+/* ═══ CANDLE PEEK ═══ */
+function candlePeek(){
+  const el = document.getElementById('candlePeek');
+  const bubble = document.getElementById('peekBubble');
+  if (!el) return;
+  const msgs = ["Psst... Buy 2 Get 1 Free! 🎉", "Handcrafted with love 🤍", "Free shipping above ₹999 ✨", "Made in Bharat 🇮🇳"];
+  bubble.textContent = msgs[Math.floor(Math.random()*msgs.length)];
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 6000);
+}
+
+/* ═══ BACK TO TOP ═══ */
+document.getElementById('backTop')?.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ═══ NAV SCROLL ═══ */
 window.addEventListener('scroll', () => {
-  document.getElementById('header').classList.toggle('scrolled', window.scrollY > 60);
+  const header = document.getElementById('header');
+  if (header) header.classList.toggle('scrolled', window.scrollY > 60);
+  const bt = document.getElementById('backTop');
+  if (bt) bt.classList.toggle('show', window.scrollY > 600);
 });
 
-/* ═══════════ REVEALS ═══════════ */
+/* ═══ REVEALS ═══ */
 function initReveals(){
   const els = document.querySelectorAll('.page.is-active .reveal:not(.in)');
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
     });
   }, { threshold: 0.1 });
   els.forEach(el => io.observe(el));
 }
 
-/* ═══════════ COUNTDOWN ═══════════ */
+/* ═══ COUNTDOWN ═══ */
 function startCountdown(){
-  const end = new Date(); end.setDate(end.getDate() + 2); end.setHours(end.getHours() + 14);
+  let end = localStorage.getItem('dbs_countdown_end');
+  if (!end){
+    end = new Date();
+    end.setDate(end.getDate() + 2);
+    end.setHours(end.getHours() + 14);
+    localStorage.setItem('dbs_countdown_end', end.getTime());
+  } else { end = parseInt(end); }
+
   setInterval(() => {
-    const now = new Date(); let diff = end - now;
+    let diff = end - Date.now();
     if (diff < 0) diff = 0;
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
     const pad = v => String(v).padStart(2, '0');
-    const D = document.getElementById('cd-days'); if (!D) return;
-    D.textContent = pad(d);
+    const d = Math.floor(diff/86400000);
+    const h = Math.floor((diff%86400000)/3600000);
+    const m = Math.floor((diff%3600000)/60000);
+    const s = Math.floor((diff%60000)/1000);
+    const dEl = document.getElementById('cd-days'); if (!dEl) return;
+    dEl.textContent = pad(d);
     document.getElementById('cd-hours').textContent = pad(h);
     document.getElementById('cd-mins').textContent = pad(m);
     document.getElementById('cd-secs').textContent = pad(s);
   }, 1000);
 }
 
-/* ═══════════ INIT ═══════════ */
-document.addEventListener('DOMContentLoaded', () => {
-  // Loader
+/* ═══ LOADER ═══ */
+function initLoader(){
   const dust = document.getElementById('dust');
   for (let i = 0; i < 40; i++) {
     const s = document.createElement('span');
-    s.style.left = Math.random() * 100 + '%';
-    s.style.top = Math.random() * 100 + '%';
-    s.style.animation = `dustFloat ${5 + Math.random() * 6}s ease-in-out ${Math.random() * 4}s infinite alternate`;
-    s.style.opacity = (0.2 + Math.random() * 0.6);
-    s.style.transform = `scale(${0.5 + Math.random() * 1.2})`;
+    s.style.left = Math.random()*100 + '%';
+    s.style.top = Math.random()*100 + '%';
+    s.style.animation = `dustFloat ${5+Math.random()*6}s ease-in-out ${Math.random()*4}s infinite alternate`;
+    s.style.opacity = (0.2 + Math.random()*0.6);
+    s.style.transform = `scale(${0.5+Math.random()*1.2})`;
     dust.appendChild(s);
   }
   const embersC = document.getElementById('embers');
   for (let i = 0; i < 20; i++) {
     const e = document.createElement('span');
-    e.style.left = (30 + Math.random() * 40) + '%';
+    e.style.left = (30 + Math.random()*40) + '%';
     e.style.bottom = '0';
-    e.style.animation = `emberRise ${3 + Math.random() * 4}s ease-out ${Math.random() * 6}s infinite`;
+    e.style.animation = `emberRise ${3+Math.random()*4}s ease-out ${Math.random()*6}s infinite`;
     embersC.appendChild(e);
   }
   const brandName = document.getElementById('brandName');
@@ -1229,7 +2060,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.head.appendChild(style);
 
   const tl = gsap.timeline();
-  tl.to('.dust span', { opacity: i => 0.3 + Math.random() * 0.5, duration: 1.5, stagger: 0.01, ease: 'power2.out' }, 0)
+  tl.to('.dust span', { opacity: i => 0.3+Math.random()*0.5, duration: 1.5, stagger: 0.01, ease: 'power2.out' }, 0)
     .to('#jar', { opacity: 1, y: 0, duration: 1.8, ease: 'power3.out' }, 0.6)
     .to('#wax', { opacity: 1, duration: 1.2, ease: 'power2.out' }, 1.2)
     .to('#shine', { opacity: 1, duration: 1.2 }, 1.2)
@@ -1256,8 +2087,15 @@ document.addEventListener('DOMContentLoaded', () => {
     .to('#waFloat', { opacity: 1, duration: 0.8 }, 8.5);
 
   gsap.set('.hero-el', { y: 30, opacity: 0 });
+}
 
-  // Data render
+/* ═══ INIT ═══ */
+document.addEventListener('DOMContentLoaded', () => {
+  loadCart();
+  updateCartCount();
+  initLoader();
+
+  // Render data
   renderProducts('featuredGrid', 'all', 6);
   renderProducts('shopGrid', 'all');
   renderProducts('festiveGrid', 'festive', 6);
@@ -1271,9 +2109,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // Countdown
   startCountdown();
 
+  // Banner + Popup
+  showBanner();
+  setTimeout(showPopup, 5000);
+
+  // Candle peek — periodic
+  setTimeout(candlePeek, 12000);
+  setInterval(candlePeek, 45000);
+
   // Reveals
   initReveals();
 });
 </script>
+
 </body>
 </html>
