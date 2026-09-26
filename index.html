@@ -1220,6 +1220,14 @@ footer{padding:80px 6vw 32px;background:var(--ink);color:rgba(245,230,200,.75)}
 
 <script>
 /* ═══ PRODUCTS DATA ═══ */
+// Helper to fix image paths
+function imgSrc(img){
+  if (!img) return '';
+  if (img.startsWith('http')) return img;
+  if (img.startsWith('/images/')) return img.slice(1);  // "/images/x.jpg" → "images/x.jpg"
+  if (img.startsWith('images/')) return img;
+  return 'images/' + img;  // "x.jpg" → "images/x.jpg"
+}
 const products = [
   { id:"golden-silver-bloom", name:"Golden & Silver Bloom Candle", cat:"jar", price:349, combo:"Combo ₹599", scent:"Rose · Queen of Flowers", desc:"Dual-layer metallic gel wax with shimmering gold & silver flakes. A luxurious centerpiece for any special occasion.", badge:"Bestseller", img:"golden-silver-bloom.jpg", images:["golden-silver-bloom.jpg"] },
   { id:"luxury-dual-layer", name:"Luxury Dual Layer Jar Candle", cat:"jar", price:599, combo:"Golden + Silver ₹1199", scent:"Lemongrass · Rose · Vanilla", desc:"Soy wax top, gel wax bottom with golden & silver foil flakes. Pure luxury in a jar.", badge:"Premium", img:"luxury-dual-layer.jpg", images:["luxury-dual-layer.jpg"] },
