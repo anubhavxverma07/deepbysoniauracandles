@@ -1694,14 +1694,20 @@ function placeOrder(){
   localStorage.setItem('dbs_last_total', t.total);
 
   const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+
+// Pehle QR page pe jao (synchronously), phir WhatsApp kholo
+localStorage.setItem('dbs_last_total', t.total);
+window.location.hash = '#/qr';
+
+cart = [];
+saveCart();
+appliedCoupon = null;
+localStorage.setItem(ORDERED_KEY, '1');
+
+// Thoda delay de ke WhatsApp kholo
+setTimeout(() => {
   window.open(url, '_blank');
-
-  cart = [];
-  saveCart();
-  appliedCoupon = null;
-  localStorage.setItem(ORDERED_KEY, '1');
-
-  setTimeout(() => { window.location.hash = '#/qr'; }, 500);
+}, 150);
 }
 
 /* ═══ QR PAGE ═══ */
