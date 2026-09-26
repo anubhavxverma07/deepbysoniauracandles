@@ -227,7 +227,8 @@
       "desc": "Wax berries in a reusable wooden bowl — light it, love it, reuse it.",
       "badge": "Eco",
       "images": [
-        "forever-berry-bowl.jpg"
+        "/images/40.jpg",
+        "/images/39.jpg"
       ],
       "instock": true
     },
@@ -241,7 +242,7 @@
       "desc": "Realistic laddu with silver warq. Budget + travel friendly.",
       "badge": "",
       "images": [
-        "classic-laddu.jpg"
+        "/images/37.jpg"
       ],
       "instock": true
     },
@@ -255,7 +256,8 @@
       "desc": "Miniature bonfire with real peanut, popcorn & wooden sticks embedded.",
       "badge": "Festive",
       "images": [
-        "lohri-bonfire.jpg"
+        "/images/64.jpg",
+        "/images/65.jpg"
       ],
       "instock": true
     },
@@ -269,7 +271,7 @@
       "desc": "Detailed hand-poured Christmas tree — perfect holiday centerpiece.",
       "badge": "",
       "images": [
-        "christmas-tree-pillar.jpg"
+        "/images/69.jpg"
       ],
       "instock": true
     },
@@ -283,7 +285,8 @@
       "desc": "Delicate snowflake shape. Use individually or float in water.",
       "badge": "",
       "images": [
-        "snowflake-votive.jpg"
+        "/images/70.jpg",
+        "/images/71.jpg"
       ],
       "instock": true
     },
@@ -297,7 +300,9 @@
       "desc": "Dual-coloured bubble shapes — Christmas themed. Customizable.",
       "badge": "",
       "images": [
-        "festive-bubble-duo.jpg"
+        "/images/66.jpg",
+        "/images/67.jpg",
+        "/images/68.jpg"
       ],
       "instock": true
     },
@@ -311,7 +316,8 @@
       "desc": "Premium long-stemmed glass with shimmering gold glitter wax.",
       "badge": "",
       "images": [
-        "celebration-red-wine.jpg"
+        "/images/28.jpg",
+        "/images/29.jpg"
       ],
       "instock": true
     },
@@ -325,7 +331,7 @@
       "desc": "Champagne glass with realistic foam top & gold glitter wax.",
       "badge": "Gifting",
       "images": [
-        "celebration-champagne.jpg"
+        "/images/30.jpg"
       ],
       "instock": true
     },
@@ -339,7 +345,8 @@
       "desc": "Realistic whiskey glass candle — perfect for the connoisseur.",
       "badge": "",
       "images": [
-        "whiskey-rock.jpg"
+        "/images/32.jpg",
+        "/images/31.jpg"
       ],
       "instock": true
     },
@@ -353,7 +360,9 @@
       "desc": "Floral masterpiece in customized colours. A royal centerpiece.",
       "badge": "Signature",
       "images": [
-        "royal-rose-bouquet.jpg"
+        "/images/100.jpg",
+        "/images/101.jpg",
+        "/images/99.jpg"
       ],
       "instock": true
     },
@@ -367,7 +376,7 @@
       "desc": "Stacked 3D floral design blending heritage with modern decor.",
       "badge": "",
       "images": [
-        "flower-tower-pillar.jpg"
+        "/images/59.jpg"
       ],
       "instock": true
     },
@@ -381,7 +390,10 @@
       "desc": "Princess gown shaped candles in soft pastels. Bridal & décor favorite.",
       "badge": "",
       "images": [
-        "princess-dress.jpg"
+        "/images/85.jpg",
+        "/images/84.jpg",
+        "/images/83.jpg",
+        "/images/82.jpg"
       ],
       "instock": true
     },
@@ -395,7 +407,8 @@
       "desc": "High-detail 3D floral texture — a luxury centerpiece.",
       "badge": "",
       "images": [
-        "heritage-floral.jpg"
+        "/images/56.jpg",
+        "/images/57.jpg"
       ],
       "instock": true
     },
@@ -409,7 +422,8 @@
       "desc": "Teddy bear with rose texture. Cuteness meets elegance.",
       "badge": "",
       "images": [
-        "rose-teddy-bear.jpg"
+        "/images/54.jpg",
+        "/images/53.jpg"
       ],
       "instock": true
     },
