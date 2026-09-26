@@ -17,15 +17,14 @@ collections:
           - label: "Product List"
             name: "products"
             widget: "list"
-            summary: "{{fields.name}} — ₹{{fields.price}}"
             fields:
-              - {label: "Product ID", name: "id", widget: "string", hint: "Unique ID - lowercase, no spaces"}
+              - {label: "Product ID", name: "id", widget: "string"}
               - {label: "Product Name", name: "name", widget: "string"}
               - {label: "Category", name: "cat", widget: "select", options: ["sculptural", "jar", "gourmet", "festive", "gifting", "baby"]}
-              - {label: "Price (₹)", name: "price", widget: "number", value_type: "int"}
-              - {label: "Combo Text", name: "combo", widget: "string", required: false}
+              - {label: "Price", name: "price", widget: "number", value_type: "int"}
+              - {label: "Combo", name: "combo", widget: "string", required: false}
               - {label: "Scent", name: "scent", widget: "string"}
               - {label: "Description", name: "desc", widget: "text"}
               - {label: "Badge", name: "badge", widget: "string", required: false}
-              - {label: "Product Photos", name: "images", widget: "list", field: {label: "Photo", name: "image", widget: "image"}}
+              - {label: "Photos", name: "images", widget: "list", field: {label: "Photo", name: "image", widget: "image"}}
               - {label: "In Stock", name: "instock", widget: "boolean", default: true}
