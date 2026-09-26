@@ -1,13 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Deep By Soni — Admin</title>
+  <style>
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+    #dbs-loading {
+      display: flex; align-items: center; justify-content: center;
+      height: 100vh; background: #1a0f08; color: #e8c675;
+      font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
+    }
+  </style>
 </head>
 <body>
-<script src="https://esm.run/@ungap/base64"></script>
-<script data-cfasync="false" src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+  <div id="dbs-loading">Loading Admin Panel…</div>
+
+  <!-- ═══ POLYFILLS FOR iOS SAFARI ═══ -->
+  <script>
+    // Polyfill: Uint8Array.toBase64
+    if (typeof Uint8Array !== 'undefined' && !Uint8Array.prototype.toBase64) {
+      Uint8Array.prototype.toBase64 = function() {
+        let binary = '';
+        const bytes = new Uint8Array(this);
+        for (let i = 0; i < bytes.byteLength; i++) {
+          binary += String.fromCharCode(bytes[i]);
+        }
+        return btoa(binary);
+      };
+    }
+    // Polyfill: Uint8Array.toHex
+    if (typeof Uint8Array !== 'undefined' && !Uint8Array.prototype.toHex) {
+      Uint8Array.prototype.toHex = function() {
+        return Array.from(this).map(b => b.toString(16).padStart(2, '0')).join('');
+      };
+    }
+    // Polyfill: Uint8Array.fromBase64
+    if (typeof Uint8Array !== 'undefined' && !Uint8Array.fromBase64) {
+      Uint8Array.fromBase64 = function(str) {
+        const binary = atob(str);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) {
+          bytes[i] = binary.charCodeAt(i);
+        }
+        return bytes;
+      };
+    }
+  </script>
+
+  <!-- ═══ SVELTIA CMS (Cloudflare Rocket Loader bypass) ═══ -->
+  <script data-cfasync="false" src="https://unpkg.com/@sveltia/cms@latest/dist/sveltia-cms.js"></script>
+
+  <!-- Remove loading message when CMS loads -->
+  <script>
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        var el = document.getElementById('dbs-loading');
+        if (el && el.parentNode) el.parentNode.removeChild(el);
+      }, 500);
+    });
+  </script>
 </body>
 </html>
