@@ -437,7 +437,7 @@
       "desc": "Sculptural twist design — minimal, modern, decorative.",
       "badge": "",
       "images": [
-        "round-spiral-spire.jpg"
+        "/images/75.jpg"
       ],
       "instock": true
     },
@@ -465,7 +465,9 @@
       "desc": "Floats gracefully on water. Custom colours available.",
       "badge": "",
       "images": [
-        "daisy-floating.jpg"
+        "/images/60.jpg",
+        "/images/61.jpg",
+        "/images/62.jpg"
       ],
       "instock": true
     },
@@ -479,7 +481,9 @@
       "desc": "As wax melts, hidden message reveals — 'Will U Marry', 'I Love You'.",
       "badge": "Viral",
       "images": [
-        "secret-message.jpg"
+        "/images/80.jpg",
+        "/images/81.jpg",
+        "/images/79.jpg"
       ],
       "instock": true
     },
@@ -493,7 +497,10 @@
       "desc": "Reusable wooden heart with hidden personalized message. Fully customizable.",
       "badge": "",
       "images": [
-        "mystery-message-heart.jpg"
+        "/images/96.jpg",
+        "/images/95.jpg",
+        "/images/97.jpg",
+        "/images/98.jpg"
       ],
       "instock": true
     },
@@ -507,7 +514,7 @@
       "desc": "Flat design with rose texture. Perfect romantic gifting.",
       "badge": "",
       "images": [
-        "flat-heart-bloom.jpg"
+        "/images/55.jpg"
       ],
       "instock": true
     },
@@ -521,7 +528,8 @@
       "desc": "6 shapes — teddy, bottle, pacifier, stroller & footprints.",
       "badge": "",
       "images": [
-        "baby-themed-mini.jpg"
+        "/images/87.jpg",
+        "/images/86.jpg"
       ],
       "instock": true
     },
@@ -535,7 +543,8 @@
       "desc": "Blue & pink footprints — symbolic gender-reveal memory.",
       "badge": "",
       "images": [
-        "tiny-steps-footprint.jpg"
+        "/images/89.jpg",
+        "/images/88.jpg"
       ],
       "instock": true
     },
@@ -549,7 +558,8 @@
       "desc": "Topped with real clove, cardamom, cinnamon & pepper.",
       "badge": "",
       "images": [
-        "masala-aroma.jpg"
+        "/images/46.jpg",
+        "/images/45.jpg"
       ],
       "instock": true
     },
@@ -563,7 +573,9 @@
       "desc": "Decorative tin, reusable as jewelry box. Artistic + sustainable.",
       "badge": "Eco",
       "images": [
-        "mandala-soul.jpg"
+        "/images/104.jpg",
+        "/images/102.jpg",
+        "/images/103.jpg"
       ],
       "instock": true
     }
