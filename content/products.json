@@ -575,7 +575,23 @@
       "images": [
         "/images/104.jpg",
         "/images/102.jpg",
+        "/images/15.jpg",
         "/images/103.jpg"
+      ],
+      "instock": true
+    },
+    {
+      "id": "shelby-litup-bowl",
+      "name": "Shelby Lit Up Bowl",
+      "cat": "gourmet",
+      "price": 699,
+      "combo": "2000  65% OFF",
+      "scent": "Rose, Lavender, Lemongrass",
+      "desc": "This is super gifting gourmet candle for your loved ones❤️.",
+      "badge": "Premium",
+      "images": [
+        "/images/8.jpg",
+        "/images/9.jpg"
       ],
       "instock": true
     }
