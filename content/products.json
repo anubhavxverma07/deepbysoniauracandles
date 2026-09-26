@@ -593,7 +593,7 @@
         "/images/8.jpg",
         "/images/9.jpg"
       ],
-      "instock": true
+      "instock": false
     }
   ]
 }
