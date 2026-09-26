@@ -1,0 +1,25 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "products"
+    label: "Products"
+    label_singular: "Product"
+    folder: "content/products"
+    create: true
+    slug: "{{fields.id}}"
+    fields:
+      - {label: "Product ID", name: "id", widget: "string", hint: "Unique ID (lowercase, hyphens, no spaces). Example: chai-wala-sukoon"}
+      - {label: "Product Name", name: "name", widget: "string"}
+      - {label: "Category", name: "cat", widget: "select", options: ["sculptural", "jar", "gourmet", "festive", "gifting", "baby"]}
+      - {label: "Price (₹)", name: "price", widget: "number", value_type: "int"}
+      - {label: "Combo Text", name: "combo", widget: "string", required: false, hint: "Example: Set of 2 ₹599"}
+      - {label: "Scent", name: "scent", widget: "string", hint: "Example: Rose · Queen of Flowers"}
+      - {label: "Description", name: "desc", widget: "text"}
+      - {label: "Badge", name: "badge", widget: "string", required: false, hint: "Example: Bestseller, New, Premium"}
+      - {label: "Product Photos", name: "images", widget: "list", field: {label: "Photo", name: "image", widget: "image"}}
+      - {label: "In Stock", name: "instock", widget: "boolean", default: true, required: false}
