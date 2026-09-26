@@ -1883,7 +1883,16 @@ document.getElementById('shopTabs')?.addEventListener('click', e => {
   document.querySelectorAll('#shopTabs .tab').forEach(t => t.classList.remove('active'));
   tab.classList.add('active');
   renderProducts('shopGrid', tab.dataset.cat);
-  if (window.gsap) gsap.from('#shopGrid .prod-card', { y:20, opacity:0, duration:.5, stagger:.04, ease:'power2.out' });
+  document.querySelectorAll('#shopGrid .prod-card').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(15px)';
+    el.style.transition = 'none';
+    setTimeout(() => {
+      el.style.transition = 'opacity .4s ease, transform .4s ease';
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }, 20 + (i * 40));
+  });
 });
 
 /* CATEGORY CARDS */
