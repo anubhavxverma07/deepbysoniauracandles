@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: anubhavxverma07/deepbysoniauracandles
   branch: main
 
 media_folder: "images"
