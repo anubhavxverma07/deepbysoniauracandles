@@ -41,7 +41,9 @@
       "desc": "Crystal-clear gel wax with dried florals & evil-eye charm. Protection in beauty.",
       "badge": "",
       "images": [
-        "aura-protector.jpg"
+        "/images/77.jpg",
+        "/images/76.jpg",
+        "/images/78.jpg"
       ],
       "instock": true
     },
@@ -55,7 +57,8 @@
       "desc": "Dual-layered gel wax with dried rose petals, topped with creamy soy wax.",
       "badge": "",
       "images": [
-        "aqua-aura-floral.jpg"
+        "/images/90.jpg",
+        "/images/91.jpg"
       ],
       "instock": true
     },
@@ -69,7 +72,8 @@
       "desc": "Soy heart shapes under gel wax, topped with a 3D daisy flower.",
       "badge": "",
       "images": [
-        "he-she-rose-aura.jpg"
+        "/images/49.jpg",
+        "/images/50.jpg"
       ],
       "instock": true
     },
@@ -83,7 +87,10 @@
       "desc": "Layered candle with realistic pomegranate seeds on top. A piece of art.",
       "badge": "New",
       "images": [
-        "royal-pomegranate.jpg"
+        "/images/43.jpg",
+        "/images/42.jpg",
+        "/images/41.jpg",
+        "/images/44.jpg"
       ],
       "instock": true
     },
@@ -97,7 +104,9 @@
       "desc": "Minimalist single-layer soy wax, topped with dried flowers.",
       "badge": "",
       "images": [
-        "tiny-tiny-jar.jpg"
+        "/images/74.jpg",
+        "/images/72.jpg",
+        "/images/73.jpg"
       ],
       "instock": true
     },
@@ -111,7 +120,7 @@
       "desc": "Laddu candle floating in elegant soy wax. Perfect for return gifting.",
       "badge": "",
       "images": [
-        "laddu-delight-jar.jpg"
+        "/images/38.jpg"
       ],
       "instock": true
     },
@@ -125,7 +134,9 @@
       "desc": "Realistic gel wax ice cubes with layered wax — for coffee lovers.",
       "badge": "Loved",
       "images": [
-        "coffee-ice-shot.jpg"
+        "/images/18.jpg",
+        "/images/19.jpg",
+        "/images/17.jpg"
       ],
       "instock": true
     },
@@ -139,7 +150,10 @@
       "desc": "Three realistic layers with handcrafted strawberry topper.",
       "badge": "",
       "images": [
-        "strawberry-cheesecake.jpg"
+        "/images/22.jpg",
+        "/images/20.jpg",
+        "/images/23.jpg",
+        "/images/21.jpg"
       ],
       "instock": true
     },
@@ -153,7 +167,7 @@
       "desc": "Ultimate realistic samosa — unique Indian foodie gifting.",
       "badge": "",
       "images": [
-        "samosa-delight.jpg"
+        "/images/24.jpg"
       ],
       "instock": true
     },
@@ -167,7 +181,9 @@
       "desc": "Topped with real cardamom, cinnamon & black pepper. Authentic chai aroma.",
       "badge": "Signature",
       "images": [
-        "chai-wala-sukoon.jpg"
+        "/images/25.jpg",
+        "/images/26.jpg",
+        "/images/27.jpg"
       ],
       "instock": true
     },
@@ -181,7 +197,9 @@
       "desc": "Soft, puffy texture like real rasmalai. Decorative & memorable.",
       "badge": "",
       "images": [
-        "rasmalai-treat.jpg"
+        "/images/36.jpg",
+        "/images/35.jpg",
+        "/images/34.jpg"
       ],
       "instock": true
     },
@@ -195,7 +213,7 @@
       "desc": "Molded wax scoops with authentic textures & delicious toppings.",
       "badge": "",
       "images": [
-        "favourite-scoop.jpg"
+        "/images/33.jpg"
       ],
       "instock": true
     },
