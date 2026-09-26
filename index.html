@@ -1326,7 +1326,7 @@ function productHTML(p){
     ${p.badge ? `<div class="prod-badge${p.badge==='Sale'?' sale':''}">${p.badge}</div>` : ''}
     <div class="prod-image">
       ${img
-        ? `<img src="images/${img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'prod-image-placeholder\\'>${p.name.charAt(0)}<small>${p.cat.toUpperCase()}</small></div>';">`
+        ? `<img src="${imgSrc(img)}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'prod-image-placeholder\\'>${p.name.charAt(0)}<small>${p.cat.toUpperCase()}</small></div>';">`
         : `<div class="prod-image-placeholder">${p.name.charAt(0)}<small>${p.cat.toUpperCase()}</small></div>`}
     </div>
     <div class="prod-body">
@@ -1497,7 +1497,7 @@ function renderCart(){
   body.innerHTML = cart.map(item => `
     <div class="cart-item">
       <div class="cart-item-img">
-        ${item.img ? `<img src="images/${item.img}" alt="${item.name}" onerror="this.style.display='none'; this.parentElement.textContent='${item.name.charAt(0)}';">` : item.name.charAt(0)}
+        ${item.img ? `<img src="${imgSrc(item.img)}" alt="${item.name}" onerror="this.style.display='none'; this.parentElement.textContent='${item.name.charAt(0)}';">` : item.name.charAt(0)}
       </div>
       <div class="cart-item-info">
         <div class="cart-item-name">${item.name}</div>
@@ -1609,7 +1609,7 @@ function renderCheckoutSummary(){
     <h3>Order Summary</h3>
     ${cart.map(i => `
       <div class="summary-item">
-        <div class="summary-item-img">${i.img ? `<img src="images/${i.img}" onerror="this.style.display='none'; this.parentElement.textContent='${i.name.charAt(0)}';" alt="">` : i.name.charAt(0)}</div>
+        <div class="summary-item-img">${i.img ? `<img src="${imgSrc(i.img)}" onerror="this.style.display='none'; this.parentElement.textContent='${i.name.charAt(0)}';" alt="">` : i.name.charAt(0)}</div>
         <div class="summary-item-info">
           <div class="summary-item-name">${i.name}</div>
           <div class="summary-item-qty">Qty: ${i.qty}</div>
@@ -1748,7 +1748,7 @@ function renderProductDetail(id){
     <div class="pd-grid">
       <div class="pd-gallery">
         <div class="pd-main-image" id="pdMainImage">
-          ${imgs[0] ? `<img src="images/${imgs[0]}" alt="${p.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'placeholder\\'>${p.name.charAt(0)}</div>';">` : `<div class="placeholder">${p.name.charAt(0)}</div>`}
+          ${imgs[0] ? `<img src="${imgSrc(imgs[0])}" alt="${p.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'placeholder\\'>${p.name.charAt(0)}</div>';">` : `<div class="placeholder">${p.name.charAt(0)}</div>`}
         </div>
         ${imgs.length > 1 ? `<div class="pd-thumbs">
           ${imgs.map((img, i) => `<div class="pd-thumb${i===0?' active':''}" onclick="switchImage('${img}', ${i})">${img ? `<img src="images/${img}" onerror="this.style.display='none'; this.parentElement.textContent='${p.name.charAt(0)}';" alt="">` : p.name.charAt(0)}</div>`).join('')}
